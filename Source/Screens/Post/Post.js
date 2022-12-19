@@ -2,7 +2,14 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useContext, useEffect, useState} from 'react';
 import styles from '../Dashboard/StylesHome';
-import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+  SafeAreaView,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import imagePath from '../../Constants/imagePath';
 import MainNavigationString from '../../Constants/MainNavigationString';
@@ -34,9 +41,8 @@ const Post = () => {
   }, [refresh]);
 
   return (
-    <>
-
-    <CustomHeader title='Post' backFunc={()=>Navigation.goBack()} />
+    <SafeAreaView>
+      <CustomHeader title="Post" backFunc={() => Navigation.goBack()} />
       <ScrollView style={{backgroundColor: '#000', padding: 8}}>
         <View style={styles.container}>
           <View style={styles.superStarHome}>
@@ -183,7 +189,7 @@ const Post = () => {
           </View>
         </View>
       </ScrollView>
-    </>
+    </SafeAreaView>
   );
 };
 

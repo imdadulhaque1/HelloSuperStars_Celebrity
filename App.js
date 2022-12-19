@@ -1,4 +1,4 @@
-import {SafeAreaView, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import React from 'react';
 import Routes from './Source/Navigatior/Routes';
 import {LogBox} from 'react-native';
@@ -10,7 +10,7 @@ LogBox.ignoreLogs([
 const App = () => {
   return (
     <>
-        <Routes />
+      <Routes />
     </>
   );
 };
