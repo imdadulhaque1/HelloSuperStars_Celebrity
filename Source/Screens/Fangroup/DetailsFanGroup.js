@@ -4,10 +4,9 @@ import {
   StyleSheet,
   Text,
   View,
-  ToastAndroid,
   TouchableOpacity,
 } from 'react-native';
-
+import Toast from 'react-native-root-toast';
 import React, {useContext, useEffect, useState} from 'react';
 import {AuthContext} from '../../Constants/context';
 import axios from 'axios';
@@ -50,7 +49,7 @@ export default function DetailsFanGroup({route}) {
         setPostFanGroup(res.data.fanDetails.post_approval_status);
       })
       .catch(err => {
-        ToastAndroid.show(err.message, ToastAndroid.SHORT);
+        Toast.show(err.message, Toast.durations.SHORT);
         console.log(err);
       });
   }, []);

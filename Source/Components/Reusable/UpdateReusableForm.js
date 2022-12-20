@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 //import liraries
-import React, { Component, useContext, useEffect, useState } from 'react';
+import React, {Component, useContext, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -9,60 +9,69 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
-  ToastAndroid
 } from 'react-native';
+import Toast from 'react-native-root-toast';
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { launchImageLibrary } from 'react-native-image-picker';
+import {launchImageLibrary} from 'react-native-image-picker';
 import DocumentPicker from 'react-native-document-picker';
 import DatePicker from 'react-native-date-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import LinearGradient from 'react-native-linear-gradient';
-import { useForm, Controller } from "react-hook-form";
-import moment from "moment";
-import { AuthContext } from '../../Constants/context';
+import {useForm, Controller} from 'react-hook-form';
+import moment from 'moment';
+import {AuthContext} from '../../Constants/context';
 
 import AppUrl from '../../RestApi/AppUrl';
 import axios from 'axios';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import LoaderComp from '../LoaderComp';
 import MainNavigationString from '../../Constants/MainNavigationString';
 
 // create a component
-const UpdateReusableForm = ({ route }) => {
-  const { oldEventData } = route.params;
-  const [nowDate, setNowDate] = useState(new Date())
+const UpdateReusableForm = ({route}) => {
+  const {oldEventData} = route.params;
+  const [nowDate, setNowDate] = useState(new Date());
   const navigation = useNavigation();
-  const [date, setDate] = useState(new Date(`${oldEventData.event_date}T05:40:16.000000Z`));
+  const [date, setDate] = useState(
+    new Date(`${oldEventData.event_date}T05:40:16.000000Z`),
+  );
   const [open, setOpen] = useState(false);
-  const { axiosConfig } = useContext(AuthContext);
+  const {axiosConfig} = useContext(AuthContext);
   const [timePicker, setTimePicker] = useState(false);
   const [endTimePicker, setEndTimePicker] = useState(false);
-  const [imageLoad, setImageLoad] = useState(true)
+  const [imageLoad, setImageLoad] = useState(true);
   const [time, setTime] = useState(nowDate);
   const [endTime, setEndTime] = useState(nowDate);
   const [picDate, setPicDate] = useState({
     start: false,
-    end: false
-  })
+    end: false,
+  });
 
   // console.log(endTime)
-  console.log(moment(`2024-07-18T${oldEventData?.start_time}`).format('LT'))
+  console.log(moment(`2024-07-18T${oldEventData?.start_time}`).format('LT'));
 
-
-
-  const [startDate, setStartDate] = useState(new Date(`${oldEventData.registration_start_date}T05:40:16.000000Z`));
-  const [endDate, setEndDate] = useState(new Date(`${oldEventData.registration_end_date}T05:40:16.000000Z`));
-  const [error, setError] = useState([])
+  const [startDate, setStartDate] = useState(
+    new Date(`${oldEventData.registration_start_date}T05:40:16.000000Z`),
+  );
+  const [endDate, setEndDate] = useState(
+    new Date(`${oldEventData.registration_end_date}T05:40:16.000000Z`),
+  );
+  const [error, setError] = useState([]);
   const [uploadStatus, setUploadStatus] = useState({
     afterSubmit: false,
     beforSubmit: false,
-  })
-  const [buffer, setBuffer] = useState(false)
+  });
+  const [buffer, setBuffer] = useState(false);
   //form data
-  const { control, handleSubmit, setValue, formState: { errors, shouldValidate } } = useForm({
+  const {
+    control,
+    handleSubmit,
+    setValue,
+    formState: {errors, shouldValidate},
+  } = useForm({
     defaultValues: {
       title: oldEventData?.title,
       instruction: oldEventData?.instruction,
@@ -70,64 +79,61 @@ const UpdateReusableForm = ({ route }) => {
       date: new Date(`${oldEventData.event_date}T05:40:16.000000Z`),
       start_time: new Date(`2024-07-18T${oldEventData?.start_time}`),
       end_time: new Date(`2024-07-18T${oldEventData?.end_time}`),
-      registration_start_date: new Date(`${oldEventData.registration_start_date}T05:40:16.000000Z`),
-      registration_end_date: new Date(`${oldEventData.registration_end_date}T05:40:16.000000Z`),
+      registration_start_date: new Date(
+        `${oldEventData.registration_start_date}T05:40:16.000000Z`,
+      ),
+      registration_end_date: new Date(
+        `${oldEventData.registration_end_date}T05:40:16.000000Z`,
+      ),
       fee: `${oldEventData.fee}`,
       max_time: `${oldEventData?.max_time}`,
       min_time: '1',
       interval: `${oldEventData?.interval}`,
       old_path: `${oldEventData?.banner}`,
       new_path: '',
-      id: `${oldEventData?.id}`
-    }
+      id: `${oldEventData?.id}`,
+    },
   });
-
 
   useEffect(() => {
     if (oldEventData.banner) {
-      setUploadStatus({ beforSubmit: false, afterSubmit: true })
+      setUploadStatus({beforSubmit: false, afterSubmit: true});
     }
-  }, [])
-
-
+  }, []);
 
   function onTimeSelected(event, value) {
-    setValue('start_time', moment(value).format('LT'), { required: true, })
+    setValue('start_time', moment(value).format('LT'), {required: true});
     setTime(value);
     setTimePicker(false);
   }
 
   function openEndTimeSelected(event, value) {
-    setValue('end_time', moment(value).format('LT'), { required: true, })
-    setEndTime(value)
-    setEndTimePicker(false)
+    setValue('end_time', moment(value).format('LT'), {required: true});
+    setEndTime(value);
+    setEndTimePicker(false);
   }
-
-
-
 
   const [imageData, setImageData] = useState({
     img: {
-      uri: "",
-      type: "",
-      name: "",
-      data: "",
-      oldImage: "",
-      for: ""
-    }
-  })
+      uri: '',
+      type: '',
+      name: '',
+      data: '',
+      oldImage: '',
+      for: '',
+    },
+  });
 
   const choseImage = async () => {
-    setUploadStatus({ beforSubmit: false, afterSubmit: false })
+    setUploadStatus({beforSubmit: false, afterSubmit: false});
     let options = {
       storageOptions: {
         path: 'images',
-        mediaType: "image",
+        mediaType: 'image',
       },
-      includeBase64: true
+      includeBase64: true,
     };
-    launchImageLibrary(options, (response) => {
-
+    launchImageLibrary(options, response => {
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
@@ -136,94 +142,80 @@ const UpdateReusableForm = ({ route }) => {
         console.log('User tapped custom button: ', response.customButton);
         alert(response.customButton);
       } else {
-
         setImageData({
           img: {
             uri: response.assets[0].uri,
             type: response.assets[0].type,
             name: response.assets[0].fileName,
             data: response.assets[0].base64,
-            oldImage: "",
-            for: "liveChat",
+            oldImage: '',
+            for: 'liveChat',
           },
-        })
+        });
       }
     });
   };
 
-
-
   const upladImage = () => {
-    setImageLoad(false)
+    setImageLoad(false);
     axios
       .post(AppUrl.ImageUpload, imageData, axiosConfig)
       .then(res => {
-        setImageLoad(true)
+        setImageLoad(true);
 
         if (res.data.status == 200) {
-          setUploadStatus({ beforSubmit: false, afterSubmit: true })
-          setValue('new_path', res.data.path, { shouldValidate: true })
-          ToastAndroid.show("Banner added", ToastAndroid.SHORT);
-
+          setUploadStatus({beforSubmit: false, afterSubmit: true});
+          setValue('new_path', res.data.path, {shouldValidate: true});
+          Toast.show('Banner added', Toast.durations.SHORT);
         }
       })
       .catch(err => {
-        ToastAndroid.show(err.message, ToastAndroid.SHORT);
+        Toast.show(err.message, Toast.durations.SHORT);
         console.log(err);
       });
-
-
-  }
-
+  };
 
   const onSubmit = data => {
     // return console.log(data)
     // setBuffer(true)
     if (uploadStatus.afterSubmit) {
-      setUploadStatus({ ...uploadStatus, beforSubmit: false })
+      setUploadStatus({...uploadStatus, beforSubmit: false});
       axios
         .post(AppUrl.LiveChatUpdate, data, axiosConfig)
         .then(res => {
-          console.log(res.data)
-          setBuffer(false)
-          setUploadStatus({ ...uploadStatus, Submit: false })
+          console.log(res.data);
+          setBuffer(false);
+          setUploadStatus({...uploadStatus, Submit: false});
           if (res.data.status == 200) {
-
-            ToastAndroid.show(res.data.message, ToastAndroid.SHORT);
+            Toast.show(res.data.message, Toast.durations.SHORT);
 
             return navigation.navigate(MainNavigationString.REUSEAPPROVED, {
               typeName: 'approved',
-              path: `${AppUrl.LiveChatList + 'approved'}`
-            })
+              path: `${AppUrl.LiveChatList + 'approved'}`,
+            });
           } else {
             // setError(res.data.validation_errors)
           }
         })
         .catch(err => {
-
           console.log(err);
         });
     } else {
-      setBuffer(false)
-      ToastAndroid.show("Please upload Image first !", ToastAndroid.SHORT);
-      setUploadStatus({ ...uploadStatus, beforSubmit: true })
+      setBuffer(false);
+      Toast.show('Please upload Image first !', Toast.durations.SHORT);
+      setUploadStatus({...uploadStatus, beforSubmit: true});
     }
-
-
   };
 
   return (
     <>
-      {buffer &&
-        <LoaderComp />
-      }
-      < ScrollView style={styles.container} >
+      {buffer && <LoaderComp />}
+      <ScrollView style={styles.container}>
         <View style={styles.containerChild}>
-          <View style={{ padding: 12 }}>
+          <View style={{padding: 12}}>
             {/* <View style={styles.createPostRow}>
             <Text style={{color: '#fff'}}>Learning Session Title</Text>
           </View> */}
-
 
             {/* title start */}
             <View>
@@ -235,7 +227,7 @@ const UpdateReusableForm = ({ route }) => {
                 rules={{
                   required: true,
                 }}
-                render={({ field: { onChange, onBlur, value } }) => (
+                render={({field: {onChange, onBlur, value}}) => (
                   <TextInput
                     style={styles.createMeetupRow}
                     onBlur={onBlur}
@@ -247,26 +239,26 @@ const UpdateReusableForm = ({ route }) => {
                 )}
                 name="title"
               />
-              {errors.title && <Text style={{ color: 'red', marginLeft: 10, marginTop: -7 }}>This is required.</Text>}
-
-
-
+              {errors.title && (
+                <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
+                  This is required.
+                </Text>
+              )}
             </View>
             {/* title end */}
 
             {/* discription start */}
-            <View style={{ marginVertical: 8 }}>
+            <View style={{marginVertical: 8}}>
               <View>
                 <Text style={styles.title}>Discription</Text>
               </View>
-
 
               <Controller
                 control={control}
                 rules={{
                   required: true,
                 }}
-                render={({ field: { onChange, onBlur, value } }) => (
+                render={({field: {onChange, onBlur, value}}) => (
                   <TextInput
                     style={styles.createPostDescription}
                     multiline={true}
@@ -279,24 +271,31 @@ const UpdateReusableForm = ({ route }) => {
                 )}
                 name="description"
               />
-              {errors.description && <Text style={{ color: 'red', marginLeft: 10, marginTop: -7 }}>This is required.</Text>}
-              {error.description && <Text style={{ color: 'red', marginLeft: 10, marginTop: -7 }}>{error.description}</Text>}
+              {errors.description && (
+                <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
+                  This is required.
+                </Text>
+              )}
+              {error.description && (
+                <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
+                  {error.description}
+                </Text>
+              )}
             </View>
             {/* discription end */}
 
             {/* instruction start */}
-            <View style={{ marginVertical: 8 }}>
+            <View style={{marginVertical: 8}}>
               <View>
                 <Text style={styles.title}>Instruction</Text>
               </View>
-
 
               <Controller
                 control={control}
                 rules={{
                   required: true,
                 }}
-                render={({ field: { onChange, onBlur, value } }) => (
+                render={({field: {onChange, onBlur, value}}) => (
                   <TextInput
                     style={styles.createPostDescription}
                     multiline={true}
@@ -309,8 +308,16 @@ const UpdateReusableForm = ({ route }) => {
                 )}
                 name="instruction"
               />
-              {errors.instruction && <Text style={{ color: 'red', marginLeft: 10, marginTop: -7 }}>This is required.</Text>}
-              {error.instruction && <Text style={{ color: 'red', marginLeft: 10, marginTop: -7 }}>{error.instruction}</Text>}
+              {errors.instruction && (
+                <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
+                  This is required.
+                </Text>
+              )}
+              {error.instruction && (
+                <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
+                  {error.instruction}
+                </Text>
+              )}
             </View>
             {/* instruction end */}
 
@@ -326,39 +333,87 @@ const UpdateReusableForm = ({ route }) => {
               <FontAwesome5 name="file-export" color={'#ffaa00'} size={15} />
               <Text style={{ color: '#9e9e9e', paddingLeft: 8, fontSize: 13 }}>Upload File</Text>
             </TouchableOpacity> */}
-              {imageData.img.uri != "" ?
-                <View style={{ margin: 5 }}>
-                  <Image source={{ uri: imageData.img.uri }} style={{ height: 130, width: '100%', borderRadius: 10 }} />
-                  {imageLoad &&
-                    <View style={{ position: 'absolute', bottom: 10, right: 10, flexDirection: 'row' }}>
-                      <TouchableOpacity style={{ backgroundColor: '#34a500c0', padding: 10, borderRadius: 10 }} onPress={upladImage}>
-                        <Entypo name='upload-to-cloud' size={25} color='#ffffffc0' />
+              {imageData.img.uri != '' ? (
+                <View style={{margin: 5}}>
+                  <Image
+                    source={{uri: imageData.img.uri}}
+                    style={{height: 130, width: '100%', borderRadius: 10}}
+                  />
+                  {imageLoad && (
+                    <View
+                      style={{
+                        position: 'absolute',
+                        bottom: 10,
+                        right: 10,
+                        flexDirection: 'row',
+                      }}>
+                      <TouchableOpacity
+                        style={{
+                          backgroundColor: '#34a500c0',
+                          padding: 10,
+                          borderRadius: 10,
+                        }}
+                        onPress={upladImage}>
+                        <Entypo
+                          name="upload-to-cloud"
+                          size={25}
+                          color="#ffffffc0"
+                        />
                       </TouchableOpacity>
-                      <TouchableOpacity style={{ marginLeft: 10, backgroundColor: '#0000006b', padding: 10, borderRadius: 10 }} onPress={choseImage}>
-                        <Entypo name='ccw' size={25} color='#ffffffc0' />
+                      <TouchableOpacity
+                        style={{
+                          marginLeft: 10,
+                          backgroundColor: '#0000006b',
+                          padding: 10,
+                          borderRadius: 10,
+                        }}
+                        onPress={choseImage}>
+                        <Entypo name="ccw" size={25} color="#ffffffc0" />
                       </TouchableOpacity>
                     </View>
-                  }
-                  {uploadStatus.beforSubmit && <Text style={{ color: 'red', position: 'absolute', marginLeft: 10, top: 2 }}>Please upload Image first !</Text>}
-
+                  )}
+                  {uploadStatus.beforSubmit && (
+                    <Text
+                      style={{
+                        color: 'red',
+                        position: 'absolute',
+                        marginLeft: 10,
+                        top: 2,
+                      }}>
+                      Please upload Image first !
+                    </Text>
+                  )}
                 </View>
-
-                :
+              ) : (
                 <>
-                  {oldEventData.banner && <Image source={{ uri: `${AppUrl.MediaBaseUrl + oldEventData.banner}` }} style={{ height: 130, width: '100%', borderRadius: 10 }} />}
-                  <TouchableOpacity style={styles.uploadFileBtn} onPress={choseImage}>
+                  {oldEventData.banner && (
+                    <Image
+                      source={{
+                        uri: `${AppUrl.MediaBaseUrl + oldEventData.banner}`,
+                      }}
+                      style={{height: 130, width: '100%', borderRadius: 10}}
+                    />
+                  )}
+                  <TouchableOpacity
+                    style={styles.uploadFileBtn}
+                    onPress={choseImage}>
                     <Entypo name="video-camera" color={'#ffaa00'} size={15} />
-                    <Text style={{ color: '#9e9e9e', paddingLeft: 8, fontSize: 13 }}>Upload Image</Text>
+                    <Text
+                      style={{color: '#9e9e9e', paddingLeft: 8, fontSize: 13}}>
+                      Upload Image
+                    </Text>
                   </TouchableOpacity>
-                  {uploadStatus.beforSubmit && <Text style={{ color: 'red', marginLeft: 10, marginTop: -7 }}>Please upload Image first !</Text>}
+                  {uploadStatus.beforSubmit && (
+                    <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
+                      Please upload Image first !
+                    </Text>
+                  )}
                 </>
-
-              }
+              )}
             </View>
             {/* file uplad end */}
 
-
-            <View style={{ marginVertical: 8 }}>
+            <View style={{marginVertical: 8}}>
               <View>
                 <Text style={styles.title}>Date</Text>
               </View>
@@ -369,9 +424,9 @@ const UpdateReusableForm = ({ route }) => {
                 open={open}
                 date={date}
                 onConfirm={date => {
-                  setDate(date)
+                  setDate(date);
                   setOpen(false);
-                  setValue('date', date, { required: true, })
+                  setValue('date', date, {required: true});
                 }}
                 onCancel={() => {
                   setOpen(false);
@@ -380,16 +435,24 @@ const UpdateReusableForm = ({ route }) => {
               <TouchableOpacity
                 onPress={() => setOpen(true)}
                 style={styles.createMeetupRow}>
-                <Text style={{ color: '#9e9e9e', marginHorizontal: 4, fontSize: 13 }}>
-                  {moment(date).format("LL")}
+                <Text
+                  style={{color: '#9e9e9e', marginHorizontal: 4, fontSize: 13}}>
+                  {moment(date).format('LL')}
                 </Text>
                 <View>
-                  <MaterialIcons name="date-range" color={'#ffaa00'} size={15} />
+                  <MaterialIcons
+                    name="date-range"
+                    color={'#ffaa00'}
+                    size={15}
+                  />
                 </View>
               </TouchableOpacity>
-              {error.date && <Text style={{ color: 'red', marginLeft: 10 }}>This is required.</Text>}
+              {error.date && (
+                <Text style={{color: 'red', marginLeft: 10}}>
+                  This is required.
+                </Text>
+              )}
             </View>
-
 
             {/* start date */}
             <DatePicker
@@ -398,14 +461,11 @@ const UpdateReusableForm = ({ route }) => {
               open={picDate.start}
               date={startDate}
               onConfirm={date => {
-
-                setStartDate(date)
-                setPicDate({ start: false })
-                setValue('registration_start_date', date, { required: true, })
+                setStartDate(date);
+                setPicDate({start: false});
+                setValue('registration_start_date', date, {required: true});
               }}
-              onCancel={() => {
-
-              }}
+              onCancel={() => {}}
             />
 
             {/* end data */}
@@ -415,77 +475,121 @@ const UpdateReusableForm = ({ route }) => {
               open={picDate.end}
               date={endDate}
               onConfirm={date => {
+                setPicDate({...picDate, end: false});
 
-                setPicDate({ ...picDate, end: false })
-
-                setValue('registration_end_date', date, { required: true, })
+                setValue('registration_end_date', date, {required: true});
               }}
-              onCancel={() => {
-
-              }}
+              onCancel={() => {}}
             />
 
-
-            <View style={{ flexDirection: 'row', marginVertical: 8 }}>
-              <View style={{ flex: 1 }}>
+            <View style={{flexDirection: 'row', marginVertical: 8}}>
+              <View style={{flex: 1}}>
                 <Text style={styles.title}>Registaion Start Date</Text>
                 <TouchableOpacity
                   style={styles.uploadFileBtn}
-                  onPress={() => setPicDate({ start: true, end: false })}>
-                  <Text style={{ color: '#9e9e9e', paddingRight: 8, fontSize: 13 }}>  {moment(startDate).format('LL')}</Text>
+                  onPress={() => setPicDate({start: true, end: false})}>
+                  <Text
+                    style={{color: '#9e9e9e', paddingRight: 8, fontSize: 13}}>
+                    {' '}
+                    {moment(startDate).format('LL')}
+                  </Text>
 
-                  <MaterialIcons name="date-range" color={'#ffaa00'} size={15} />
-
+                  <MaterialIcons
+                    name="date-range"
+                    color={'#ffaa00'}
+                    size={15}
+                  />
                 </TouchableOpacity>
-                {error.registration_start_date && <Text style={{ color: 'red', marginLeft: 10 }}>This is required.</Text>}
+                {error.registration_start_date && (
+                  <Text style={{color: 'red', marginLeft: 10}}>
+                    This is required.
+                  </Text>
+                )}
               </View>
-              <View style={{ flex: 1 }}>
+              <View style={{flex: 1}}>
                 <Text style={styles.title}>Registaion End Date</Text>
                 <TouchableOpacity
                   style={styles.uploadFileBtn}
-                  onPress={() => setPicDate({ end: true, start: false })}>
-                  <Text style={{ color: '#9e9e9e', paddingRight: 8, fontSize: 13 }}>  {moment(endDate).format('LL')}</Text>
-                  <MaterialIcons name="date-range" color={'#ffaa00'} size={15} />
+                  onPress={() => setPicDate({end: true, start: false})}>
+                  <Text
+                    style={{color: '#9e9e9e', paddingRight: 8, fontSize: 13}}>
+                    {' '}
+                    {moment(endDate).format('LL')}
+                  </Text>
+                  <MaterialIcons
+                    name="date-range"
+                    color={'#ffaa00'}
+                    size={15}
+                  />
                 </TouchableOpacity>
-                {error.registration_end_date && <Text style={{ color: 'red', marginLeft: 10 }}>This is required.</Text>}
+                {error.registration_end_date && (
+                  <Text style={{color: 'red', marginLeft: 10}}>
+                    This is required.
+                  </Text>
+                )}
               </View>
             </View>
 
-
-
-
-            <View style={{ flexDirection: 'row', marginVertical: 8 }}>
-              <View style={{ flex: 1 }}>
+            <View style={{flexDirection: 'row', marginVertical: 8}}>
+              <View style={{flex: 1}}>
                 <Text style={styles.title}>Start Time</Text>
                 {/* {moment('2022-01-20 ' + oldEventData.start_time).format('LT')} */}
                 <TouchableOpacity
                   style={styles.uploadFileBtn}
                   onPress={() => setTimePicker(true)}>
-                  <Text style={{ color: '#9e9e9e', paddingRight: 8, fontSize: 13 }}>{nowDate === time ? `${moment('2022-01-20 ' + oldEventData.start_time).format('LT')}` : `${moment(time).format('LT')}`}</Text>
+                  <Text
+                    style={{color: '#9e9e9e', paddingRight: 8, fontSize: 13}}>
+                    {nowDate === time
+                      ? `${moment(
+                          '2022-01-20 ' + oldEventData.start_time,
+                        ).format('LT')}`
+                      : `${moment(time).format('LT')}`}
+                  </Text>
                   <AntDesign name="clockcircleo" color={'#ffaa00'} size={15} />
                 </TouchableOpacity>
-                {errors.end_time && <Text style={{ color: 'red', marginLeft: 10, marginTop: -7 }}>This is required.</Text>}
-                {error.end_time && <Text style={{ color: 'red', marginLeft: 10, marginTop: -7 }}>This is required.</Text>}
+                {errors.end_time && (
+                  <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
+                    This is required.
+                  </Text>
+                )}
+                {error.end_time && (
+                  <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
+                    This is required.
+                  </Text>
+                )}
               </View>
-              <View style={{ flex: 1 }}>
+              <View style={{flex: 1}}>
                 <Text style={styles.title}>End Time</Text>
                 <TouchableOpacity
                   style={styles.uploadFileBtn}
                   onPress={() => setEndTimePicker(true)}>
-                  <Text style={{ color: '#9e9e9e', paddingRight: 8, fontSize: 13 }}>{nowDate === endTime ? `${moment('2022-01-20 ' + oldEventData.end_time).format('LT')}` : `${moment(endTime).format('LT')}`}</Text>
+                  <Text
+                    style={{color: '#9e9e9e', paddingRight: 8, fontSize: 13}}>
+                    {nowDate === endTime
+                      ? `${moment('2022-01-20 ' + oldEventData.end_time).format(
+                          'LT',
+                        )}`
+                      : `${moment(endTime).format('LT')}`}
+                  </Text>
                   <AntDesign name="clockcircleo" color={'#ffaa00'} size={15} />
                 </TouchableOpacity>
-                {errors.start_time && <Text style={{ color: 'red', marginLeft: 10, marginTop: -7 }}>This is required.</Text>}
-                {error.start_time && <Text style={{ color: 'red', marginLeft: 10 }}>This is required.</Text>}
+                {errors.start_time && (
+                  <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
+                    This is required.
+                  </Text>
+                )}
+                {error.start_time && (
+                  <Text style={{color: 'red', marginLeft: 10}}>
+                    This is required.
+                  </Text>
+                )}
               </View>
             </View>
-
-
 
             {timePicker && (
               <DateTimePicker
                 value={time}
-                mode='time'
+                mode="time"
                 open={timePicker}
                 display={Platform.OS === 'ios' ? 'spinner' : 'default'}
                 is24Hour={false}
@@ -493,28 +597,24 @@ const UpdateReusableForm = ({ route }) => {
               />
             )}
 
-
             {endTimePicker && (
               <DateTimePicker
                 value={endTime}
-                mode='time'
+                mode="time"
                 display={Platform.OS === 'ios' ? 'spinner' : 'default'}
                 is24Hour={false}
                 onChange={openEndTimeSelected}
               />
             )}
 
-
-
-
-            <View style={{ marginVertical: 8 }}>
+            <View style={{marginVertical: 8}}>
               {/* <Text style={styles.title}>Fee per Minute (TK)</Text> */}
               <Controller
                 control={control}
                 rules={{
                   required: true,
                 }}
-                render={({ field: { onChange, onBlur, value } }) => (
+                render={({field: {onChange, onBlur, value}}) => (
                   <TextInput
                     style={styles.textInput}
                     keyboardType="number-pad"
@@ -527,18 +627,21 @@ const UpdateReusableForm = ({ route }) => {
                 )}
                 name="fee"
               />
-              {errors.fee && <Text style={{ color: 'red', marginLeft: 10, marginTop: -7 }}>This is required.</Text>}
-
+              {errors.fee && (
+                <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
+                  This is required.
+                </Text>
+              )}
             </View>
 
-            <View style={{ marginVertical: 8 }}>
+            <View style={{marginVertical: 8}}>
               {/* <Text style={styles.title}>Time Interval (MIN)</Text> */}
               <Controller
                 control={control}
                 rules={{
                   required: true,
                 }}
-                render={({ field: { onChange, onBlur, value } }) => (
+                render={({field: {onChange, onBlur, value}}) => (
                   <TextInput
                     style={styles.textInput}
                     keyboardType="number-pad"
@@ -551,27 +654,30 @@ const UpdateReusableForm = ({ route }) => {
                 )}
                 name="interval"
               />
-              {errors.interval && <Text style={{ color: 'red', marginLeft: 10, marginTop: -7 }}>This is required.</Text>}
+              {errors.interval && (
+                <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
+                  This is required.
+                </Text>
+              )}
             </View>
 
-            <View style={{ marginVertical: 8 }}>
-              <View style={{ flexDirection: 'row' }}>
-                <View style={{ flex: 1 }}>
+            <View style={{marginVertical: 8}}>
+              <View style={{flexDirection: 'row'}}>
+                <View style={{flex: 1}}>
                   <Text style={styles.title}>Max Time </Text>
                 </View>
-                <View style={{ flex: 1 }}>
+                <View style={{flex: 1}}>
                   <Text style={styles.title}>Min Time</Text>
                 </View>
               </View>
-              <View style={{ flexDirection: 'row' }}>
-                <View style={{ width: '50%' }}>
-
+              <View style={{flexDirection: 'row'}}>
+                <View style={{width: '50%'}}>
                   <Controller
                     control={control}
                     rules={{
                       required: true,
                     }}
-                    render={({ field: { onChange, onBlur, value } }) => (
+                    render={({field: {onChange, onBlur, value}}) => (
                       <TextInput
                         keyboardType="number-pad"
                         onBlur={onBlur}
@@ -584,17 +690,24 @@ const UpdateReusableForm = ({ route }) => {
                     )}
                     name="max_time"
                   />
-                  {errors.max_time && <Text style={{ color: 'red', marginLeft: 10, marginTop: -7 }}>This is required.</Text>}
-                  {error.max_time && <Text style={{ color: 'red', marginLeft: 10, marginTop: -7 }}>{error.max_time}</Text>}
+                  {errors.max_time && (
+                    <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
+                      This is required.
+                    </Text>
+                  )}
+                  {error.max_time && (
+                    <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
+                      {error.max_time}
+                    </Text>
+                  )}
                 </View>
-                <View style={{ width: '50%' }}>
-
+                <View style={{width: '50%'}}>
                   <Controller
                     control={control}
                     rules={{
                       required: true,
                     }}
-                    render={({ field: { onChange, onBlur, value } }) => (
+                    render={({field: {onChange, onBlur, value}}) => (
                       <TextInput
                         keyboardType="number-pad"
                         onBlur={onBlur}
@@ -607,10 +720,12 @@ const UpdateReusableForm = ({ route }) => {
                     )}
                     name="min_time"
                   />
-                  {errors.min_time && <Text style={{ color: 'red', marginLeft: 10, marginTop: -7 }}>This is required.</Text>}
+                  {errors.min_time && (
+                    <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
+                      This is required.
+                    </Text>
+                  )}
                 </View>
-
-
 
                 {/* <View style={styles.createPostRowMainSlot}>
               <TouchableOpacity>
@@ -649,24 +764,32 @@ const UpdateReusableForm = ({ route }) => {
               </View>
             </View>
 
-            <View style={{ flexDirection: 'row' }}>
-              <TouchableOpacity style={styles.removeBtn} onPress={() => navigation.goBack()}>
-                <Text style={{ fontSize: 13, color: 'white' }}>CANCEL</Text>
+            <View style={{flexDirection: 'row'}}>
+              <TouchableOpacity
+                style={styles.removeBtn}
+                onPress={() => navigation.goBack()}>
+                <Text style={{fontSize: 13, color: 'white'}}>CANCEL</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.confirmBtn}>
-                <LinearGradient colors={['#E19A04', '#E7A725', '#FFAD55', '#FACF55',]} style={{ width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center', borderRadius: 50 }}>
-                  <Text style={{ fontSize: 13, color: 'white', }}>
-                    CONFIRM
-                  </Text>
+              <TouchableOpacity
+                onPress={handleSubmit(onSubmit)}
+                style={styles.confirmBtn}>
+                <LinearGradient
+                  colors={['#E19A04', '#E7A725', '#FFAD55', '#FACF55']}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: 50,
+                  }}>
+                  <Text style={{fontSize: 13, color: 'white'}}>CONFIRM</Text>
                 </LinearGradient>
               </TouchableOpacity>
-
-
             </View>
           </View>
         </View>
-      </ScrollView >
+      </ScrollView>
     </>
   );
 };
@@ -680,7 +803,7 @@ const styles = StyleSheet.create({
 
     marginBottom: 6,
     // textAlign: 'center',
-    color: '#C9B049'
+    color: '#C9B049',
   },
   textInput: {
     borderWidth: 0.7,
@@ -690,7 +813,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#fff',
     backgroundColor: '#181818',
-
   },
   textInputMax: {
     flex: 1,
@@ -757,7 +879,7 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: 13,
     height: 43,
-    color: 'white'
+    color: 'white',
   },
   createPostTitle: {
     marginTop: 8,
@@ -780,7 +902,7 @@ const styles = StyleSheet.create({
     borderRadius: 35,
     padding: 10,
     minHeight: 70,
-    fontSize: 13
+    fontSize: 13,
   },
   uploadFile: {
     flex: 1,
@@ -810,7 +932,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   removeBtn: {
-
     backgroundColor: '#2A2B2E',
     borderRadius: 20,
     width: '47%',

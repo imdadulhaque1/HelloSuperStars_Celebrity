@@ -9,9 +9,9 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
-  ToastAndroid,
   Alert,
 } from 'react-native';
+import Toast from 'react-native-root-toast';
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -258,7 +258,7 @@ const SouvenirCreate = () => {
         setBuffer(false);
         setUploadStatus({...uploadStatus, Submit: false});
         if (res.data.status == 200) {
-          ToastAndroid.show(res.data.message, ToastAndroid.SHORT);
+          Toast.show(res.data.message, Toast.durations.SHORT);
           navigation.goBack();
         } else {
           setError(res.data.validation_errors);

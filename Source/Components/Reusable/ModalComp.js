@@ -9,9 +9,8 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   Image,
-  ToastAndroid,
 } from 'react-native';
-
+import Toast from 'react-native-root-toast';
 import Modal from 'react-native-modal';
 import {AuthContext} from '../../Constants/context';
 import AppUrl from '../../RestApi/AppUrl';
@@ -41,13 +40,13 @@ export default function ModalComp({
             console.log(res.data);
             if (res.data.status === 200) {
               setModalVisible(false);
-              ToastAndroid.show('Done');
+              Toast.show('Done');
               navigation.goBack();
               navigation.goBack();
             }
           })
           .catch(err => {
-            ToastAndroid.show(err.message, ToastAndroid.SHORT);
+            Toast.show(err.message, Toast.durations.SHORT);
             console.log(err);
           })
       : typeName === 'LearningPending' && type === 'warning'
@@ -57,13 +56,13 @@ export default function ModalComp({
             console.log(res.data);
             if (res.data.status === 200) {
               setModalVisible(false);
-              ToastAndroid.show('Done');
+              Toast.show('Done');
               navigation.goBack();
               navigation.goBack();
             }
           })
           .catch(err => {
-            ToastAndroid.show(err.message, ToastAndroid.SHORT);
+            Toast.show(err.message, Toast.durations.SHORT);
             console.log(err);
           })
       : typeName === 'QnaPending' && type === 'confirm'
@@ -73,13 +72,13 @@ export default function ModalComp({
             console.log(res.data);
             if (res.data.status === 200) {
               setModalVisible(false);
-              ToastAndroid.show('Done');
+              Toast.show('Done');
               navigation.goBack();
               navigation.goBack();
             }
           })
           .catch(err => {
-            ToastAndroid.show(err.message, ToastAndroid.SHORT);
+            Toast.show(err.message, Toast.durations.SHORT);
             console.log(err);
           })
       : typeName === 'QnaPending' && type === 'warning'
@@ -94,8 +93,8 @@ export default function ModalComp({
             }
           })
           .catch(err => {
-            // ToastAndroid.show(AppUrl.QnaRejected + id);
-            ToastAndroid.show(err.message, ToastAndroid.SHORT);
+            // Toast.show(AppUrl.QnaRejected + id);
+            Toast.show(err.message, Toast.durations.SHORT);
             console.log(err);
           })
       : null;

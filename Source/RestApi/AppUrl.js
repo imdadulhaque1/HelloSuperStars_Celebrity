@@ -1,14 +1,11 @@
 class AppUrl {
-  // static BaseUrl =
-  //   'http://10.10.10.103/TFP-Projects-2/HelloSuperStarsBackend-2/public/api/';
-  // static MediaBaseUrl =
-  //   'http://10.10.10.103/TFP-Projects-2/HelloSuperStarsBackend-2/public/';
+  // static BaseUrl = 'http://10.10.10.118/HelloSuperStarsBackend-2/public/api/';
+  // static MediaBaseUrl = 'http://10.10.10.118/HelloSuperStarsBackend-2/public/';
+  // static socketUrl = 'http://10.10.10.118:3005';
 
-  // static socketUrl = 'http://192.168.0.108:3005/';
-  static socketUrl = 'http://192.168.0.108:3005/';
-  // https://backend.hellosuperstars.com/api/
-    static BaseUrl = 'https://tfpbackend.hellosuperstars.com/api/';
-    static MediaBaseUrl = 'https://tfpbackend.hellosuperstars.com/';
+  static BaseUrl = 'https://tfpbackend.hellosuperstars.com/api/';
+  static MediaBaseUrl = 'https://tfpbackend.hellosuperstars.com/';
+  static socketUrl = 'https://socket.hellosuperstars.com';
 
   static QrVerification = this.BaseUrl + 'star_qr_verify';
   static CreateUser = this.BaseUrl + 'superStar/register';
@@ -16,6 +13,14 @@ class AppUrl {
   static StarInstrucation = this.BaseUrl + 'star-instrucation';
   static SuperStarReg = this.BaseUrl + 'superStar/register';
   static SuperStarLogin = this.BaseUrl + 'star_login';
+  static getInformation = this.BaseUrl + 'star/getInformation';
+  static getUserInfo = this.BaseUrl + 'user_info';
+
+  static UserMediaUpload = this.BaseUrl + 'mobile/user-photo-upload';
+
+  static schedule = this.BaseUrl + 'star/current_month_schedule_list';
+  static addSchedule = this.BaseUrl + 'star/addScheduleMobile';
+  static deleteSchedule = this.BaseUrl + 'star/deleteSchedule/'; //{id}
 
   static superStarRegister = this.BaseUrl + 'superStar/register';
 
@@ -99,6 +104,12 @@ class AppUrl {
   static fanGroupMember = this.BaseUrl + 'star/fan/member/approve/'; //{joinMemberId}
   static fanGroupJoinPermission = this.BaseUrl + 'star/fan-group/join/'; //    ${slug}/${joinTo}
   static fanGroupPostPermission = this.BaseUrl + 'star/fan-group/post/'; //    ${slug}/${postTo}
+
+  //Wallet
+  static getWallet = this.BaseUrl + 'star/dashboard';
+  static getProfitInfo = this.BaseUrl + 'star/profitShare';
+  static profitWithdraw = this.BaseUrl + 'star/profit/withdraw';
+  static updateInfo = this.BaseUrl + 'user_info_update/star_admin_info';
 }
 
 export default AppUrl;

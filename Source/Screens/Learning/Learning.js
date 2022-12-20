@@ -1,6 +1,13 @@
 /* eslint-disable prettier/prettier */
 import React, {useContext, useEffect, useState} from 'react';
-import {Image, Text, View, ScrollView, TouchableOpacity} from 'react-native';
+import {
+  Image,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  SafeAreaView,
+} from 'react-native';
 
 import styles from '../Dashboard/StylesHome';
 import LinearGradient from 'react-native-linear-gradient';
@@ -25,9 +32,9 @@ const Learning = () => {
     });
   }, []);
   return (
-    <>
-  <CustomHeader backFunc={()=>navigation.goBack()} title='Learning' />
-      <ScrollView style={{backgroundColor: '#000', padding: 8}}>
+    <SafeAreaView>
+      <CustomHeader backFunc={() => navigation.goBack()} title="Learning" />
+      <ScrollView style={{backgroundColor: '#000', padding: 8, height: '100%'}}>
         <View style={styles.container}>
           <View style={styles.superStarHome}>
             <TouchableOpacity
@@ -271,7 +278,7 @@ const Learning = () => {
           </View>
         </View>
       </ScrollView>
-    </>
+    </SafeAreaView>
   );
 };
 

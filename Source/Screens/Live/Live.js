@@ -1,6 +1,13 @@
 /* eslint-disable prettier/prettier */
-import { useNavigation } from '@react-navigation/native';
-import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {
+  Image,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 import styles from '../Dashboard/StylesHome';
 import LinearGradient from 'react-native-linear-gradient';
@@ -13,9 +20,10 @@ const Live = () => {
   const Navigation = useNavigation();
 
   return (
-    <><CustomHeader backFunc={()=>Navigation.goBack()} title='Live' />
-    
-      <ScrollView style={{ backgroundColor: '#000', padding: 8 }}>
+    <SafeAreaView>
+      <CustomHeader backFunc={() => Navigation.goBack()} title="Live" />
+
+      <ScrollView style={{backgroundColor: '#000', padding: 8, height: '100%'}}>
         <View style={styles.container}>
           <View style={styles.superStarHome}>
             <TouchableOpacity
@@ -26,8 +34,8 @@ const Live = () => {
                 })
               }>
               <LinearGradient
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}
                 colors={[
                   '#FFAD00',
                   '#FFD273',
@@ -53,8 +61,8 @@ const Live = () => {
                 })
               }>
               <LinearGradient
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}
                 colors={[
                   '#FFAD00',
                   '#FFD273',
@@ -82,8 +90,8 @@ const Live = () => {
                 })
               }>
               <LinearGradient
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}
                 colors={[
                   '#FFAD00',
                   '#FFD273',
@@ -109,8 +117,8 @@ const Live = () => {
                 })
               }>
               <LinearGradient
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}
                 colors={[
                   '#FFAD00',
                   '#FFD273',
@@ -138,8 +146,8 @@ const Live = () => {
                 })
               }>
               <LinearGradient
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}
                 colors={[
                   '#FFAD00',
                   '#FFD273',
@@ -156,8 +164,6 @@ const Live = () => {
                 <Text style={styles.badgeT}>20</Text>
               </Text>
             </TouchableOpacity>
-
-
           </View>
 
           <View style={styles.superStarHome}>
@@ -169,8 +175,8 @@ const Live = () => {
                 })
               }>
               <LinearGradient
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}
                 colors={[
                   '#FFAD00',
                   '#FFD273',
@@ -195,8 +201,8 @@ const Live = () => {
                 })
               }>
               <LinearGradient
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
+                start={{x: 0, y: 0}}
+                end={{x: 1, y: 0}}
                 colors={[
                   '#FFAD00',
                   '#FFD273',
@@ -216,7 +222,7 @@ const Live = () => {
           </View>
         </View>
       </ScrollView>
-    </>
+    </SafeAreaView>
   );
 };
 

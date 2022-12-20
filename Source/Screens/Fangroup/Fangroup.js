@@ -1,7 +1,14 @@
 /* eslint-disable prettier/prettier */
 import React, {useContext, useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import styles from '../Dashboard/StylesHome';
 import LinearGradient from 'react-native-linear-gradient';
 import imagePath from '../../Constants/imagePath';
@@ -31,9 +38,9 @@ const Fangroup = () => {
   }, []);
 
   return (
-    <>
-    <CustomHeader backFunc={()=>Navigation.goBack()} title='Fan Group' />
-      <ScrollView style={{backgroundColor: '#000', padding: 8}}>
+    <SafeAreaView>
+      <CustomHeader backFunc={() => Navigation.goBack()} title="Fan Group" />
+      <ScrollView style={{backgroundColor: '#000', padding: 8, height: '100%'}}>
         <View style={styles.container}>
           <View style={styles.superStarHome}>
             <TouchableOpacity
@@ -157,7 +164,7 @@ const Fangroup = () => {
           </View>
         </View>
       </ScrollView>
-    </>
+    </SafeAreaView>
   );
 };
 

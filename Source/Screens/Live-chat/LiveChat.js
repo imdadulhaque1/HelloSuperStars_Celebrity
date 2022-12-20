@@ -1,6 +1,13 @@
 /* eslint-disable prettier/prettier */
 import {useNavigation} from '@react-navigation/native';
-import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 import styles from '../Dashboard/StylesHome';
 import LinearGradient from 'react-native-linear-gradient';
@@ -14,10 +21,9 @@ const LiveChat = () => {
   const Navigation = useNavigation();
 
   return (
-    <>
-       <CustomHeader title={'Livechat'} backFunc={()=>Navigation.goBack()} />
-      <ScrollView style={{backgroundColor: '#000', padding: 8}}>
-   
+    <SafeAreaView>
+      <CustomHeader title={'Livechat'} backFunc={() => Navigation.goBack()} />
+      <ScrollView style={{backgroundColor: '#000', padding: 8, height: '100%'}}>
         <View style={styles.container}>
           <View style={styles.superStarHome}>
             <TouchableOpacity
@@ -253,7 +259,7 @@ const LiveChat = () => {
           </View>
         </View>
       </ScrollView>
-    </>
+    </SafeAreaView>
   );
 };
 

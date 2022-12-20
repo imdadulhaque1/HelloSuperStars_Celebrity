@@ -5,8 +5,8 @@ import {
   Text,
   TouchableOpacity,
   View,
-  ToastAndroid,
 } from 'react-native';
+import Toast from 'react-native-root-toast';
 import React, {useContext} from 'react';
 import AppUrl from '../../RestApi/AppUrl';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -18,7 +18,7 @@ const item = ({item}) => {
   const handleAdd = () => {
     axios.post(AppUrl.fanGroupMember, axiosConfig).then(res => {
       if (res.data === 200) {
-        ToastAndroid.show('User Added', ToastAndroid.SHORT);
+        Toast.show('User Added', Toast.durations.SHORT);
       }
     });
   };

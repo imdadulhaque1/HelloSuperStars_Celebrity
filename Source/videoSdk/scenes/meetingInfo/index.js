@@ -1,41 +1,34 @@
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  SafeAreaView,
-  Dimensions,
-  ToastAndroid,
-  Clipboard,
-} from "react-native";
-import { Colors } from "../../styles";
+import React, {useState, useEffect} from 'react';
+import {View, Text, SafeAreaView, Dimensions, Clipboard} from 'react-native';
+import Toast from 'react-native-root-toast';
+import {Colors} from '../../styles';
 import {
   convertRFValue,
   useStandardHeight,
   useStandardWidth,
-} from "../../styles/spacing";
+} from '../../styles/spacing';
 import {
   MicOn,
   VideoEnable,
   VideoDisable,
   MicOff,
   CopyContent,
-} from "../../assets/icons";
-import { ROBOTO_FONTS } from "../../styles/fonts";
-import ButtonContainer from "../../components/ButtonContainer";
-import { Dots } from "../../assets/icons";
-import MeetingControlsTouchable from "../../components/MeetingControlsTouchable";
-import { Button } from "react-native-ui-lib";
-import { useRoute } from "@react-navigation/native";
-import { SCREEN_NAMES } from "../../navigators/screenNames";
-import { RTCView, mediaDevices } from "@videosdk.live/react-native-sdk";
-import { getThemeProps } from "react-native-ui-lib/generatedTypes/commons/modifiers";
-import { createMeeting, getToken } from "../../config/api";
-import { TextInput } from "react-native-gesture-handler";
+} from '../../assets/icons';
+import {ROBOTO_FONTS} from '../../styles/fonts';
+import ButtonContainer from '../../components/ButtonContainer';
+import {Dots} from '../../assets/icons';
+import MeetingControlsTouchable from '../../components/MeetingControlsTouchable';
+import {Button} from 'react-native-ui-lib';
+import {useRoute} from '@react-navigation/native';
+import {SCREEN_NAMES} from '../../navigators/screenNames';
+import {RTCView, mediaDevices} from '@videosdk.live/react-native-sdk';
+import {getThemeProps} from 'react-native-ui-lib/generatedTypes/commons/modifiers';
+import {createMeeting, getToken} from '../../config/api';
+import {TextInput} from 'react-native-gesture-handler';
 
-export default function MeetingInfo({ navigation }) {
+export default function MeetingInfo({navigation}) {
   const route = useRoute();
   // const { meetingId, token } = route.params;
-
 
   const [micOn, setMicon] = useState(true);
   const [videoOn, setVideoOn] = useState(true);
@@ -45,31 +38,27 @@ export default function MeetingInfo({ navigation }) {
   const vertical_220 = useStandardHeight(220);
   const horizontal_150 = useStandardWidth(150);
 
-  const [tracks, setTrack] = useState("");
+  const [tracks, setTrack] = useState('');
 
-
-
-  //===================>>>>> getting token and meeting id <<<<================== 
+  //===================>>>>> getting token and meeting id <<<<==================
   const [token, setToken] = useState();
   const [meetingId, setmeetingId] = useState('');
- //===================>>>>> getting token and meeting id <<<<================== 
-
+  //===================>>>>> getting token and meeting id <<<<==================
 
   useEffect(async () => {
     let server_token = await getToken();
     setToken(server_token);
     let server_room = await createMeeting(server_token);
     setmeetingId(server_room);
+  }, []);
 
-  }, [])
- 
   useEffect(async () => {
     mediaDevices
-      .getUserMedia({ audio: true, video: true })
-      .then((stream) => {
+      .getUserMedia({audio: true, video: true})
+      .then(stream => {
         setTrack(stream.toURL());
       })
-      .catch((e) => {
+      .catch(e => {
         console.log(e);
       });
   }, []);
@@ -79,44 +68,38 @@ export default function MeetingInfo({ navigation }) {
       style={{
         flex: 1,
         backgroundColor: Colors.DARK_BACKGROUND,
-      }}
-    >
+      }}>
       <>
         <View
           style={{
-            height: Dimensions.get("screen").height / 2.5,
-            width: Dimensions.get("screen").width,
+            height: Dimensions.get('screen').height / 2.5,
+            width: Dimensions.get('screen').width,
             paddingHorizontal: vertical_50,
             marginTop: 26,
-          }}
-        >
+          }}>
           <View
             style={{
               flex: 1,
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}>
             <View
               style={{
-                alignSelf: "flex-start",
-              }}
-            >
+                alignSelf: 'flex-start',
+              }}>
               <Dots />
             </View>
             <View
               style={{
                 height: vertical_220,
                 width: horizontal_150,
-                position: "absolute",
+                position: 'absolute',
                 top: 50,
-              }}
-            >
+              }}>
               {videoOn ? (
                 <RTCView
-                
                   streamURL={tracks}
-                  objectFit={"cover"}
+                  objectFit={'cover'}
                   mirror={true}
                   style={{
                     flex: 1,
@@ -127,26 +110,24 @@ export default function MeetingInfo({ navigation }) {
                 <View
                   style={{
                     flex: 1,
-                    justifyContent: "center",
-                    alignItems: "center",
+                    justifyContent: 'center',
+                    alignItems: 'center',
                     backgroundColor: Colors.GRAYISH_BLUE,
-                  }}
-                >
-                  <Text style={{ color: Colors.WHITE }}>No media</Text>
+                  }}>
+                  <Text style={{color: Colors.WHITE}}>No media</Text>
                 </View>
               )}
               <View
                 style={{
-                  flexDirection: "row",
+                  flexDirection: 'row',
                   marginVertical: 12,
-                  justifyContent: "center",
-                }}
-              >
+                  justifyContent: 'center',
+                }}>
                 <MeetingControlsTouchable
                   outlineWidth={1}
                   outline
                   outlineColor={Colors.WHITE}
-                  bgColor={micOn ? Colors.WHITE : "transparent"}
+                  bgColor={micOn ? Colors.WHITE : 'transparent'}
                   onPress={() => {
                     setMicon(!micOn);
                   }}
@@ -162,7 +143,7 @@ export default function MeetingInfo({ navigation }) {
                   outlineWidth={1}
                   outline
                   outlineColor={Colors.WHITE}
-                  bgColor={videoOn ? Colors.WHITE : "transparent"}
+                  bgColor={videoOn ? Colors.WHITE : 'transparent'}
                   onPress={() => {
                     setVideoOn(!videoOn);
                   }}
@@ -183,9 +164,8 @@ export default function MeetingInfo({ navigation }) {
 
             <View
               style={{
-                alignSelf: "flex-end",
-              }}
-            >
+                alignSelf: 'flex-end',
+              }}>
               <Dots />
             </View>
           </View>
@@ -194,54 +174,48 @@ export default function MeetingInfo({ navigation }) {
         <View
           style={{
             flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
           <View
             style={{
-              flexDirection: "row",
+              flexDirection: 'row',
               paddingHorizontal: 12,
-            }}
-          >
+            }}>
             <Text
               numberOfLines={2}
               style={{
                 color: Colors.WHITE,
                 fontFamily: ROBOTO_FONTS.RobotoBold,
                 fontSize: convertRFValue(18),
-                flexWrap: "wrap",
-                textAlign: "center",
-              }}
-            >
+                flexWrap: 'wrap',
+                textAlign: 'center',
+              }}>
               {meetingId}
             </Text>
-
-
 
             <Button
               avoidMinWidth
               avoidInnerPadding
               style={{
-                justifyContent: "center",
+                justifyContent: 'center',
                 marginLeft: 10,
-                backgroundColor: "transparent",
+                backgroundColor: 'transparent',
               }}
               onPress={() => {
                 Clipboard.setString(meetingId);
-                ToastAndroid.show(
-                  "Meeting Id copied successfully",
-                  ToastAndroid.SHORT
+                Toast.show(
+                  'Meeting Id copied successfully',
+                  Toast.durations.SHORT,
                 );
-              }}
-            >
+              }}>
               <CopyContent fill={Colors.CYAN_BLUE} />
             </Button>
           </View>
-       
+
           <ButtonContainer
-            containerStyle={{ marginTop: vertical_20 }}
-            label={"Join Meeting"}
+            containerStyle={{marginTop: vertical_20}}
+            label={'Join Meeting'}
             labelStyle={{
               fontSize: convertRFValue(14),
               color: Colors.WHITE,
@@ -252,7 +226,7 @@ export default function MeetingInfo({ navigation }) {
               navigation.push(SCREEN_NAMES.MeetingInitializer, {
                 meetingConfig: {
                   meetingId: meetingId,
-                  token:token,
+                  token: token,
                   videoOn,
                   micOn,
                 },

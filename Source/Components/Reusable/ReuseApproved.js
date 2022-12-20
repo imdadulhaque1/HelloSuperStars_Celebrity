@@ -7,11 +7,13 @@ import {
   Image,
   ScrollView,
   StyleSheet,
+  SafeAreaView,
   Text,
   TouchableOpacity,
   useWindowDimensions,
   View,
 } from 'react-native';
+import Toast from 'react-native-root-toast';
 import * as Animatable from 'react-native-animatable';
 import imagePath from '../../Constants/imagePath';
 import React, {useRef, useEffect, useState, useContext} from 'react';
@@ -90,7 +92,7 @@ const ReuseApproved = ({route}) => {
         })
         .catch(err => {
           setBuffer(false);
-          ToastAndroid.show(err.message, ToastAndroid.SHORT);
+          Toast.show(err.message, Toast.durations.SHORT);
           console.log(err);
         });
     }
@@ -101,159 +103,165 @@ const ReuseApproved = ({route}) => {
       html: `<div style='color:#e6e6e6'>${eventData?.description}</div>`,
     };
     return (
-      <View style={{backgroundColor: '#000', flex: 1}} key={eventData.id}>
-      <CustomHeader backFunc={()=>Navigation.goBack()} />
-        <Animatable.View
-          style={windowWidth > 700 ? styles.CardRowWidscreen : styles.CardRow}
-          animation="slideInDown">
-          <View style={styles.CardContent}>
-            {eventData.status === 2 && (
-              <View
-                style={{
-                  backgroundColor: '#FFAD00',
-                  width: 50,
-                  position: 'absolute',
-                  right: 10,
-                  alignItems: 'center',
-                  borderBottomRightRadius: 10,
-                  paddingHorizontal: 5,
-                }}>
-                <FontAwesome name="flag-o" size={25} color="black" />
-                <Text style={{color: 'black'}}>Live</Text>
-              </View>
-            )}
-            <View style={{position: 'relative'}}>
-              <View style={{marginVertical: 10}}>
-                <Text
-                  style={{
-                    color: '#E3E5EA',
-                    fontSize: 15,
-                    fontWeight: 'bold',
-                  }}>
-                  {/* Shakib {typeName} */}
-                  {eventData?.star?.first_name +
-                    '' +
-                    eventData?.star?.last_name}
-                </Text>
-                <Text style={{color: 'gray'}}>
-                  {moment(eventData.created_at).format('LL')}
-                </Text>
-              </View>
-              <View style={{marginBottom: 3}}>
-                <Text style={{fontSize: 20, color: '#fff'}}>
-                  {eventData.title}
-                </Text>
-                <RenderHtml contentWidth={width} source={HtmlDiscription} />
-              </View>
-
-              <ImageBackground
-                style={styles.background}
-                source={
-                  eventData.banner
-                    ? {uri: `${AppUrl.MediaBaseUrl + eventData.banner}`}
-                    : imagePath.defultCover
-                }>
-                <View></View>
-                <LinearGradient
-                  start={{x: 0, y: 0}}
-                  end={{x: 1, y: 0}}
-                  colors={[
-                    '#FFAD00',
-                    '#FFD273',
-                    '#E19A04',
-                    '#FACF75',
-                    '#E7A725',
-                    '#FFAD00',
-                  ]}
-                  style={styles.linearGradient}>
-                  <View style={styles.learningRow}>
-                    <View style={styles.singleLearningStyle}>
-                      <Image source={imagePath.clock} />
-                    </View>
-                    <View style={styles.singleLearningStyle}>
-                      <Text style={styles.text}>Day</Text>
-                      <Text style={styles.text}>{leading0(days)}</Text>
-                    </View>
-                    <View style={styles.singleLearningStyle}>
-                      <Text style={styles.text}>Hrs</Text>
-                      <Text style={styles.text}>{leading0(hours)}</Text>
-                    </View>
-                    <View style={styles.singleLearningStyle}>
-                      <Text style={styles.text}>Min</Text>
-                      <Text style={styles.text}>{leading0(minutes)}</Text>
-                    </View>
-                    <View style={styles.singleLearningStyle}>
-                      <Text style={styles.text}>Sec</Text>
-                      <Text style={styles.text}>{leading0(seconds)}</Text>
-                    </View>
-                  </View>
-                </LinearGradient>
+      <>
+        <View style={{backgroundColor: '#000', flex: 1}} key={eventData.id}>
+          <Animatable.View
+            style={windowWidth > 700 ? styles.CardRowWidscreen : styles.CardRow}
+            animation="slideInDown">
+            <View style={styles.CardContent}>
+              {eventData.status === 2 && (
                 <View
                   style={{
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    backgroundColor: '#00000099',
-                  }}></View>
-              </ImageBackground>
-            </View>
-            {/* l;;;;;;  */}
-
-            <View style={styles.btnView}>
-              <TouchableOpacity
-                style={styles.touchableOpacityBtn}
-                onPress={() =>
-                  Navigation.navigate(MainNavigationString.COMPLETEDCARD, {
-                    typeName,
-                    eventData,
-                    module,
-                  })
-                }>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-around',
+                    backgroundColor: '#FFAD00',
+                    width: 50,
+                    position: 'absolute',
+                    right: 10,
                     alignItems: 'center',
+                    borderBottomRightRadius: 10,
                     paddingHorizontal: 5,
                   }}>
-                  <View
-                    style={{
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      width: '80%',
-                    }}>
-                    <Text
-                      style={{
-                        marginHorizontal: 3,
-
-                        color: 'black',
-                      }}>
-                      View
-                    </Text>
-                  </View>
-                  <View
-                    style={{
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      width: '20%',
-                    }}>
-                    <Icon name="arrow-forward-ios" color={'black'} size={15} />
-                  </View>
+                  <FontAwesome name="flag-o" size={25} color="black" />
+                  <Text style={{color: 'black'}}>Live</Text>
                 </View>
-              </TouchableOpacity>
-            </View>
+              )}
+              <View style={{position: 'relative'}}>
+                <View style={{marginVertical: 10}}>
+                  <Text
+                    style={{
+                      color: '#E3E5EA',
+                      fontSize: 15,
+                      fontWeight: 'bold',
+                    }}>
+                    {/* Shakib {typeName} */}
+                    {eventData?.star?.first_name +
+                      '' +
+                      eventData?.star?.last_name}
+                  </Text>
+                  <Text style={{color: 'gray'}}>
+                    {moment(eventData.created_at).format('LL')}
+                  </Text>
+                </View>
+                <View style={{marginBottom: 3}}>
+                  <Text style={{fontSize: 20, color: '#fff'}}>
+                    {eventData.title}
+                  </Text>
+                  <RenderHtml contentWidth={width} source={HtmlDiscription} />
+                </View>
 
-            <View />
-          </View>
-        </Animatable.View>
-      </View>
+                <ImageBackground
+                  style={styles.background}
+                  source={
+                    eventData.banner
+                      ? {uri: `${AppUrl.MediaBaseUrl + eventData.banner}`}
+                      : imagePath.defultCover
+                  }>
+                  <View></View>
+                  <LinearGradient
+                    start={{x: 0, y: 0}}
+                    end={{x: 1, y: 0}}
+                    colors={[
+                      '#FFAD00',
+                      '#FFD273',
+                      '#E19A04',
+                      '#FACF75',
+                      '#E7A725',
+                      '#FFAD00',
+                    ]}
+                    style={styles.linearGradient}>
+                    <View style={styles.learningRow}>
+                      <View style={styles.singleLearningStyle}>
+                        <Image source={imagePath.clock} />
+                      </View>
+                      <View style={styles.singleLearningStyle}>
+                        <Text style={styles.text}>Day</Text>
+                        <Text style={styles.text}>{leading0(days)}</Text>
+                      </View>
+                      <View style={styles.singleLearningStyle}>
+                        <Text style={styles.text}>Hrs</Text>
+                        <Text style={styles.text}>{leading0(hours)}</Text>
+                      </View>
+                      <View style={styles.singleLearningStyle}>
+                        <Text style={styles.text}>Min</Text>
+                        <Text style={styles.text}>{leading0(minutes)}</Text>
+                      </View>
+                      <View style={styles.singleLearningStyle}>
+                        <Text style={styles.text}>Sec</Text>
+                        <Text style={styles.text}>{leading0(seconds)}</Text>
+                      </View>
+                    </View>
+                  </LinearGradient>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'center',
+                      backgroundColor: '#00000099',
+                    }}></View>
+                </ImageBackground>
+              </View>
+              {/* l;;;;;;  */}
+
+              <View style={styles.btnView}>
+                <TouchableOpacity
+                  style={styles.touchableOpacityBtn}
+                  onPress={() =>
+                    Navigation.navigate(MainNavigationString.COMPLETEDCARD, {
+                      typeName,
+                      eventData,
+                      module,
+                    })
+                  }>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-around',
+                      alignItems: 'center',
+                      paddingHorizontal: 5,
+                    }}>
+                    <View
+                      style={{
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        width: '80%',
+                      }}>
+                      <Text
+                        style={{
+                          marginHorizontal: 3,
+
+                          color: 'black',
+                        }}>
+                        View
+                      </Text>
+                    </View>
+                    <View
+                      style={{
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        width: '20%',
+                      }}>
+                      <Icon
+                        name="arrow-forward-ios"
+                        color={'black'}
+                        size={15}
+                      />
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              </View>
+
+              <View />
+            </View>
+          </Animatable.View>
+        </View>
+      </>
     );
   };
   console.log(eventData.length);
 
   return (
     <>
-      <View style={styles.container}>
-        <ScrollView>
+      <SafeAreaView>
+        <CustomHeader backFunc={() => Navigation.goBack()} />
+        <ScrollView style={{backgroundColor: '#000', height: '100%'}}>
           {buffer ? (
             [1, 2, 3].map(() => <CardSkeleton />)
           ) : (
@@ -293,7 +301,7 @@ const ReuseApproved = ({route}) => {
             </>
           )}
         </ScrollView>
-      </View>
+      </SafeAreaView>
     </>
   );
 };

@@ -1,198 +1,111 @@
 /* eslint-disable prettier/prettier */
 //import liraries
-import React, { Component, useContext, useEffect, useState } from 'react';
+import React, {Component, useContext, useEffect, useState} from 'react';
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
+  SafeAreaView,
   TouchableOpacity,
   TextInput,
   Image,
-  ToastAndroid,
 } from 'react-native';
+import Toast from 'react-native-root-toast';
 import Entypo from 'react-native-vector-icons/Entypo';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { launchImageLibrary } from 'react-native-image-picker';
+import {launchImageLibrary} from 'react-native-image-picker';
 import DocumentPicker from 'react-native-document-picker';
 import DatePicker from 'react-native-date-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import LinearGradient from 'react-native-linear-gradient';
-import { useForm, Controller } from 'react-hook-form';
+import {useForm, Controller} from 'react-hook-form';
 import moment from 'moment';
-import { AuthContext } from '../../Constants/context';
+import {AuthContext} from '../../Constants/context';
 
 import AppUrl from '../../RestApi/AppUrl';
 import axios from 'axios';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import LoaderComp from '../../Components/LoaderComp';
 import CustomHeader from '../../Components/CustomHeader';
 import TitleHeader from '../../Components/TitleHeader';
 
 // create a component
-const PersonalInfoForm = () => {
+const PersonalInfoForm = ({route}) => {
   const navigation = useNavigation();
-  const [date, setDate] = useState(new Date());
-  const [open, setOpen] = useState(false);
-  const { axiosConfig } = useContext(AuthContext);
-  const [timePicker, setTimePicker] = useState(false);
-  const [endTimePicker, setEndTimePicker] = useState(false);
-  const [imageLoad, setImageLoad] = useState(true);
-  const [time, setTime] = useState(new Date());
-  const [endTime, setEndTime] = useState(new Date());
-  const [picDate, setPicDate] = useState({
-    start: false,
-    end: false,
-  });
+  const {userInfo} = route.params;
+  console.log(userInfo);
 
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const [error, setError] = useState([]);
-  const [uploadStatus, setUploadStatus] = useState({
-    afterSubmit: false,
-    beforSubmit: false,
-  });
   const [buffer, setBuffer] = useState(false);
 
-  const {
-    control,
-
-    setValue,
-    formState: { errors, shouldValidate },
-  } = useForm({
-    defaultValues: {
-      title: '',
-      instruction: '',
-      description: '',
-      date: '',
-      start_time: '',
-      end_time: '',
-      registration_start_date: '',
-      registration_end_date: '',
-      fee: '',
-      max_time: '',
-      min_time: '',
-      interval: '',
-      image_path: '',
-    },
-  });
-
-
-
-  const [imageData, setImageData] = useState({
-    img: {
-      uri: '',
-      type: '',
-      name: '',
-      data: '',
-      oldImage: '',
-      for: '',
-    },
-  });
-
-
+  const [name, setName] = useState(
+    userInfo?.super_star?.first_name + ' ' + userInfo?.super_star?.last_name,
+  );
+  const [userName, setUserName] = useState(userInfo?.super_star?.username);
+  const [mail, setMail] = useState(userInfo?.super_star?.email);
+  const [phone, setPhone] = useState(userInfo?.super_star?.phone);
 
   return (
-    <>
+    <SafeAreaView>
       {buffer && <LoaderComp />}
       <CustomHeader backFunc={() => navigation.goBack()} />
-      <ScrollView style={styles.container}>
-        <TitleHeader title={'Personal Information'} />
-        <View style={styles.containerChild}>
-          <View style={{ padding: 12 }}>
-
-            <View>
+      <ScrollView style={{backgroundColor: 'black', height: '100%'}}>
+        <View style={styles.container}>
+          <TitleHeader title={'Personal Information'} />
+          <View style={styles.containerChild}>
+            <View style={{padding: 12}}>
               <View>
-                <Text style={styles.title}>
-                  Name</Text>
+                <View>
+                  <Text style={styles.title}>Name</Text>
+                </View>
+                <TextInput
+                  style={styles.createMeetupRow}
+                  placeholder="Mr. Shakib al Hasan"
+                  placeholderTextColor="#9e9e9e"
+                  value={name}
+                />
               </View>
-              <TextInput
-                style={styles.createMeetupRow}
-                placeholder="Mr. Shakib al Hasan"
-                placeholderTextColor="#9e9e9e"
-              />
-
-
-            </View>
-            <View>
               <View>
-                <Text style={styles.title}>
-
-                  User Name
-                </Text>
+                <View>
+                  <Text style={styles.title}>User Name</Text>
+                </View>
+                <TextInput
+                  style={styles.createMeetupRow}
+                  placeholder="Shakib"
+                  placeholderTextColor="#9e9e9e"
+                  value={userName}
+                />
               </View>
-              <TextInput
-                style={styles.createMeetupRow}
-                placeholder="Shakib"
-                placeholderTextColor="#9e9e9e"
-              />
-
-
-            </View>
-            <View>
               <View>
-                <Text style={styles.title}>
-
-                  Mail
-                </Text>
+                <View>
+                  <Text style={styles.title}>Mail</Text>
+                </View>
+                <TextInput
+                  style={styles.createMeetupRow}
+                  placeholder="Shakib@gmail.com"
+                  placeholderTextColor="#9e9e9e"
+                  value={mail}
+                />
               </View>
-              <TextInput
-                style={styles.createMeetupRow}
-                placeholder="Shakib@gmail.com"
-                placeholderTextColor="#9e9e9e"
-              />
 
-
-            </View>
-
-
-            <View>
               <View>
-                <Text style={styles.title}>
-
-                  Phone
-                </Text>
+                <View>
+                  <Text style={styles.title}>Phone</Text>
+                </View>
+                <TextInput
+                  style={styles.createMeetupRow}
+                  placeholder="01822421743"
+                  placeholderTextColor="#9e9e9e"
+                  value={phone}
+                />
               </View>
-              <TextInput
-                style={styles.createMeetupRow}
-                placeholder="01822421743"
-                placeholderTextColor="#9e9e9e"
-              />
-
-
             </View>
-
-
-            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-
-
-              <TouchableOpacity
-
-                style={styles.confirmBtn}>
-                <LinearGradient
-                  colors={['#E19A04', '#E7A725', '#FFAD55', '#FACF55']}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderRadius: 50,
-                  }}>
-                  <Text style={{ fontSize: 13, color: 'white' }}>Update</Text>
-                </LinearGradient>
-              </TouchableOpacity>
-            </View>
-
-
-
-
-
           </View>
         </View>
       </ScrollView>
-    </>
+    </SafeAreaView>
   );
 };
 
