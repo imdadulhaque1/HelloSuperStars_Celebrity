@@ -1,19 +1,14 @@
-import React, {
-  useRef,
-  useState,
-  useImperativeHandle,
-  forwardRef,
-} from "react";
+import React, {useRef, useState, useImperativeHandle, forwardRef} from 'react';
 import {
   View,
   Animated,
   TouchableOpacity,
   AlertIOS,
   Platform,
-  ToastAndroid,
-} from "react-native";
-import { Button } from "react-native-ui-lib";
-import { Colors } from "../styles";
+} from 'react-native';
+import Toast from 'react-native-root-toast';
+import {Button} from 'react-native-ui-lib';
+import {Colors} from '../styles';
 import {
   CallEnd,
   MicOn,
@@ -25,13 +20,13 @@ import {
   More,
   RaiseHand,
   ScreenShare,
-} from "../assets/icons";
-import MeetingControlsTouchable from "./MeetingControlsTouchable";
-import { useMeeting } from "@videosdk.live/react-native-sdk";
-import { TAB_COMPONENT_MODES } from "../scenes/meetingViewer";
+} from '../assets/icons';
+import MeetingControlsTouchable from './MeetingControlsTouchable';
+import {useMeeting} from '@videosdk.live/react-native-sdk';
+import {TAB_COMPONENT_MODES} from '../scenes/meetingViewer';
 
 const BottomMeetingViewer = forwardRef(
-  ({ setCurrentTabModes, currentTabModes, animeVal, exitMeeting }, ref) => {
+  ({setCurrentTabModes, currentTabModes, animeVal, exitMeeting}, ref) => {
     const [isVisibleMoreIcons, setisVisibleMoreIcons] = useState(false);
 
     const {
@@ -86,7 +81,7 @@ const BottomMeetingViewer = forwardRef(
       },
     }));
 
-    const AnimatedIcon = ({ Icon, onPress }) => {
+    const AnimatedIcon = ({Icon, onPress}) => {
       const height = moreIconContainerValRef.current.interpolate({
         inputRange: [0, 1],
         outputRange: [0, 40],
@@ -101,12 +96,11 @@ const BottomMeetingViewer = forwardRef(
             height,
             width,
             backgroundColor: Colors.WHITE,
-            justifyContent: "center",
-            alignItems: "center",
+            justifyContent: 'center',
+            alignItems: 'center',
             borderRadius: 6,
             marginVertical: 4,
-          }}
-        >
+          }}>
           <TouchableOpacity activeOpacity={1} onPress={onPress}>
             <Icon />
           </TouchableOpacity>
@@ -130,24 +124,21 @@ const BottomMeetingViewer = forwardRef(
               inputRange: [0, 1],
               outputRange: [0, 60],
             }),
-          }}
-        >
+          }}>
           <View
             style={{
-              flexDirection: "row",
-              justifyContent: "center",
+              flexDirection: 'row',
+              justifyContent: 'center',
               height: 60,
-            }}
-          >
+            }}>
             <Button
               size={Button.sizes.small}
               avoidMinWidth
               avoidInnerPadding
               borderRadius={8}
               onPress={exitMeeting}
-              style={{ height: 46, aspectRatio: 1, marginHorizontal: 8 }}
-              backgroundColor={Colors.RED}
-            >
+              style={{height: 46, aspectRatio: 1, marginHorizontal: 8}}
+              backgroundColor={Colors.RED}>
               <CallEnd height={30} width={30} fill="#FFF" />
             </Button>
             <MeetingControlsTouchable
@@ -155,7 +146,7 @@ const BottomMeetingViewer = forwardRef(
               outline
               outlineColor={Colors.WHITE_OPACITY_20}
               borderRadius={8}
-              bgColor={localMicOn ? Colors.WHITE_OPACITY_20 : "transparent"}
+              bgColor={localMicOn ? Colors.WHITE_OPACITY_20 : 'transparent'}
               onPress={toggleMic}
               Icon={() => {
                 return localMicOn ? (
@@ -169,7 +160,7 @@ const BottomMeetingViewer = forwardRef(
               outlineWidth={1}
               outline
               outlineColor={Colors.WHITE_OPACITY_20}
-              bgColor={localWebcamOn ? Colors.WHITE_OPACITY_20 : "transparent"}
+              bgColor={localWebcamOn ? Colors.WHITE_OPACITY_20 : 'transparent'}
               onPress={toggleWebcam}
               borderRadius={8}
               Icon={() => {
@@ -188,7 +179,7 @@ const BottomMeetingViewer = forwardRef(
                 setCurrentTabModes(TAB_COMPONENT_MODES.CHAT);
               }}
               borderRadius={8}
-              bgColor={"transparent"}
+              bgColor={'transparent'}
               Icon={() => {
                 return <ChatEnable fill={Colors.WHITE} />;
               }}
@@ -199,7 +190,7 @@ const BottomMeetingViewer = forwardRef(
               outlineColor={Colors.WHITE_OPACITY_20}
               onPress={toggleMoreIcons}
               borderRadius={8}
-              bgColor={isVisibleMoreIcons ? Colors.WHITE : "transparent"}
+              bgColor={isVisibleMoreIcons ? Colors.WHITE : 'transparent'}
               Icon={() => {
                 return isVisibleMoreIcons ? (
                   <Close height={20} width={20} fill={Colors.DARK_BACKGROUND} />
@@ -212,7 +203,7 @@ const BottomMeetingViewer = forwardRef(
         </Animated.View>
         <Animated.View
           style={{
-            position: "absolute",
+            position: 'absolute',
             height: moreIconContainerValRef.current.interpolate({
               inputRange: [0, 1],
               outputRange: [0, 40],
@@ -224,13 +215,12 @@ const BottomMeetingViewer = forwardRef(
               outputRange: [0, 130],
             }),
             flex: 1,
-            alignItems: "center",
+            alignItems: 'center',
             paddingLeft: 46 * 5.3,
-          }}
-        >
+          }}>
           <AnimatedIcon
             onPress={() => {
-              sendChatMessage(JSON.stringify({ type: "RAISE_HAND", data: {} }));
+              sendChatMessage(JSON.stringify({type: 'RAISE_HAND', data: {}}));
               toggleMoreIcons();
             }}
             Icon={() => {
@@ -242,52 +232,53 @@ const BottomMeetingViewer = forwardRef(
                       outputRange: [0, 24],
                     }),
                     aspectRatio: 1,
-                  }}
-                >
-                  <RaiseHand fill={"#212302"} />
+                  }}>
+                  <RaiseHand fill={'#212302'} />
                 </Animated.View>
               );
             }}
           />
-          {Platform.OS === "android" ? <AnimatedIcon
-            Icon={() => {
-              return (
-                <Animated.View
-                  style={{
-                    height: moreIconContainerValRef.current.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: [0, 28],
-                    }),
-                    aspectRatio: 1,
-                  }}
-                >
-                  <ScreenShare fill={"#212302"} />
-                </Animated.View>
-              );
-            }}
-            onPress={() => {
-              if (!!presenterId) {
-                const message = "Screen share is already running...";
-                if (Platform.OS === "android") {
-                  ToastAndroid.show(message, ToastAndroid.LONG);
+          {Platform.OS === 'android' ? (
+            <AnimatedIcon
+              Icon={() => {
+                return (
+                  <Animated.View
+                    style={{
+                      height: moreIconContainerValRef.current.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [0, 28],
+                      }),
+                      aspectRatio: 1,
+                    }}>
+                    <ScreenShare fill={'#212302'} />
+                  </Animated.View>
+                );
+              }}
+              onPress={() => {
+                if (!!presenterId) {
+                  const message = 'Screen share is already running...';
+                  if (Platform.OS === 'android') {
+                    Toast.show(message, Toast.LONG);
+                  } else {
+                    AlertIOS.alert(message);
+                  }
                 } else {
-                  AlertIOS.alert(message);
+                  if (Platform.OS === 'android') {
+                    toggleScreenShare();
+                    toggleMoreIcons();
+                  } else {
+                    AlertIOS.alert(
+                      'Currently Screen share feature is not supported in IOS',
+                    );
+                  }
                 }
-              } else {
-                if (Platform.OS === "android") {
-                  toggleScreenShare();
-                  toggleMoreIcons();
-                } else {
-                  AlertIOS.alert("Currently Screen share feature is not supported in IOS");
-                }
-
-              }
-            }}
-          /> : null}
+              }}
+            />
+          ) : null}
         </Animated.View>
       </>
     );
-  }
+  },
 );
 
 export default BottomMeetingViewer;

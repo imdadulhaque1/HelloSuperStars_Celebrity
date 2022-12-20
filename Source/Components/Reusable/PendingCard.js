@@ -8,11 +8,11 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  ToastAndroid,
   TouchableOpacity,
   useWindowDimensions,
   View,
 } from 'react-native';
+import Toast from 'react-native-root-toast';
 import DatePicker from 'react-native-date-picker';
 import {TextInput} from 'react-native-gesture-handler';
 import VideoPlayer from 'react-native-video-player';
@@ -51,7 +51,7 @@ const PendingCard = ({route}) => {
       .get(AppUrl.simplePostApprove + singlePost?.id, axiosConfig)
       .then(res => {
         if (res.data.status === 200) {
-          ToastAndroid.show('Post Approved Successfully', ToastAndroid.SHORT);
+          Toast.show('Post Approved Successfully', Toast.durations.SHORT);
           navigation.goBack();
           navigation.goBack();
         }
@@ -63,7 +63,7 @@ const PendingCard = ({route}) => {
       .get(AppUrl.simplePostDecline + singlePost?.id, axiosConfig)
       .then(res => {
         if (res.data.status === 200) {
-          ToastAndroid.show('Post Declined', ToastAndroid.SHORT);
+          Toast.show('Post Declined', Toast.durations.SHORT);
           navigation.goBack();
           navigation.goBack();
         }

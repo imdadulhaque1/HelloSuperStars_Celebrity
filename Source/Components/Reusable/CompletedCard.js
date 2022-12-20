@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   View,
   useWindowDimensions,
+  SafeAreaView,
 } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import {TextInput} from 'react-native-gesture-handler';

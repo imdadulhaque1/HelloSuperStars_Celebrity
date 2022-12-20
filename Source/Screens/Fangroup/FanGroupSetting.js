@@ -1,4 +1,5 @@
-import {StyleSheet, Text, View, ToastAndroid} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
+import Toast from 'react-native-root-toast';
 import React, {useContext, useState} from 'react';
 import {Picker} from '@react-native-picker/picker';
 import axios from 'axios';
@@ -17,7 +18,7 @@ export default function FanGroupSetting({joinFanGroup, postFanGroup, slug}) {
       .post(AppUrl.fanGroupJoinPermission + slug + '/' + itemValue, axiosConfig)
       .then(res => {
         if (res.status === 200) {
-          ToastAndroid.show('Changed', ToastAndroid.SHORT);
+          Toast.show('Changed', Toast.durations.SHORT);
         }
       })
       .catch(err => {
@@ -31,7 +32,7 @@ export default function FanGroupSetting({joinFanGroup, postFanGroup, slug}) {
       .post(AppUrl.fanGroupPostPermission + slug + '/' + itemValue, axiosConfig)
       .then(res => {
         if (res.status === 200) {
-          ToastAndroid.show('Changed', ToastAndroid.SHORT);
+          Toast.show('Changed', Toast.durations.SHORT);
         }
       })
       .catch(err => {

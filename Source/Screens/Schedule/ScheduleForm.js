@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 //import liraries
-import React, { Component, useContext, useEffect, useState } from 'react';
+import React, {Component, useContext, useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -9,30 +9,29 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
-  ToastAndroid,
   Alert,
 } from 'react-native';
-
-
+import Toast from 'react-native-root-toast';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { launchImageLibrary } from 'react-native-image-picker';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 import DatePicker from 'react-native-date-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import LinearGradient from 'react-native-linear-gradient';
-import { useForm, Controller } from 'react-hook-form';
+import {useForm, Controller} from 'react-hook-form';
 import moment from 'moment';
-import { AuthContext } from '../../Constants/context';
+import {AuthContext} from '../../Constants/context';
 
-
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import LoaderComp from '../../Components/LoaderComp';
-import { Picker } from '@react-native-picker/picker';
+import {Picker} from '@react-native-picker/picker';
 import CustomHeader from '../../Components/CustomHeader';
 import TitleHeader from '../../Components/TitleHeader';
+import axios from 'axios';
+import AppUrl from '../../RestApi/AppUrl';
 // create a component
-const ScheduleForm = () => {
+const ScheduleForm = ({route}) => {
   const navigation = useNavigation();
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
@@ -43,29 +42,17 @@ const ScheduleForm = () => {
   const [time, setTime] = useState(new Date());
   const [endTime, setEndTime] = useState(new Date());
   const [selectedLanguage, setSelectedLanguage] = useState();
-  const [scheduleDate, SetScheduleDate] = useState('')
+  const [scheduleDate, SetScheduleDate] = useState('');
 
-
+  const {setRefresh2} = route.params;
 
   const [buffer, setBuffer] = useState(false);
-
-  const [data, setData] = useState(
-    
-      {
-        eventType: '',
-        eventDate: '',
-        startTIme: '',
-        endTime: ''
-      }
-    
-  )
-
 
   const {
     control,
 
     setValue,
-    formState: { errors, shouldValidate },
+    formState: {errors, shouldValidate},
   } = useForm({
     defaultValues: {
       title: '',
@@ -85,7 +72,7 @@ const ScheduleForm = () => {
   });
 
   function onTimeSelected(event, value) {
-    setValue('start_time', moment(value).format('LT'), { required: true });
+    setValue('start_time', moment(value).format('LT'), {required: true});
     setTime(value);
     setTimePicker(false);
   }
@@ -93,76 +80,67 @@ const ScheduleForm = () => {
   function openEndTimeSelected(event, value) {
     console.log(value);
 
-    setValue('end_time', moment(value).format('LT'), { required: true });
+    setValue('end_time', moment(value).format('LT'), {required: true});
     setEndTime(value);
     setEndTimePicker(false);
   }
+  const {axiosConfig} = useContext(AuthContext);
 
   function handleSubmit() {
-    Alert.alert(
-      'Ary you sure want to create schedule?',
-      '',
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
+    Alert.alert('Ary you sure want to create schedule?', '', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {
+        text: 'Confirm',
+        onPress: () => {
+          console.log('===>', selectedLanguage);
+          console.log('===>', scheduleDate);
+          console.log('===>', time);
+          console.log('===>', endTime);
+
+          const dataForm = {
+            eventType: selectedLanguage,
+            eventDate: scheduleDate,
+            startTime: time,
+            endTime: endTime,
+          };
+          setBuffer(true);
+
+          console.log('current data is ===>', dataForm);
+          axios
+            .post(AppUrl.addSchedule, dataForm, axiosConfig)
+            .then(res => {
+              console.log(res.data);
+              if (res.data.status === 200) {
+                navigation.navigate('Schedule');
+                Toast.show('Added', Toast.durations.SHORT);
+                setBuffer(false);
+                setRefresh2(previous => (previous ? false : true));
+              }
+            })
+            .catch(err => {
+              console.log(err);
+            });
         },
-        {
-          text: "Confirm", onPress: () => {
-
-            console.log('===>', selectedLanguage);
-            console.log('===>', scheduleDate);
-            console.log('===>', time);
-            console.log('===>', endTime);
-
-setData(
-  {
-    eventType:selectedLanguage,
-    eventDate:scheduleDate,
-  startTIme:time,
-  endTime:endTime
+      },
+    ]);
   }
-)
-
-
-console.log('current data is ===>',data)
-
-            navigation.navigate('Schedule')
-
-          }
-        }
-      ]
-
-
-    )
-
-  }
-
-
 
   return (
     <>
       {buffer && <LoaderComp />}
-      <CustomHeader backFunc={() => navigation.goBack()} title='Schedule' />
+      <CustomHeader backFunc={() => navigation.goBack()} title="Schedule" />
 
       <ScrollView style={styles.container}>
-        <View style={{ marginHorizontal: 10 }}>
+        <View style={{marginHorizontal: 10}}>
           <TitleHeader title={'Create Schedule'} />
         </View>
         <View style={styles.containerChild}>
-          <View style={{ padding: 12 }}>
-
-
-
-
-
-
-
-
-
-
-            <View style={{ marginVertical: 10 }}>
+          <View style={{padding: 12}}>
+            <View style={{marginVertical: 10}}>
               <View>
                 <Text style={styles.title}>Event Type</Text>
               </View>
@@ -183,14 +161,13 @@ console.log('current data is ===>',data)
                   style={{
                     color: '#9e9e9e',
                   }}
-                  onValueChange={(itemValue) => setSelectedLanguage(itemValue)}
-                  selectedValue={selectedLanguage}
-
-
-
-                >
+                  onValueChange={itemValue => setSelectedLanguage(itemValue)}
+                  selectedValue={selectedLanguage}>
                   <Picker.Item label="Live chat" value="Live chat" />
-                  <Picker.Item label="Learning Session" value="Learning Session" />
+                  <Picker.Item
+                    label="Learning Session"
+                    value="Learning Session"
+                  />
                   <Picker.Item label="Meet Up Event" value="Meetup " />
                   <Picker.Item label="Qna" value="Qna" />
                 </Picker>
@@ -207,9 +184,8 @@ console.log('current data is ===>',data)
                 onConfirm={date => {
                   setDate(date);
                   setOpen(false);
-                  setValue('date', date, { required: true });
-                  SetScheduleDate(moment(date).format('LL'))
-
+                  setValue('date', date, {required: true});
+                  SetScheduleDate(moment(date).format('LL'));
                 }}
                 onCancel={() => {
                   setOpen(false);
@@ -219,7 +195,7 @@ console.log('current data is ===>',data)
                 onPress={() => setOpen(true)}
                 style={styles.createMeetupRow}>
                 <Text
-                  style={{ color: '#9e9e9e', marginHorizontal: 4, fontSize: 13 }}>
+                  style={{color: '#9e9e9e', marginHorizontal: 4, fontSize: 13}}>
                   {moment(date).format('LL')}
                 </Text>
                 <View>
@@ -230,45 +206,34 @@ console.log('current data is ===>',data)
                   />
                 </View>
               </TouchableOpacity>
-
             </View>
 
-
-
-
-
-
-
-            <View style={{ flexDirection: 'row', marginVertical: 8 }}>
-              <View style={{ flex: 1 }}>
+            <View style={{flexDirection: 'row', marginVertical: 8}}>
+              <View style={{flex: 1}}>
                 <Text style={styles.title}>Start Time</Text>
                 <TouchableOpacity
                   style={styles.uploadFileBtn}
                   onPress={() => setTimePicker(true)}>
                   <Text
-                    style={{ color: '#9e9e9e', paddingRight: 8, fontSize: 13 }}>
+                    style={{color: '#9e9e9e', paddingRight: 8, fontSize: 13}}>
                     {' '}
                     {moment(time).format('LT')}
                   </Text>
                   <AntDesign name="clockcircleo" color={'#ffaa00'} size={15} />
                 </TouchableOpacity>
-
-
               </View>
-              <View style={{ flex: 1 }}>
+              <View style={{flex: 1}}>
                 <Text style={styles.title}>End Time</Text>
                 <TouchableOpacity
                   style={styles.uploadFileBtn}
                   onPress={() => setEndTimePicker(true)}>
                   <Text
-                    style={{ color: '#9e9e9e', paddingRight: 8, fontSize: 13 }}>
+                    style={{color: '#9e9e9e', paddingRight: 8, fontSize: 13}}>
                     {' '}
                     {moment(endTime).format('LT')}
                   </Text>
                   <AntDesign name="clockcircleo" color={'#ffaa00'} size={15} />
                 </TouchableOpacity>
-
-
               </View>
             </View>
 
@@ -293,17 +258,11 @@ console.log('current data is ===>',data)
               />
             )}
 
-
-
-
-
-
-            <View style={{ flexDirection: 'row' }}>
+            <View style={{flexDirection: 'row'}}>
               <TouchableOpacity
-
                 style={styles.removeBtn}
                 onPress={() => navigation.goBack()}>
-                <Text style={{ fontSize: 13, color: 'white' }}>CANCEL</Text>
+                <Text style={{fontSize: 13, color: 'white'}}>CANCEL</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -318,7 +277,7 @@ console.log('current data is ===>',data)
                     alignItems: 'center',
                     borderRadius: 50,
                   }}>
-                  <Text style={{ fontSize: 13, color: 'white' }}>CONFIRM</Text>
+                  <Text style={{fontSize: 13, color: 'white'}}>CONFIRM</Text>
                 </LinearGradient>
               </TouchableOpacity>
             </View>

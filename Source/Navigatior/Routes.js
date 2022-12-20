@@ -2,21 +2,21 @@
 /* eslint-disable prettier/prettier */
 // In App.js in a new project
 
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, {useState, useEffect, useMemo, useRef} from 'react';
 // import { View, Text } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 // import Dashboard from '../Screens/Dashboard/Dashboard'
 import MainNavigationString from '../Constants/MainNavigationString';
 
 // import MainStack from './MainStack';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import TabRoutes from './TabRoutes';
 import CustomDrawer from '../Components/CustomDrawer/CustomDrawer';
 import AuthStack from './AuthStack';
-import { AuthContext } from '../Constants/context';
+import {AuthContext} from '../Constants/context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import linking from "../videoSdk/navigators/linking";
+import linking from '../videoSdk/navigators/linking';
 
 // Socket io
 import io from 'socket.io-client';
@@ -84,7 +84,7 @@ function Routes() {
           setLoading(false);
         }, 800);
       }
-    } catch (error) { }
+    } catch (error) {}
   };
 
   //token set
@@ -219,6 +219,7 @@ function Routes() {
       channelName: 'Test Channel',
     });
   };
+
   return (
     <AuthContext.Provider
       value={{
@@ -237,8 +238,7 @@ function Routes() {
       }}>
       <NavigationContainer linking={linking}>
         {isLogin ? (
-
-          <Stack.Navigator screenOptions={{headerShown:false}}>
+          <Stack.Navigator screenOptions={{headerShown: false}}>
             {/* <Drawer.Navigator
               screenOptions={{
                 headerStyle: {
@@ -261,7 +261,7 @@ function Routes() {
             {MainStack(Stack)}
           </Stack.Navigator>
         ) : (
-          <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Navigator screenOptions={{headerShown: false}}>
             {AuthStack(Stack)}
           </Stack.Navigator>
         )}

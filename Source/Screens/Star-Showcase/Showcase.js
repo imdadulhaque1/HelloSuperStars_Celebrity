@@ -2,7 +2,14 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useContext, useEffect, useState} from 'react';
 import styles from '../Dashboard/StylesHome';
-import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import imagePath from '../../Constants/imagePath';
 import MainNavigationString from '../../Constants/MainNavigationString';
@@ -31,9 +38,12 @@ const StarShowcase = () => {
   }, []);
 
   return (
-    <>
-        <CustomHeader title={'Star Showcase'} backFunc={()=>Navigation.goBack()} />
-      <ScrollView style={{backgroundColor: '#000', padding: 8}}>
+    <SafeAreaView>
+      <CustomHeader
+        title={'Star Showcase'}
+        backFunc={() => Navigation.goBack()}
+      />
+      <ScrollView style={{backgroundColor: '#000', padding: 8, height: '100%'}}>
         <View style={styles.container}>
           <View style={styles.superStarHome}>
             <TouchableOpacity
@@ -113,7 +123,7 @@ const StarShowcase = () => {
           </View>
         </View>
       </ScrollView>
-    </>
+    </SafeAreaView>
   );
 };
 

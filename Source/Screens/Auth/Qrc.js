@@ -10,8 +10,8 @@ import {
   TouchableOpacity,
   TextInput,
   ImageBackground,
-  ToastAndroid,
 } from 'react-native';
+import Toast from 'react-native-root-toast';
 import imagePath from '../../Constants/imagePath';
 import * as Animatable from 'react-native-animatable';
 import {useNavigation} from '@react-navigation/native';
@@ -51,18 +51,18 @@ const Qrc = () => {
         setBuffer(false);
         console.log(res);
         if (res.data.status === 200) {
-          ToastAndroid.show(res.data.message, ToastAndroid.SHORT);
+          Toast.show(res.data.message, Toast.durations.SHORT);
           navigation.navigate(AuthNavigationString.SIGNUP, {
             authId: res.data.star_id,
           });
         } else {
-          ToastAndroid.show(res.data.message, ToastAndroid.SHORT);
+          Toast.show(res.data.message, Toast.durations.SHORT);
         }
       })
       .catch(err => {
-        ToastAndroid.show(
+        Toast.show(
           'Network Problem, Check you Internet',
-          ToastAndroid.SHORT,
+          Toast.durations.SHORT,
         );
         setBuffer(false);
         console.log(err);
@@ -95,8 +95,7 @@ const Qrc = () => {
           <View style={styles.footer}>
             <Text style={styles.title}>Scan QR Code</Text>
             <Text style={styles.TextDes}>
-              Just one our letter then you can see a QR code, You just need scan
-              the QR code.
+              Please scan the QR code provided to you !
             </Text>
             <Text
               style={{
@@ -264,10 +263,10 @@ const styles = StyleSheet.create({
     height: 18,
   },
   TextDes: {
-    color: '#E2BC6C',
+    color: '#ffaa00',
     textAlign: 'center',
     paddingVertical: 1,
-    fontSize: 12,
+    fontSize: 13,
     paddingHorizontal: 20,
   },
   QRImg: {

@@ -139,10 +139,12 @@ const styles = StyleSheet.create({
 
   Left: {
     margin: 8,
+    marginLeft: 0,
+    flex: 1,
   },
 
   Text: {
-    fontSize: 18,
+    fontSize: 10,
     color: 'white',
     fontWeight: 'bold',
   },

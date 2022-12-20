@@ -1,6 +1,13 @@
 //import liraries
 import React, {useContext, useEffect, useState} from 'react';
-import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+  SafeAreaView,
+} from 'react-native';
 import styles from '../Dashboard/StylesHome';
 import LinearGradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
@@ -32,9 +39,9 @@ const Auction = ({navigation}) => {
   }, []);
 
   return (
-    <>
-    <CustomHeader backFunc={()=>navigation.goBack()} />
-      <ScrollView style={{backgroundColor: '#000', padding: 8}}>
+    <SafeAreaView>
+      <CustomHeader backFunc={() => navigation.goBack()} />
+      <ScrollView style={{backgroundColor: '#000', padding: 8, height: '100%'}}>
         <View style={styles.container}>
           <View style={styles.superStarHome}>
             <TouchableOpacity
@@ -182,7 +189,7 @@ const Auction = ({navigation}) => {
           </View>
         </View>
       </ScrollView>
-    </>
+    </SafeAreaView>
   );
 };
 

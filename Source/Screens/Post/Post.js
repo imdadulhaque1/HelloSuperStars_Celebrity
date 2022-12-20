@@ -4,11 +4,11 @@ import React, {useContext, useEffect, useState} from 'react';
 import styles from '../Dashboard/StylesHome';
 import {
   Image,
+  SafeAreaView,
   ScrollView,
   Text,
   TouchableOpacity,
   View,
-  SafeAreaView,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import imagePath from '../../Constants/imagePath';
@@ -43,7 +43,7 @@ const Post = () => {
   return (
     <SafeAreaView>
       <CustomHeader title="Post" backFunc={() => Navigation.goBack()} />
-      <ScrollView style={{backgroundColor: '#000', padding: 8}}>
+      <ScrollView style={{backgroundColor: '#000', padding: 8, height: '100%'}}>
         <View style={styles.container}>
           <View style={styles.superStarHome}>
             <TouchableOpacity

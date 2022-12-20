@@ -10,8 +10,8 @@ import {
   TouchableOpacity,
   TextInput,
   ImageBackground,
-  ToastAndroid,
 } from 'react-native';
+import Toast from 'react-native-root-toast';
 import imagePath from '../../Constants/imagePath';
 import * as Animatable from 'react-native-animatable';
 import {useNavigation} from '@react-navigation/native';
@@ -60,13 +60,13 @@ const Otp = ({route}) => {
         if (res.data.status === 200 && res.data.auth_type === 'star') {
         } else {
           setBuffer(false);
-          ToastAndroid.show('OTP not match !', ToastAndroid.SHORT);
+          Toast.show('OTP not match !', Toast.durations.SHORT);
         }
       })
       .catch(err => {
-        ToastAndroid.show(
+        Toast.show(
           'Network Problem, Check you Internet',
-          ToastAndroid.SHORT,
+          Toast.durations.SHORT,
         );
         setBuffer(false);
         console.log(err);

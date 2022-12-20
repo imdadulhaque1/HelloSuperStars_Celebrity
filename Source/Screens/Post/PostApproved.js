@@ -5,6 +5,7 @@
 import {
   Dimensions,
   Image,
+  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -62,9 +63,8 @@ const PostApproved = ({route}) => {
   }, [deadline]);
 
   return (
-    <>
+    <SafeAreaView>
       <View style={styles.container}>
-      
         <ScrollView>
           <View style={{backgroundColor: '#000', flex: 1}}>
             <Animatable.View
@@ -546,7 +546,7 @@ const PostApproved = ({route}) => {
           </View>
         </ScrollView>
       </View>
-    </>
+    </SafeAreaView>
   );
 };
 

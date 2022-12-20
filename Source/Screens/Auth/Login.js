@@ -1,7 +1,7 @@
 //import liraries
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
-import React, { useContext, useState } from 'react';
+import React, {useContext, useState} from 'react';
 import {
   Dimensions,
   Image,
@@ -9,17 +9,17 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  ToastAndroid,
   TouchableOpacity,
   View,
 } from 'react-native';
+import Toast from 'react-native-root-toast';
 import * as Animatable from 'react-native-animatable';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import LoaderComp from '../../Components/LoaderComp';
 import AppUrl from '../../RestApi/AppUrl';
-import { AuthContext } from '../../Constants/context';
+import {AuthContext} from '../../Constants/context';
 import imagePath from '../../Constants/imagePath';
 import LinearGradient from 'react-native-linear-gradient';
 // import AppUrl from '../../RestApi/AppUrl';
@@ -28,7 +28,7 @@ import LinearGradient from 'react-native-linear-gradient';
 const Login = () => {
   const navigation = useNavigation();
   const windowWidth = Dimensions.get('window').width;
-  const { authContext } = useContext(AuthContext);
+  const {authContext} = useContext(AuthContext);
   const [email, setEmail] = useState(null);
   const [pass, setPass] = useState(null);
   const [buffer, setBuffer] = useState(false);
@@ -58,9 +58,9 @@ const Login = () => {
           }
         })
         .catch(err => {
-          ToastAndroid.show(
+          Toast.show(
             'Network Problem, Check you Internet',
-            ToastAndroid.SHORT,
+            Toast.durations.SHORT,
           );
           setBuffer(false);
           console.log(err);
@@ -92,13 +92,15 @@ const Login = () => {
               iterationCount="infinite"
               // duration="1500"
               source={imagePath.logo}
-              style={{ height: 150, width: 150, marginBottom: 40 }}
+              style={{height: 150, width: 150, marginBottom: 40}}
             />
           </View>
 
           <Animatable.View style={styles.footerBody} animation="slideInUp">
             <View style={styles.footer}>
-              <Text style={styles.title}>Welcome To{'\n'}Hello Super Star</Text>
+              <Text style={styles.title}>
+                Welcome To{'\n'}Hello Super Stars
+              </Text>
 
               <View style={styles.InputZ}>
                 {/* email input */}
@@ -116,7 +118,7 @@ const Login = () => {
                     onChangeText={newText => setEmail(newText)}
                   />
                 </View>
-                <Text style={{ color: 'red', marginLeft: 25 }}>{error}</Text>
+                <Text style={{color: 'red', marginLeft: 25}}>{error}</Text>
 
                 {/* password input */}
                 <View style={styles.input}>
@@ -152,14 +154,10 @@ const Login = () => {
               {/* button */}
 
               <View style={styles.Login_btn_container}>
-
-
-
-                <TouchableOpacity onPress={() => HandelLogin()} >
-
+                <TouchableOpacity onPress={() => HandelLogin()}>
                   <LinearGradient
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 0 }}
+                    start={{x: 0, y: 0}}
+                    end={{x: 1, y: 0}}
                     colors={[
                       '#FFAD00',
                       '#FFD273',
@@ -168,34 +166,13 @@ const Login = () => {
                       '#E7A725',
                       '#FFAD00',
                     ]}
-
-                    style={styles.login_btn}
-                  >
-                    <View
-
-                    >
+                    style={styles.login_btn}>
+                    <View>
                       <Text style={styles.input_title}>LOGIN</Text>
                     </View>
-
-
                   </LinearGradient>
-
                 </TouchableOpacity>
-
-
-
-
-
-
-
-
-
-
               </View>
-
-
-
-
             </View>
           </Animatable.View>
         </ImageBackground>
@@ -306,12 +283,11 @@ const styles = StyleSheet.create({
   },
 
   login_btn: {
-
     borderWidth: 1,
 
     borderRadius: 10,
     paddingHorizontal: 20,
-width:300,
+    width: 300,
     paddingVertical: 10,
     borderRadius: 10,
     alignItems: 'center',

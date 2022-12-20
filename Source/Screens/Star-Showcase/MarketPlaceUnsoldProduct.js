@@ -145,10 +145,12 @@ const styles = StyleSheet.create({
 
   Left: {
     margin: 8,
+    marginLeft: 0,
+    flex: 1,
   },
 
   Text: {
-    fontSize: 25,
+    fontSize: 20,
     color: 'white',
     fontWeight: 'bold',
   },

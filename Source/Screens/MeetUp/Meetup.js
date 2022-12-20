@@ -2,7 +2,14 @@
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 import React, {useContext, useEffect, useState} from 'react';
-import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
 import CustomHeader from '../../Components/CustomHeader';
@@ -33,9 +40,9 @@ const Meetup = () => {
   }, [refresh]);
 
   return (
-    <>
-    <CustomHeader backFunc={()=>Navigation.goBack()} title='Meet up' />
-      <ScrollView style={{backgroundColor: '#000', padding: 8}}>
+    <SafeAreaView>
+      <CustomHeader backFunc={() => Navigation.goBack()} title="Meet up" />
+      <ScrollView style={{backgroundColor: '#000', padding: 8, height: '100%'}}>
         <View style={styles.container}>
           <View style={styles.superStarHome}>
             <TouchableOpacity
@@ -266,7 +273,7 @@ const Meetup = () => {
           </View> */}
         </View>
       </ScrollView>
-    </>
+    </SafeAreaView>
   );
 };
 
