@@ -1,4 +1,11 @@
-import {Image, ScrollView, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Image,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
 import styles from './styles';
 import ApprovedImg from '../../Assets/notification/approved.png';
@@ -21,52 +28,53 @@ export default function Notification({navigation}) {
     });
   }, [socketData]);
   return (
-    <>
-    <CustomHeader backFunc={()=>navigation.goBack()} title='Notification' />
-    <ScrollView style={{backgroundColor: '#000', paddingHorizontal: 5}}>
-      <View style={{flex: 1, marginVertical: 10}}>
-        {notification?.pendingMarketplace?.length > 0 &&
-          notification?.pendingMarketplace.map(data => {
-            return <NotificationComp data={data} type="Marketplace" />;
-          })}
-        {notification?.pendingLiveChat?.length > 0 &&
-          notification?.pendingLiveChat.map(data => {
-            return <NotificationComp data={data} type="Live Chat" />;
-          })}
-        {notification?.pendingLearningSessions?.length > 0 &&
-          notification?.pendingLearningSessions.map(data => {
-            return <NotificationComp data={data} type="Learning Session" />;
-          })}
-        {notification?.pendingQna?.length > 0 &&
-          notification?.pendingQna.map(data => {
-            return <NotificationComp data={data} type="Qna" />;
-          })}
-        {notification?.pendingMeetupEvent?.length > 0 &&
-          notification?.pendingMeetupEvent.map(data => {
-            return <NotificationComp data={data} type="Meetup" />;
-          })}
-        {notification?.pendingPost?.length > 0 &&
-          notification?.pendingPost.map(data => {
-            return <NotificationComp data={data} type="Post" />;
-          })}
-        {notification?.pendingGreeting?.length > 0 &&
-          notification?.pendingGreeting.map(data => {
-            return <NotificationComp data={data} type="Greeting" />;
-          })}
-        {notification?.pendingFanGroup?.length > 0 &&
-          notification?.pendingFanGroup.map(data => {
-            return <NotificationComp data={data} type="FanGroup" />;
-          })}
-        {notification?.pendingAuction?.length > 0 &&
-          notification?.pendingAuction.map(data => {
-            return <NotificationComp data={data} type="auction" />;
-          })}
-        {notification?.pendingSouvenir?.length > 0 &&
-          notification?.pendingSouvenir.map(data => {
-            return <NotificationComp data={data} type="souvenir" />;
-          })}
-      </View>
-    </ScrollView>
-    </>
+    <SafeAreaView>
+      <CustomHeader backFunc={() => navigation.goBack()} title="Notification" />
+      <ScrollView
+        style={{backgroundColor: '#000', paddingHorizontal: 5, height: '100%'}}>
+        <View style={{flex: 1, marginVertical: 10}}>
+          {notification?.pendingMarketplace?.length > 0 &&
+            notification?.pendingMarketplace.map(data => {
+              return <NotificationComp data={data} type="Marketplace" />;
+            })}
+          {notification?.pendingLiveChat?.length > 0 &&
+            notification?.pendingLiveChat.map(data => {
+              return <NotificationComp data={data} type="Live Chat" />;
+            })}
+          {notification?.pendingLearningSessions?.length > 0 &&
+            notification?.pendingLearningSessions.map(data => {
+              return <NotificationComp data={data} type="Learning Session" />;
+            })}
+          {notification?.pendingQna?.length > 0 &&
+            notification?.pendingQna.map(data => {
+              return <NotificationComp data={data} type="Qna" />;
+            })}
+          {notification?.pendingMeetupEvent?.length > 0 &&
+            notification?.pendingMeetupEvent.map(data => {
+              return <NotificationComp data={data} type="Meetup" />;
+            })}
+          {notification?.pendingPost?.length > 0 &&
+            notification?.pendingPost.map(data => {
+              return <NotificationComp data={data} type="Post" />;
+            })}
+          {notification?.pendingGreeting?.length > 0 &&
+            notification?.pendingGreeting.map(data => {
+              return <NotificationComp data={data} type="Greeting" />;
+            })}
+          {notification?.pendingFanGroup?.length > 0 &&
+            notification?.pendingFanGroup.map(data => {
+              return <NotificationComp data={data} type="FanGroup" />;
+            })}
+          {notification?.pendingAuction?.length > 0 &&
+            notification?.pendingAuction.map(data => {
+              return <NotificationComp data={data} type="auction" />;
+            })}
+          {notification?.pendingSouvenir?.length > 0 &&
+            notification?.pendingSouvenir.map(data => {
+              return <NotificationComp data={data} type="souvenir" />;
+            })}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
