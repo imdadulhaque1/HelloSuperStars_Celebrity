@@ -8,6 +8,7 @@ import {
   Image,
   TouchableOpacity,
   ImageBackground,
+  SafeAreaView,
 } from 'react-native';
 import Toast from 'react-native-root-toast';
 import imagePath from '../../Constants/imagePath';
@@ -15,6 +16,7 @@ import * as Animatable from 'react-native-animatable';
 import {useNavigation} from '@react-navigation/native';
 import AuthNavigationString from '../../Constants/AuthNavigationString';
 import LinearGradient from 'react-native-linear-gradient';
+import {ScrollView} from 'react-native-gesture-handler';
 
 // create a component
 const CelebrityAuth = () => {
@@ -22,81 +24,73 @@ const CelebrityAuth = () => {
   const windowWidth = Dimensions.get('window').width;
 
   return (
-    <>
-      <ImageBackground
-        source={imagePath.background}
-        resizeMode="cover"
-        style={
-          windowWidth > 600 ? styles.containerWideScreen : styles.container
-        }>
-        <Image
-          source={imagePath.Top}
-          style={windowWidth > 600 ? styles.containerTop : styles.Top}
-        />
+    <SafeAreaView style={{flex: 1, backgroundColor: '#000'}}>
+      <ScrollView style={{flex: 1}}>
+        <ImageBackground
+          source={imagePath.background}
+          resizeMode="cover"
+          style={styles.container}>
+          <Image source={imagePath.Top} style={styles.ImgExtra} />
+          <View
+            style={{
+              flex: 1,
+              justifyContent: 'center',
+              // backgroundColor: 'pink',
+            }}>
+            <View style={styles.header}>
+              <Animatable.Image
+                animation="pulse"
+                iterationCount="infinite"
+                source={imagePath.logo}
+                style={{height: 180, width: 180}}
+              />
+            </View>
 
-        <View style={styles.header}>
-          <Animatable.Image
-            animation="pulse"
-            iterationCount="infinite" // duration="1500" source={imagePath.logo}
-            style={{height: 150, width: 150, marginTop: -80}}
-          />
-        </View>
+            <Animatable.View
+              animation="slideInUp"
+              style={styles.Auth_btn_container}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate(AuthNavigationString.QRC)}>
+                <LinearGradient
+                  start={{x: 0, y: 0}}
+                  end={{x: 1, y: 0}}
+                  colors={[
+                    '#FFAD00',
+                    '#FFD273',
+                    '#E19A04',
+                    '#FACF75',
+                    '#E7A725',
+                    '#FFAD00',
+                  ]}
+                  style={styles.AuthBtn}>
+                  <Text style={styles.AuthTitle}>Register</Text>
+                </LinearGradient>
+              </TouchableOpacity>
 
-        <View style={styles.header}>
-          <Animatable.Image
-            animation="pulse"
-            iterationCount="infinite" // duration="1500"
-            source={imagePath.logo}
-            style={{height: 140, width: 140, marginTop: -250}}
-          />
-        </View>
-
-        <Animatable.View style={styles.footer} animation="slideInUp">
-          <View style={styles.Auth_btn_container}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate(AuthNavigationString.QRC)}>
-              <LinearGradient
-                start={{x: 0, y: 0}}
-                end={{x: 1, y: 0}}
-                colors={[
-                  '#FFAD00',
-                  '#FFD273',
-                  '#E19A04',
-                  '#FACF75',
-                  '#E7A725',
-                  '#FFAD00',
-                ]}
-                style={styles.AuthBtn}>
-                <Text style={styles.AuthTitle}>Register</Text>
-              </LinearGradient>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() => navigation.navigate(AuthNavigationString.LOGIN)}>
-              <LinearGradient
-                start={{x: 0, y: 0}}
-                end={{x: 1, y: 0}}
-                colors={[
-                  '#FFAD00',
-                  '#FFD273',
-                  '#E19A04',
-                  '#FACF75',
-                  '#E7A725',
-                  '#FFAD00',
-                ]}
-                style={styles.AuthBtn}>
-                <Text style={styles.AuthTitle}>Log in</Text>
-              </LinearGradient>
-            </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigation.navigate(AuthNavigationString.LOGIN)}>
+                <LinearGradient
+                  start={{x: 0, y: 0}}
+                  end={{x: 1, y: 0}}
+                  colors={[
+                    '#FFAD00',
+                    '#FFD273',
+                    '#E19A04',
+                    '#FACF75',
+                    '#E7A725',
+                    '#FFAD00',
+                  ]}
+                  style={styles.AuthBtn}>
+                  <Text style={styles.AuthTitle}>Log in</Text>
+                </LinearGradient>
+              </TouchableOpacity>
+            </Animatable.View>
           </View>
-        </Animatable.View>
 
-        <Image
-          source={imagePath.Bottom}
-          style={windowWidth > 600 ? styles.containerTop : styles.Bottom}
-        />
-      </ImageBackground>
-    </>
+          <Image source={imagePath.Bottom} style={styles.bottomImg} />
+        </ImageBackground>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -105,14 +99,20 @@ const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#000',
     height: windowHeight,
-    backgroundColor: 'black',
+  },
+  ImgExtra: {
+    resizeMode: 'stretch',
+    width: '100%',
+    height: 180,
+    position: 'absolute',
   },
   Icon: {
     marginTop: 8,
   },
   containerWideScreen: {
-    flex: 1,
+    // flex: 1,
     height: windowHeight,
     paddingHorizontal: 150,
   },
@@ -121,30 +121,26 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    flex: 2,
+    // backgroundColor:'red',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  footer: {
-    flex: 3,
-
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    // paddingVertical: 50,
-    // paddingHorizontal: 30,
+    // flex: 0.4,
+    // backgroundColor: 'pink',
   },
 
   Auth_btn_container: {
-    marginTop: 10,
-    justifyContent: 'center',
-    flex: 1,
+    // justifyContent: 'center',
+
+    // flex: 1,
+    // backgroundColor: 'gold',
     alignItems: 'center',
+    marginTop: 20,
   },
 
   AuthBtn: {
     // backgroundColor: '#D4AF37',
     borderWidth: 1,
-    width: 270,
+    width: 200,
 
     // borderColor: "#D4AF37",
     borderRadius: 10,
@@ -157,7 +153,13 @@ const styles = StyleSheet.create({
   AuthTitle: {
     color: 'black',
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 18,
+  },
+  bottomImg: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    height: 180,
   },
 });
 

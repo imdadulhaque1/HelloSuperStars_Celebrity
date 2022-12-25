@@ -6,10 +6,10 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  SafeAreaView,
   TouchableOpacity,
   TextInput,
   Image,
+  SafeAreaView,
 } from 'react-native';
 import Toast from 'react-native-root-toast';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -48,59 +48,57 @@ const PersonalInfoForm = ({route}) => {
   const [phone, setPhone] = useState(userInfo?.super_star?.phone);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex:1,backgroundColor:'#000'}}>
       {buffer && <LoaderComp />}
       <CustomHeader backFunc={() => navigation.goBack()} />
-      <ScrollView style={{backgroundColor: 'black', height: '100%'}}>
-        <View style={styles.container}>
-          <TitleHeader title={'Personal Information'} />
-          <View style={styles.containerChild}>
-            <View style={{padding: 12}}>
+      <ScrollView style={styles.container}>
+        <TitleHeader title={'Personal Information'} />
+        <View style={styles.containerChild}>
+          <View style={{padding: 12}}>
+            <View>
               <View>
-                <View>
-                  <Text style={styles.title}>Name</Text>
-                </View>
-                <TextInput
-                  style={styles.createMeetupRow}
-                  placeholder="Mr. Shakib al Hasan"
-                  placeholderTextColor="#9e9e9e"
-                  value={name}
-                />
+                <Text style={styles.title}>Name</Text>
               </View>
+              <TextInput
+                style={styles.createMeetupRow}
+                placeholder="Mr. Shakib al Hasan"
+                placeholderTextColor="#9e9e9e"
+                value={name}
+              />
+            </View>
+            <View>
               <View>
-                <View>
-                  <Text style={styles.title}>User Name</Text>
-                </View>
-                <TextInput
-                  style={styles.createMeetupRow}
-                  placeholder="Shakib"
-                  placeholderTextColor="#9e9e9e"
-                  value={userName}
-                />
+                <Text style={styles.title}>User Name</Text>
               </View>
+              <TextInput
+                style={styles.createMeetupRow}
+                placeholder="Shakib"
+                placeholderTextColor="#9e9e9e"
+                value={userName}
+              />
+            </View>
+            <View>
               <View>
-                <View>
-                  <Text style={styles.title}>Mail</Text>
-                </View>
-                <TextInput
-                  style={styles.createMeetupRow}
-                  placeholder="Shakib@gmail.com"
-                  placeholderTextColor="#9e9e9e"
-                  value={mail}
-                />
+                <Text style={styles.title}>Mail</Text>
               </View>
+              <TextInput
+                style={styles.createMeetupRow}
+                placeholder="Shakib@gmail.com"
+                placeholderTextColor="#9e9e9e"
+                value={mail}
+              />
+            </View>
 
+            <View>
               <View>
-                <View>
-                  <Text style={styles.title}>Phone</Text>
-                </View>
-                <TextInput
-                  style={styles.createMeetupRow}
-                  placeholder="01822421743"
-                  placeholderTextColor="#9e9e9e"
-                  value={phone}
-                />
+                <Text style={styles.title}>Phone</Text>
               </View>
+              <TextInput
+                style={styles.createMeetupRow}
+                placeholder="01822421743"
+                placeholderTextColor="#9e9e9e"
+                value={phone}
+              />
             </View>
           </View>
         </View>

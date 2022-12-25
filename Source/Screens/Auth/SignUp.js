@@ -9,6 +9,7 @@ import {
   TextInput,
   Dimensions,
   ScrollView,
+  SafeAreaView,
   Image,
 } from 'react-native';
 import imagePath from '../../Constants/imagePath';
@@ -80,223 +81,228 @@ const SignUp = ({route}) => {
   };
 
   return (
-    <KeyboardAwareScrollView>
-      <>
-        {buffer ? <LoaderComp /> : <></>}
-        <ScrollView>
-          <ImageBackground
-            style={
-              windowWidth > 600 ? styles.containerWideScreen : styles.container
-            }
-            source={imagePath.background}
-            resizeMode="cover">
-            <Image
-              source={imagePath.Top}
-              style={windowWidth > 600 ? styles.containerTop : styles.Top}
-            />
-            <View style={styles.header}>
-              <Animatable.Image
-                animation="zoomIn"
-                // duration="1500"
-
-                source={imagePath.logo}
-                style={{height: 150, width: 150, marginTop: -280}}
+    <SafeAreaView style={{backgroundColor: 'black'}}>
+      <KeyboardAwareScrollView>
+        <>
+          {buffer ? <LoaderComp /> : <></>}
+          <ScrollView>
+            <ImageBackground
+              style={
+                windowWidth > 600
+                  ? styles.containerWideScreen
+                  : styles.container
+              }
+              source={imagePath.background}
+              resizeMode="cover">
+              <Image
+                source={imagePath.Top}
+                style={windowWidth > 600 ? styles.containerTop : styles.Top}
               />
-            </View>
+              <View style={styles.header}>
+                <Animatable.Image
+                  animation="zoomIn"
+                  // duration="1500"
 
-            <Animatable.View style={styles.footerBody} animation="slideInUp">
-              <View style={styles.footer}>
-                <Text style={styles.title}>Registration</Text>
-                <View style={styles.InputZ}>
-                  {/* email input  */}
-                  <View style={styles.input}>
-                    <Entypo
-                      name="email"
-                      color={'#D4AF37'}
-                      size={20}
-                      style={styles.Icon}
-                    />
-                    <Controller
-                      control={control}
-                      rules={{
-                        required: true,
-                        pattern: {
-                          value:
-                            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                          message: 'Please enter a valid email',
-                        },
-                      }}
-                      render={({field: {onChange, onBlur, value}}) => (
-                        <TextInput
-                          onBlur={onBlur}
-                          onChangeText={onChange}
-                          value={value}
-                          placeholderTextColor="#9e9e9e"
-                          placeholder="Your Email"
-                          style={styles.input_fild}
-                        />
-                      )}
-                      name="email"
-                    />
-                  </View>
-                  {errors.email && (
-                    <Text style={{color: 'red', marginLeft: 25}}>
-                      {errors.email?.type === 'pattern'
-                        ? 'provide valid email'
-                        : 'This field is required !'}
-                    </Text>
-                  )}
+                  source={imagePath.logo}
+                  style={{height: 150, width: 150, marginTop: -280}}
+                />
+              </View>
 
-                  {serverError?.email && (
-                    <Text style={{color: 'red', marginLeft: 25, marginTop: 10}}>
-                      {serverError?.email}
-                    </Text>
-                  )}
+              <Animatable.View style={styles.footerBody} animation="slideInUp">
+                <View style={styles.footer}>
+                  <Text style={styles.title}>Registration</Text>
+                  <View style={styles.InputZ}>
+                    {/* email input  */}
+                    <View style={styles.input}>
+                      <Entypo
+                        name="email"
+                        color={'#D4AF37'}
+                        size={20}
+                        style={styles.Icon}
+                      />
+                      <Controller
+                        control={control}
+                        rules={{
+                          required: true,
+                          pattern: {
+                            value:
+                              /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                            message: 'Please enter a valid email',
+                          },
+                        }}
+                        render={({field: {onChange, onBlur, value}}) => (
+                          <TextInput
+                            onBlur={onBlur}
+                            onChangeText={onChange}
+                            value={value}
+                            placeholderTextColor="#9e9e9e"
+                            placeholder="Your Email"
+                            style={styles.input_fild}
+                          />
+                        )}
+                        name="email"
+                      />
+                    </View>
+                    {errors.email && (
+                      <Text style={{color: 'red', marginLeft: 25}}>
+                        {errors.email?.type === 'pattern'
+                          ? 'provide valid email'
+                          : 'This field is required !'}
+                      </Text>
+                    )}
 
-                  {/* password input  */}
-                  <View style={styles.input}>
-                    <Icon
-                      name="phone"
-                      color={'#D4AF37'}
-                      size={20}
-                      style={styles.Icon}
-                    />
-                    <Controller
-                      control={control}
-                      rules={{
-                        required: true,
-                        pattern: {
-                          value:
-                            /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
-                          message: 'Please enter a valid phone number',
-                        },
-                      }}
-                      render={({field: {onChange, onBlur, value}}) => (
-                        <TextInput
-                          onBlur={onBlur}
-                          onChangeText={onChange}
-                          value={value}
-                          placeholderTextColor="#9e9e9e"
-                          placeholder="Your Phone Number"
-                          style={styles.input_fild}
-                        />
-                      )}
-                      name="phone"
-                    />
-                  </View>
-                  {errors.phone && (
-                    <Text style={{color: 'red', marginLeft: 25}}>
-                      {errors.phone?.type === 'pattern'
-                        ? 'provide valid phone number'
-                        : 'This field is required !'}
-                    </Text>
-                  )}
-                  {serverError?.phone && (
-                    <Text style={{color: 'red', marginLeft: 25, marginTop: 10}}>
-                      {serverError?.phone}
-                    </Text>
-                  )}
+                    {serverError?.email && (
+                      <Text
+                        style={{color: 'red', marginLeft: 25, marginTop: 10}}>
+                        {serverError?.email}
+                      </Text>
+                    )}
 
-                  {/* password input  */}
-                  <View style={styles.input}>
-                    <Icon
-                      name="lock"
-                      color={'#D4AF37'}
-                      size={20}
-                      style={styles.Icon}
-                    />
-                    <Controller
-                      control={control}
-                      rules={{
-                        required: true,
-                        minLength: {
-                          value: 5,
-                          message: ', Min length is 5',
-                        },
-                        maxLength: {
-                          value: 10,
-                          message: ', Max length is 10',
-                        },
-                      }}
-                      render={({field: {onChange, onBlur, value}}) => (
-                        <TextInput
-                          onBlur={onBlur}
-                          onChangeText={onChange}
-                          value={value}
-                          placeholderTextColor="#9e9e9e"
-                          placeholder="password"
-                          secureTextEntry={showPass}
-                          style={styles.input_fild}
-                        />
-                      )}
-                      name="password"
-                    />
-                    <TouchableOpacity
-                      style={styles.password}
-                      onPress={() => setShowPass(!showPass)}>
-                      {showPass ? (
-                        <Entypo
-                          name="eye-with-line"
-                          size={20}
-                          color={'#D4AF37'}
-                        />
-                      ) : (
-                        <Entypo name="eye" size={20} color={'#D4AF37'} />
-                      )}
-                    </TouchableOpacity>
-                  </View>
-                  {errors.password && (
-                    <Text style={{color: 'red', marginLeft: 25}}>
-                      This field is required {errors.password.message}
-                    </Text>
-                  )}
-                  <View style={styles.input}>
-                    <Icon
-                      name="lock"
-                      color={'#D4AF37'}
-                      size={20}
-                      style={styles.Icon}
-                    />
-                    <Controller
-                      control={control}
-                      rules={{
-                        required: true,
-                        minLength: {
-                          value: 5,
-                          message: ', Min length is 5',
-                        },
-                        maxLength: {
-                          value: 10,
-                          message: ', Max length is 10',
-                        },
-                      }}
-                      render={({field: {onChange, onBlur, value}}) => (
-                        <TextInput
-                          onBlur={onBlur}
-                          onChangeText={onChange}
-                          value={value}
-                          placeholderTextColor="#9e9e9e"
-                          placeholder="confirm password "
-                          secureTextEntry={showConPass}
-                          style={styles.input_fild}
-                        />
-                      )}
-                      name="cpassword"
-                    />
-                    <TouchableOpacity
-                      style={styles.password}
-                      onPress={() => setShowConPass(!showConPass)}>
-                      {showConPass ? (
-                        <Entypo
-                          name="eye-with-line"
-                          size={20}
-                          color={'#D4AF37'}
-                        />
-                      ) : (
-                        <Entypo name="eye" size={20} color={'#D4AF37'} />
-                      )}
-                    </TouchableOpacity>
-                    {/* <TouchableOpacity style={styles.password}
+                    {/* password input  */}
+                    <View style={styles.input}>
+                      <Icon
+                        name="phone"
+                        color={'#D4AF37'}
+                        size={20}
+                        style={styles.Icon}
+                      />
+                      <Controller
+                        control={control}
+                        rules={{
+                          required: true,
+                          pattern: {
+                            value:
+                              /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im,
+                            message: 'Please enter a valid phone number',
+                          },
+                        }}
+                        render={({field: {onChange, onBlur, value}}) => (
+                          <TextInput
+                            onBlur={onBlur}
+                            onChangeText={onChange}
+                            value={value}
+                            placeholderTextColor="#9e9e9e"
+                            placeholder="Your Phone Number"
+                            style={styles.input_fild}
+                          />
+                        )}
+                        name="phone"
+                      />
+                    </View>
+                    {errors.phone && (
+                      <Text style={{color: 'red', marginLeft: 25}}>
+                        {errors.phone?.type === 'pattern'
+                          ? 'provide valid phone number'
+                          : 'This field is required !'}
+                      </Text>
+                    )}
+                    {serverError?.phone && (
+                      <Text
+                        style={{color: 'red', marginLeft: 25, marginTop: 10}}>
+                        {serverError?.phone}
+                      </Text>
+                    )}
+
+                    {/* password input  */}
+                    <View style={styles.input}>
+                      <Icon
+                        name="lock"
+                        color={'#D4AF37'}
+                        size={20}
+                        style={styles.Icon}
+                      />
+                      <Controller
+                        control={control}
+                        rules={{
+                          required: true,
+                          minLength: {
+                            value: 5,
+                            message: ', Min length is 5',
+                          },
+                          maxLength: {
+                            value: 10,
+                            message: ', Max length is 10',
+                          },
+                        }}
+                        render={({field: {onChange, onBlur, value}}) => (
+                          <TextInput
+                            onBlur={onBlur}
+                            onChangeText={onChange}
+                            value={value}
+                            placeholderTextColor="#9e9e9e"
+                            placeholder="password"
+                            secureTextEntry={showPass}
+                            style={styles.input_fild}
+                          />
+                        )}
+                        name="password"
+                      />
+                      <TouchableOpacity
+                        style={styles.password}
+                        onPress={() => setShowPass(!showPass)}>
+                        {showPass ? (
+                          <Entypo
+                            name="eye-with-line"
+                            size={20}
+                            color={'#D4AF37'}
+                          />
+                        ) : (
+                          <Entypo name="eye" size={20} color={'#D4AF37'} />
+                        )}
+                      </TouchableOpacity>
+                    </View>
+                    {errors.password && (
+                      <Text style={{color: 'red', marginLeft: 25}}>
+                        This field is required {errors.password.message}
+                      </Text>
+                    )}
+                    <View style={styles.input}>
+                      <Icon
+                        name="lock"
+                        color={'#D4AF37'}
+                        size={20}
+                        style={styles.Icon}
+                      />
+                      <Controller
+                        control={control}
+                        rules={{
+                          required: true,
+                          minLength: {
+                            value: 5,
+                            message: ', Min length is 5',
+                          },
+                          maxLength: {
+                            value: 10,
+                            message: ', Max length is 10',
+                          },
+                        }}
+                        render={({field: {onChange, onBlur, value}}) => (
+                          <TextInput
+                            onBlur={onBlur}
+                            onChangeText={onChange}
+                            value={value}
+                            placeholderTextColor="#9e9e9e"
+                            placeholder="confirm password "
+                            secureTextEntry={showConPass}
+                            style={styles.input_fild}
+                          />
+                        )}
+                        name="cpassword"
+                      />
+                      <TouchableOpacity
+                        style={styles.password}
+                        onPress={() => setShowConPass(!showConPass)}>
+                        {showConPass ? (
+                          <Entypo
+                            name="eye-with-line"
+                            size={20}
+                            color={'#D4AF37'}
+                          />
+                        ) : (
+                          <Entypo name="eye" size={20} color={'#D4AF37'} />
+                        )}
+                      </TouchableOpacity>
+                      {/* <TouchableOpacity style={styles.password}
             onPress={() => setShowPass(!showPass)}
         >
             {showPass ?
@@ -305,35 +311,36 @@ const SignUp = ({route}) => {
                 <Entypo name='eye' size={20} color={'#D4AF37'} />
             }
         </TouchableOpacity> */}
-                  </View>
-                  {notmatched && (
-                    <Text style={{color: 'red', marginLeft: 25}}>
-                      Password not matched
-                    </Text>
-                  )}
-                  {errors.cpassword && (
-                    <Text style={{color: 'red', marginLeft: 25}}>
-                      This field is required {errors.cpassword.message}
-                    </Text>
-                  )}
+                    </View>
+                    {notmatched && (
+                      <Text style={{color: 'red', marginLeft: 25}}>
+                        Password not matched
+                      </Text>
+                    )}
+                    {errors.cpassword && (
+                      <Text style={{color: 'red', marginLeft: 25}}>
+                        This field is required {errors.cpassword.message}
+                      </Text>
+                    )}
 
-                  {/* button */}
-                  <View style={styles.Login_btn_container}>
-                    <TouchableOpacity
-                      style={styles.login_btn}
-                      onPress={handleSubmit(onSubmit)}
-                      //  onPress={() => navigation.navigate(navigationStrings.OTP)}
-                    >
-                      <Text style={styles.input_title}>Next</Text>
-                    </TouchableOpacity>
+                    {/* button */}
+                    <View style={styles.Login_btn_container}>
+                      <TouchableOpacity
+                        style={styles.login_btn}
+                        onPress={handleSubmit(onSubmit)}
+                        //  onPress={() => navigation.navigate(navigationStrings.OTP)}
+                      >
+                        <Text style={styles.input_title}>Next</Text>
+                      </TouchableOpacity>
+                    </View>
                   </View>
                 </View>
-              </View>
-            </Animatable.View>
-          </ImageBackground>
-        </ScrollView>
-      </>
-    </KeyboardAwareScrollView>
+              </Animatable.View>
+            </ImageBackground>
+          </ScrollView>
+        </>
+      </KeyboardAwareScrollView>
+    </SafeAreaView>
   );
 };
 

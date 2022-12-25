@@ -6,11 +6,11 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  SafeAreaView,
   TouchableOpacity,
   TextInput,
   Image,
   Alert,
+  SafeAreaView,
 } from 'react-native';
 import Toast from 'react-native-root-toast';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -204,356 +204,307 @@ const MeetUpCreateForm = ({route}) => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex:1,backgroundColor:'#000'}}>
       <CustomHeader backFunc={() => navigation.goBack()} />
       {buffer && <LoaderComp />}
-      <ScrollView style={{backgroundColor: 'black', height: '100%'}}>
-        <View style={styles.container}>
-          <View style={styles.containerChild}>
-            <View style={{padding: 12}}>
-              {/* <View style={styles.createPostRow}>
+      <ScrollView style={styles.container}>
+        <View style={styles.containerChild}>
+          <View style={{padding: 12}}>
+            {/* <View style={styles.createPostRow}>
             <Text style={{color: '#fff'}}>Learning Session Title</Text>
           </View> */}
 
-              <View style={{flexDirection: 'row', paddingHorizontal: 5}}>
-                <TouchableOpacity
-                  style={
-                    meetupType ? styles.removeBtn2 : styles.removeBtnActive
-                  }
-                  onPress={() => {
-                    setMeetupType(false);
-                    setValue('meetup_type', 'Online', {required: true});
-                  }}>
-                  <View style={{marginHorizontal: 2}}>
-                    <MaterialIcons
-                      name="online-prediction"
-                      color={meetupType ? '#ffaa00' : '#fff'}
-                      size={22}
-                    />
-                  </View>
-                  <View>
-                    <Text style={{fontSize: 13, color: 'white'}}>online</Text>
-                  </View>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                  style={
-                    !meetupType ? styles.removeBtn2 : styles.removeBtnActive
-                  }
-                  onPress={() => {
-                    setMeetupType(true);
-                    setValue('meetup_type', 'Offline', {required: true});
-                  }}>
-                  <View style={{marginHorizontal: 2}}>
-                    <Icon
-                      name="group"
-                      color={!meetupType ? '#ffaa00' : '#fff'}
-                      size={20}
-                    />
-                  </View>
-                  <View>
-                    <Text style={{fontSize: 13, color: 'white'}}>offline</Text>
-                  </View>
-                </TouchableOpacity>
-              </View>
-
-              {/* title start */}
-              <View style={{marginTop: 20}}>
-                <View>
-                  <Text style={styles.title}>Event Name</Text>
-                </View>
-                <Controller
-                  control={control}
-                  rules={{
-                    required: true,
-                  }}
-                  render={({field: {onChange, onBlur, value}}) => (
-                    <TextInput
-                      style={styles.createMeetupRow}
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value}
-                      placeholder="Enter event name"
-                      placeholderTextColor="#9e9e9e"
-                    />
-                  )}
-                  name="title"
-                />
-                {errors.title && (
-                  <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
-                    This is required.
-                  </Text>
-                )}
-              </View>
-              {/* title end */}
-
-              {/* Description start */}
-              <View style={{marginVertical: 8}}>
-                <View>
-                  <Text style={styles.title}>Description</Text>
-                </View>
-
-                <Controller
-                  control={control}
-                  rules={{
-                    required: true,
-                  }}
-                  render={({field: {onChange, onBlur, value}}) => (
-                    <TextInput
-                      style={styles.createPostDescription}
-                      multiline={true}
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value}
-                      placeholder="Write Description"
-                      placeholderTextColor={'#9e9e9e'}
-                    />
-                  )}
-                  name="description"
-                />
-                {errors.description && (
-                  <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
-                    This is required.
-                  </Text>
-                )}
-              </View>
-              {/* discription end */}
-
-              {/* instruction start */}
-              <View style={{marginVertical: 8}}>
-                <View>
-                  <Text style={styles.title}>Instruction</Text>
-                </View>
-
-                <Controller
-                  control={control}
-                  rules={{
-                    required: true,
-                  }}
-                  render={({field: {onChange, onBlur, value}}) => (
-                    <TextInput
-                      style={styles.createPostDescription}
-                      multiline={true}
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value}
-                      placeholder="Write Instruction"
-                      placeholderTextColor={'#9e9e9e'}
-                    />
-                  )}
-                  name="instruction"
-                />
-                {errors.instruction && (
-                  <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
-                    This is required.
-                  </Text>
-                )}
-              </View>
-              {/* instruction end */}
-
-              {/* Event Date Started  */}
-              <View style={{marginVertical: 8}}>
-                <View>
-                  <Text style={styles.title}>Event Date</Text>
-                </View>
-
-                <DatePicker
-                  mode="date"
-                  modal
-                  open={open}
-                  date={date}
-                  onConfirm={date => {
-                    setDate(date);
-                    setOpen(false);
-                    setValue('event_date', date, {required: true});
-                  }}
-                  onCancel={() => {
-                    setOpen(false);
-                  }}
-                />
-                <TouchableOpacity
-                  onPress={() => setOpen(true)}
-                  style={styles.createMeetupRow}>
-                  <Text
-                    style={{
-                      color: '#9e9e9e',
-                      marginHorizontal: 4,
-                      fontSize: 13,
-                    }}>
-                    {moment(date).format('LL')}
-                  </Text>
-                  <View>
-                    <MaterialIcons
-                      name="date-range"
-                      color={'#ffaa00'}
-                      size={15}
-                    />
-                  </View>
-                </TouchableOpacity>
-              </View>
-
-              {/* start date */}
-              <DatePicker
-                mode="date"
-                modal
-                open={picDate.start}
-                date={startDate}
-                onConfirm={date => {
-                  setStartDate(date);
-                  setPicDate({start: false});
-                  setValue('reg_start_date', date, {required: true});
-                }}
-                onCancel={() => {}}
-              />
-
-              {/* end data */}
-
-              <DatePicker
-                mode="date"
-                modal
-                open={picDate.end}
-                date={endDate}
-                onConfirm={date => {
-                  setEndDate(date);
-                  setPicDate({end: false});
-                  setValue('reg_end_date', date, {required: true});
-                }}
-                onCancel={() => {}}
-              />
-
-              <View style={{flexDirection: 'row', marginVertical: 8}}>
-                <View style={{flex: 1}}>
-                  <Text style={styles.title}>Registaion Start Date</Text>
-                  <TouchableOpacity
-                    style={styles.uploadFileBtn}
-                    onPress={() => setPicDate({start: true, end: false})}>
-                    <Text
-                      style={{color: '#9e9e9e', paddingRight: 8, fontSize: 13}}>
-                      {' '}
-                      {moment(startDate).format('LL')}
-                    </Text>
-
-                    <MaterialIcons
-                      name="date-range"
-                      color={'#ffaa00'}
-                      size={15}
-                    />
-                  </TouchableOpacity>
-                </View>
-                <View style={{flex: 1}}>
-                  <Text style={styles.title}>Registaion End Date</Text>
-                  <TouchableOpacity
-                    style={styles.uploadFileBtn}
-                    onPress={() => setPicDate({end: true, start: false})}>
-                    <Text
-                      style={{color: '#9e9e9e', paddingRight: 8, fontSize: 13}}>
-                      {' '}
-                      {moment(endDate).format('LL')}
-                    </Text>
-                    <MaterialIcons
-                      name="date-range"
-                      color={'#ffaa00'}
-                      size={15}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-
-              <View style={{flexDirection: 'row', marginVertical: 8}}>
-                <View style={{flex: 1}}>
-                  <Text style={styles.title}>Start Time</Text>
-                  <TouchableOpacity
-                    style={styles.uploadFileBtn}
-                    onPress={() => setTimePicker(true)}>
-                    <Text
-                      style={{color: '#9e9e9e', paddingRight: 8, fontSize: 13}}>
-                      {' '}
-                      {moment(time).format('LT')}
-                    </Text>
-                    <AntDesign
-                      name="clockcircleo"
-                      color={'#ffaa00'}
-                      size={15}
-                    />
-                  </TouchableOpacity>
-                </View>
-                <View style={{flex: 1}}>
-                  <Text style={styles.title}>End Time</Text>
-                  <TouchableOpacity
-                    style={styles.uploadFileBtn}
-                    onPress={() => setEndTimePicker(true)}>
-                    <Text
-                      style={{color: '#9e9e9e', paddingRight: 8, fontSize: 13}}>
-                      {' '}
-                      {moment(endTime).format('LT')}
-                    </Text>
-                    <AntDesign
-                      name="clockcircleo"
-                      color={'#ffaa00'}
-                      size={15}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-
-              {timePicker && (
-                <DateTimePicker
-                  value={time}
-                  mode="time"
-                  open={timePicker}
-                  display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-                  is24Hour={false}
-                  onChange={onTimeSelected}
-                />
-              )}
-
-              {endTimePicker && (
-                <DateTimePicker
-                  value={endTime}
-                  mode="time"
-                  display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-                  is24Hour={false}
-                  onChange={openEndTimeSelected}
-                />
-              )}
-
-              {/* venue started  */}
-              {meetupType && (
-                <View style={{marginVertical: 8}}>
-                  <View>
-                    <Text style={styles.title}>Venue</Text>
-                  </View>
-                  {/* <Text style={styles.title}>Fee per Minute (TK)</Text> */}
-                  <Controller
-                    control={control}
-                    rules={{
-                      required: true,
-                    }}
-                    render={({field: {onChange, onBlur, value}}) => (
-                      <TextInput
-                        style={styles.createMeetupRow}
-                        keyboardType="number-pad"
-                        onBlur={onBlur}
-                        onChangeText={onChange}
-                        value={value}
-                        placeholder="Enter Venue"
-                        placeholderTextColor={'#9e9e9e'}
-                      />
-                    )}
-                    name="venue"
+            <View style={{flexDirection: 'row', paddingHorizontal: 5}}>
+              <TouchableOpacity
+                style={meetupType ? styles.removeBtn2 : styles.removeBtnActive}
+                onPress={() => {
+                  setMeetupType(false);
+                  setValue('meetup_type', 'Online', {required: true});
+                }}>
+                <View style={{marginHorizontal: 2}}>
+                  <MaterialIcons
+                    name="online-prediction"
+                    color={meetupType ? '#ffaa00' : '#fff'}
+                    size={22}
                   />
-                  {errors.venue && (
-                    <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
-                      This is required.
-                    </Text>
-                  )}
                 </View>
-              )}
-              {/* venue ended  */}
+                <View>
+                  <Text style={{fontSize: 13, color: 'white'}}>online</Text>
+                </View>
+              </TouchableOpacity>
 
+              <TouchableOpacity
+                style={!meetupType ? styles.removeBtn2 : styles.removeBtnActive}
+                onPress={() => {
+                  setMeetupType(true);
+                  setValue('meetup_type', 'Offline', {required: true});
+                }}>
+                <View style={{marginHorizontal: 2}}>
+                  <Icon
+                    name="group"
+                    color={!meetupType ? '#ffaa00' : '#fff'}
+                    size={20}
+                  />
+                </View>
+                <View>
+                  <Text style={{fontSize: 13, color: 'white'}}>offline</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+
+            {/* title start */}
+            <View style={{marginTop: 20}}>
+              <View>
+                <Text style={styles.title}>Event Name</Text>
+              </View>
+              <Controller
+                control={control}
+                rules={{
+                  required: true,
+                }}
+                render={({field: {onChange, onBlur, value}}) => (
+                  <TextInput
+                    style={styles.createMeetupRow}
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    placeholder="Enter event name"
+                    placeholderTextColor="#9e9e9e"
+                  />
+                )}
+                name="title"
+              />
+              {errors.title && (
+                <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
+                  This is required.
+                </Text>
+              )}
+            </View>
+            {/* title end */}
+
+            {/* Description start */}
+            <View style={{marginVertical: 8}}>
+              <View>
+                <Text style={styles.title}>Description</Text>
+              </View>
+
+              <Controller
+                control={control}
+                rules={{
+                  required: true,
+                }}
+                render={({field: {onChange, onBlur, value}}) => (
+                  <TextInput
+                    style={styles.createPostDescription}
+                    multiline={true}
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    placeholder="Write Description"
+                    placeholderTextColor={'#9e9e9e'}
+                  />
+                )}
+                name="description"
+              />
+              {errors.description && (
+                <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
+                  This is required.
+                </Text>
+              )}
+            </View>
+            {/* discription end */}
+
+            {/* instruction start */}
+            <View style={{marginVertical: 8}}>
+              <View>
+                <Text style={styles.title}>Instruction</Text>
+              </View>
+
+              <Controller
+                control={control}
+                rules={{
+                  required: true,
+                }}
+                render={({field: {onChange, onBlur, value}}) => (
+                  <TextInput
+                    style={styles.createPostDescription}
+                    multiline={true}
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    placeholder="Write Instruction"
+                    placeholderTextColor={'#9e9e9e'}
+                  />
+                )}
+                name="instruction"
+              />
+              {errors.instruction && (
+                <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
+                  This is required.
+                </Text>
+              )}
+            </View>
+            {/* instruction end */}
+
+            {/* Event Date Started  */}
+            <View style={{marginVertical: 8}}>
+              <View>
+                <Text style={styles.title}>Event Date</Text>
+              </View>
+
+              <DatePicker
+                mode="date"
+                modal
+                open={open}
+                date={date}
+                onConfirm={date => {
+                  setDate(date);
+                  setOpen(false);
+                  setValue('event_date', date, {required: true});
+                }}
+                onCancel={() => {
+                  setOpen(false);
+                }}
+              />
+              <TouchableOpacity
+                onPress={() => setOpen(true)}
+                style={styles.createMeetupRow}>
+                <Text
+                  style={{color: '#9e9e9e', marginHorizontal: 4, fontSize: 13}}>
+                  {moment(date).format('LL')}
+                </Text>
+                <View>
+                  <MaterialIcons
+                    name="date-range"
+                    color={'#ffaa00'}
+                    size={15}
+                  />
+                </View>
+              </TouchableOpacity>
+            </View>
+
+            {/* start date */}
+            <DatePicker
+              mode="date"
+              modal
+              open={picDate.start}
+              date={startDate}
+              onConfirm={date => {
+                setStartDate(date);
+                setPicDate({start: false});
+                setValue('reg_start_date', date, {required: true});
+              }}
+              onCancel={() => {}}
+            />
+
+            {/* end data */}
+
+            <DatePicker
+              mode="date"
+              modal
+              open={picDate.end}
+              date={endDate}
+              onConfirm={date => {
+                setEndDate(date);
+                setPicDate({end: false});
+                setValue('reg_end_date', date, {required: true});
+              }}
+              onCancel={() => {}}
+            />
+
+            <View style={{flexDirection: 'row', marginVertical: 8}}>
+              <View style={{flex: 1}}>
+                <Text style={styles.title}>Registaion Start Date</Text>
+                <TouchableOpacity
+                  style={styles.uploadFileBtn}
+                  onPress={() => setPicDate({start: true, end: false})}>
+                  <Text
+                    style={{color: '#9e9e9e', paddingRight: 8, fontSize: 13}}>
+                    {' '}
+                    {moment(startDate).format('LL')}
+                  </Text>
+
+                  <MaterialIcons
+                    name="date-range"
+                    color={'#ffaa00'}
+                    size={15}
+                  />
+                </TouchableOpacity>
+              </View>
+              <View style={{flex: 1}}>
+                <Text style={styles.title}>Registaion End Date</Text>
+                <TouchableOpacity
+                  style={styles.uploadFileBtn}
+                  onPress={() => setPicDate({end: true, start: false})}>
+                  <Text
+                    style={{color: '#9e9e9e', paddingRight: 8, fontSize: 13}}>
+                    {' '}
+                    {moment(endDate).format('LL')}
+                  </Text>
+                  <MaterialIcons
+                    name="date-range"
+                    color={'#ffaa00'}
+                    size={15}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            <View style={{flexDirection: 'row', marginVertical: 8}}>
+              <View style={{flex: 1}}>
+                <Text style={styles.title}>Start Time</Text>
+                <TouchableOpacity
+                  style={styles.uploadFileBtn}
+                  onPress={() => setTimePicker(true)}>
+                  <Text
+                    style={{color: '#9e9e9e', paddingRight: 8, fontSize: 13}}>
+                    {' '}
+                    {moment(time).format('LT')}
+                  </Text>
+                  <AntDesign name="clockcircleo" color={'#ffaa00'} size={15} />
+                </TouchableOpacity>
+              </View>
+              <View style={{flex: 1}}>
+                <Text style={styles.title}>End Time</Text>
+                <TouchableOpacity
+                  style={styles.uploadFileBtn}
+                  onPress={() => setEndTimePicker(true)}>
+                  <Text
+                    style={{color: '#9e9e9e', paddingRight: 8, fontSize: 13}}>
+                    {' '}
+                    {moment(endTime).format('LT')}
+                  </Text>
+                  <AntDesign name="clockcircleo" color={'#ffaa00'} size={15} />
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            {timePicker && (
+              <DateTimePicker
+                value={time}
+                mode="time"
+                open={timePicker}
+                display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                is24Hour={false}
+                onChange={onTimeSelected}
+              />
+            )}
+
+            {endTimePicker && (
+              <DateTimePicker
+                value={endTime}
+                mode="time"
+                display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                is24Hour={false}
+                onChange={openEndTimeSelected}
+              />
+            )}
+
+            {/* venue started  */}
+            {meetupType && (
               <View style={{marginVertical: 8}}>
                 <View>
-                  <Text style={styles.title}>Slots</Text>
+                  <Text style={styles.title}>Venue</Text>
                 </View>
                 {/* <Text style={styles.title}>Fee per Minute (TK)</Text> */}
                 <Controller
@@ -568,144 +519,170 @@ const MeetUpCreateForm = ({route}) => {
                       onBlur={onBlur}
                       onChangeText={onChange}
                       value={value}
-                      placeholder="Enter slot"
+                      placeholder="Enter Venue"
                       placeholderTextColor={'#9e9e9e'}
                     />
                   )}
-                  name="slots"
+                  name="venue"
                 />
-                {errors.slots && (
+                {errors.venue && (
                   <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
                     This is required.
                   </Text>
                 )}
               </View>
+            )}
+            {/* venue ended  */}
 
-              {/* file uplad start */}
+            <View style={{marginVertical: 8}}>
               <View>
-                <Text style={styles.title}>Upload Banner</Text>
+                <Text style={styles.title}>Slots</Text>
               </View>
+              {/* <Text style={styles.title}>Fee per Minute (TK)</Text> */}
+              <Controller
+                control={control}
+                rules={{
+                  required: true,
+                }}
+                render={({field: {onChange, onBlur, value}}) => (
+                  <TextInput
+                    style={styles.createMeetupRow}
+                    keyboardType="number-pad"
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    placeholder="Enter slot"
+                    placeholderTextColor={'#9e9e9e'}
+                  />
+                )}
+                name="slots"
+              />
+              {errors.slots && (
+                <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
+                  This is required.
+                </Text>
+              )}
+            </View>
 
-              <View>
-                {/* <TouchableOpacity
+            {/* file uplad start */}
+            <View>
+              <Text style={styles.title}>Upload Banner</Text>
+            </View>
+
+            <View>
+              {/* <TouchableOpacity
               style={styles.uploadFileBtn}
               onPress={openDocumentFile}>
               <FontAwesome5 name="file-export" color={'#ffaa00'} size={15} />
               <Text style={{ color: '#9e9e9e', paddingLeft: 8, fontSize: 13 }}>Upload File</Text>
             </TouchableOpacity> */}
-                {imageData.uri != '' ? (
-                  <View style={{margin: 5}}>
-                    <Image
-                      source={{uri: imageData.uri}}
-                      style={{height: 130, width: '100%', borderRadius: 10}}
-                    />
-                    {imageLoad && (
-                      <View
+              {imageData.uri != '' ? (
+                <View style={{margin: 5}}>
+                  <Image
+                    source={{uri: imageData.uri}}
+                    style={{height: 130, width: '100%', borderRadius: 10}}
+                  />
+                  {imageLoad && (
+                    <View
+                      style={{
+                        position: 'absolute',
+                        bottom: 10,
+                        right: 10,
+                        flexDirection: 'row',
+                      }}>
+                      <TouchableOpacity
                         style={{
-                          position: 'absolute',
-                          bottom: 10,
-                          right: 10,
-                          flexDirection: 'row',
-                        }}>
-                        <TouchableOpacity
-                          style={{
-                            marginLeft: 10,
-                            backgroundColor: '#0000006b',
-                            padding: 10,
-                            borderRadius: 10,
-                          }}
-                          onPress={cameraOrGallery}>
-                          <Entypo name="ccw" size={25} color="#ffffffc0" />
-                        </TouchableOpacity>
-                      </View>
-                    )}
-                    {uploadStatus.beforSubmit && (
-                      <Text
-                        style={{
-                          color: 'red',
-                          position: 'absolute',
                           marginLeft: 10,
-                          top: 2,
-                        }}>
-                        Please upload Image first !
-                      </Text>
-                    )}
-                  </View>
-                ) : (
-                  <>
-                    <TouchableOpacity
-                      style={styles.uploadFileBtn}
-                      onPress={cameraOrGallery}>
-                      <Entypo name="video-camera" color={'#ffaa00'} size={15} />
-                      <Text
-                        style={{
-                          color: '#9e9e9e',
-                          paddingLeft: 8,
-                          fontSize: 13,
-                        }}>
-                        Upload Image
-                      </Text>
-                    </TouchableOpacity>
-                    {uploadStatus.beforSubmit && (
-                      <Text
-                        style={{color: 'red', marginLeft: 10, marginTop: -7}}>
-                        Please upload Image first !
-                      </Text>
-                    )}
-                  </>
-                )}
-              </View>
-              {/* file uplad end */}
-
-              <View style={{marginVertical: 8}}>
-                <Controller
-                  control={control}
-                  rules={{
-                    required: true,
-                  }}
-                  render={({field: {onChange, onBlur, value}}) => (
-                    <TextInput
-                      style={styles.createMeetupRow}
-                      keyboardType="number-pad"
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value}
-                      placeholder="Enter Fee"
-                      placeholderTextColor={'#9e9e9e'}
-                    />
+                          backgroundColor: '#0000006b',
+                          padding: 10,
+                          borderRadius: 10,
+                        }}
+                        onPress={cameraOrGallery}>
+                        <Entypo name="ccw" size={25} color="#ffffffc0" />
+                      </TouchableOpacity>
+                    </View>
                   )}
-                  name="fee"
-                />
-                {errors.fee && (
-                  <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
-                    {errors.fee}
-                  </Text>
+                  {uploadStatus.beforSubmit && (
+                    <Text
+                      style={{
+                        color: 'red',
+                        position: 'absolute',
+                        marginLeft: 10,
+                        top: 2,
+                      }}>
+                      Please upload Image first !
+                    </Text>
+                  )}
+                </View>
+              ) : (
+                <>
+                  <TouchableOpacity
+                    style={styles.uploadFileBtn}
+                    onPress={cameraOrGallery}>
+                    <Entypo name="video-camera" color={'#ffaa00'} size={15} />
+                    <Text
+                      style={{color: '#9e9e9e', paddingLeft: 8, fontSize: 13}}>
+                      Upload Image
+                    </Text>
+                  </TouchableOpacity>
+                  {uploadStatus.beforSubmit && (
+                    <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
+                      Please upload Image first !
+                    </Text>
+                  )}
+                </>
+              )}
+            </View>
+            {/* file uplad end */}
+
+            <View style={{marginVertical: 8}}>
+              <Controller
+                control={control}
+                rules={{
+                  required: true,
+                }}
+                render={({field: {onChange, onBlur, value}}) => (
+                  <TextInput
+                    style={styles.createMeetupRow}
+                    keyboardType="number-pad"
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    placeholder="Enter Fee"
+                    placeholderTextColor={'#9e9e9e'}
+                  />
                 )}
-              </View>
+                name="fee"
+              />
+              {errors.fee && (
+                <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
+                  {errors.fee}
+                </Text>
+              )}
+            </View>
 
-              <View style={{flexDirection: 'row'}}>
-                <TouchableOpacity
-                  style={styles.removeBtn}
-                  onPress={() => navigation.goBack()}>
-                  <Text style={{fontSize: 13, color: 'white'}}>CANCEL</Text>
-                </TouchableOpacity>
+            <View style={{flexDirection: 'row'}}>
+              <TouchableOpacity
+                style={styles.removeBtn}
+                onPress={() => navigation.goBack()}>
+                <Text style={{fontSize: 13, color: 'white'}}>CANCEL</Text>
+              </TouchableOpacity>
 
-                <TouchableOpacity
-                  onPress={handleSubmit(onSubmit)}
-                  style={styles.confirmBtn}>
-                  <LinearGradient
-                    colors={['#E19A04', '#E7A725', '#FFAD55', '#FACF55']}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      borderRadius: 50,
-                    }}>
-                    <Text style={{fontSize: 13, color: 'white'}}>CONFIRM</Text>
-                  </LinearGradient>
-                </TouchableOpacity>
-              </View>
+              <TouchableOpacity
+                onPress={handleSubmit(onSubmit)}
+                style={styles.confirmBtn}>
+                <LinearGradient
+                  colors={['#E19A04', '#E7A725', '#FFAD55', '#FACF55']}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: 50,
+                  }}>
+                  <Text style={{fontSize: 13, color: 'white'}}>CONFIRM</Text>
+                </LinearGradient>
+              </TouchableOpacity>
             </View>
           </View>
         </View>

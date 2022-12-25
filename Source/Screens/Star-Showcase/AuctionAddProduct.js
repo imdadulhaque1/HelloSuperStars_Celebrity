@@ -8,9 +8,9 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
-  SafeAreaView,
   Image,
   Alert,
+  SafeAreaView,
 } from 'react-native';
 import Toast from 'react-native-root-toast';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -242,505 +242,485 @@ const AuctionAddProduct = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex:1,backgroundColor:'#000'}}>
       <CustomHeader backFunc={() => navigation.goBack()} />
       {buffer && <LoaderComp />}
-      <ScrollView style={{backgroundColor: 'black', height: '100%'}}>
-        <View style={styles.container}>
-          <View style={styles.containerChild}>
-            <View style={{padding: 12}}>
-              {/* <View style={styles.createPostRow}>
+      <ScrollView style={styles.container}>
+        <View style={styles.containerChild}>
+          <View style={{padding: 12}}>
+            {/* <View style={styles.createPostRow}>
             <Text style={{color: '#fff'}}>Learning Session Title</Text>
           </View> */}
 
-              {/* title start */}
+            {/* title start */}
+            <View>
               <View>
-                <View>
-                  <Text style={styles.title}>Title</Text>
-                </View>
-                <Controller
-                  control={control}
-                  rules={{
-                    required: true,
-                  }}
-                  render={({field: {onChange, onBlur, value}}) => (
-                    <TextInput
-                      style={styles.createMeetupRow}
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value}
-                      placeholder="Enter Title"
-                      placeholderTextColor="#9e9e9e"
-                    />
-                  )}
-                  name="title"
-                />
-                {errors.title && (
-                  <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
-                    This is required.
-                  </Text>
-                )}
+                <Text style={styles.title}>Title</Text>
               </View>
-              {/* title end */}
-              {/* Keyword start */}
-              <View>
-                <View>
-                  <Text style={styles.title}>Keyword</Text>
-                </View>
-                <Controller
-                  control={control}
-                  rules={{
-                    required: true,
-                  }}
-                  render={({field: {onChange, onBlur, value}}) => (
-                    <TextInput
-                      style={styles.createMeetupRow}
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value}
-                      placeholder="Enter Keyword"
-                      placeholderTextColor="#9e9e9e"
-                    />
-                  )}
-                  name="keyword"
-                />
-                {errors.keyword && (
-                  <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
-                    This is required.
-                  </Text>
-                )}
-              </View>
-              {/* Keyword end */}
-
-              {/* discription start */}
-              <View style={{marginVertical: 8}}>
-                <View>
-                  <Text style={styles.title}>Description</Text>
-                </View>
-
-                <Controller
-                  control={control}
-                  rules={{
-                    required: true,
-                  }}
-                  render={({field: {onChange, onBlur, value}}) => (
-                    <TextInput
-                      style={styles.createPostDescription}
-                      multiline={true}
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value}
-                      placeholder="Write Description"
-                      placeholderTextColor={'#9e9e9e'}
-                    />
-                  )}
-                  name="details"
-                />
-                {errors.details && (
-                  <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
-                    This is required.
-                  </Text>
-                )}
-              </View>
-              {/* discription end */}
-
-              {/* base price start */}
-              <View>
-                <View>
-                  <Text style={styles.title}>Base Price</Text>
-                </View>
-                <Controller
-                  control={control}
-                  rules={{
-                    required: true,
-                  }}
-                  render={({field: {onChange, onBlur, value}}) => (
-                    <TextInput
-                      style={styles.createMeetupRow}
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value}
-                      placeholder="Enter Base Price"
-                      placeholderTextColor="#9e9e9e"
-                    />
-                  )}
-                  name="base_price"
-                />
-                {errors.base_price && (
-                  <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
-                    This is required.
-                  </Text>
-                )}
-              </View>
-              {/* base price  end */}
-
-              {/* Date started  */}
-
-              {/* Bidding start  */}
-              {/* start date */}
-              <DatePicker
-                mode="date"
-                modal
-                open={picDate.start}
-                date={startDate}
-                onConfirm={date => {
-                  setStartDate(date);
-                  setPicDate({start: false});
-                  setValue('bid_from', date, {required: true});
+              <Controller
+                control={control}
+                rules={{
+                  required: true,
                 }}
-                onCancel={() => {}}
+                render={({field: {onChange, onBlur, value}}) => (
+                  <TextInput
+                    style={styles.createMeetupRow}
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    placeholder="Enter Title"
+                    placeholderTextColor="#9e9e9e"
+                  />
+                )}
+                name="title"
               />
-
-              {/* end data */}
-              <DatePicker
-                mode="date"
-                modal
-                open={picDate.end}
-                date={endDate}
-                onConfirm={date => {
-                  setEndDate(date);
-                  setPicDate({end: false});
-                  setValue('bid_to', date, {required: true});
+              {errors.title && (
+                <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
+                  This is required.
+                </Text>
+              )}
+            </View>
+            {/* title end */}
+            {/* Keyword start */}
+            <View>
+              <View>
+                <Text style={styles.title}>Keyword</Text>
+              </View>
+              <Controller
+                control={control}
+                rules={{
+                  required: true,
                 }}
-                onCancel={() => {}}
+                render={({field: {onChange, onBlur, value}}) => (
+                  <TextInput
+                    style={styles.createMeetupRow}
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    placeholder="Enter Keyword"
+                    placeholderTextColor="#9e9e9e"
+                  />
+                )}
+                name="keyword"
               />
+              {errors.keyword && (
+                <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
+                  This is required.
+                </Text>
+              )}
+            </View>
+            {/* Keyword end */}
 
-              <View style={{flexDirection: 'row', marginVertical: 8}}>
-                <View style={{flex: 1}}>
-                  <Text style={styles.title}>Bidding Start Date</Text>
-                  <TouchableOpacity
-                    style={styles.uploadFileBtn}
-                    onPress={() => setPicDate({start: true, end: false})}>
-                    <Text
-                      style={{color: '#9e9e9e', paddingRight: 8, fontSize: 13}}>
-                      {' '}
-                      {moment(startDate).format('LL')}
-                    </Text>
-
-                    <MaterialIcons
-                      name="date-range"
-                      color={'#ffaa00'}
-                      size={15}
-                    />
-                  </TouchableOpacity>
-                  {errors.bid_from && (
-                    <Text style={{color: 'red', marginLeft: 10}}>
-                      This is required.
-                    </Text>
-                  )}
-                </View>
-                <View style={{flex: 1}}>
-                  <Text style={styles.title}>Bidding End Date</Text>
-                  <TouchableOpacity
-                    style={styles.uploadFileBtn}
-                    onPress={() => setPicDate({end: true, start: false})}>
-                    <Text
-                      style={{color: '#9e9e9e', paddingRight: 8, fontSize: 13}}>
-                      {' '}
-                      {moment(endDate).format('LL')}
-                    </Text>
-                    <MaterialIcons
-                      name="date-range"
-                      color={'#ffaa00'}
-                      size={15}
-                    />
-                  </TouchableOpacity>
-                  {errors.bid_to && (
-                    <Text style={{color: 'red', marginLeft: 10}}>
-                      This is required.
-                    </Text>
-                  )}
-                </View>
+            {/* discription start */}
+            <View style={{marginVertical: 8}}>
+              <View>
+                <Text style={styles.title}>Description</Text>
               </View>
 
-              {timePicker && (
-                <DateTimePicker
-                  value={time}
-                  mode="time"
-                  open={timePicker}
-                  display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-                  is24Hour={false}
-                  onChange={onTimeSelected}
-                />
+              <Controller
+                control={control}
+                rules={{
+                  required: true,
+                }}
+                render={({field: {onChange, onBlur, value}}) => (
+                  <TextInput
+                    style={styles.createPostDescription}
+                    multiline={true}
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    placeholder="Write Description"
+                    placeholderTextColor={'#9e9e9e'}
+                  />
+                )}
+                name="details"
+              />
+              {errors.details && (
+                <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
+                  This is required.
+                </Text>
               )}
+            </View>
+            {/* discription end */}
 
-              {endTimePicker && (
-                <DateTimePicker
-                  value={endTime}
-                  mode="time"
-                  display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-                  is24Hour={false}
-                  onChange={openEndTimeSelected}
-                />
+            {/* base price start */}
+            <View>
+              <View>
+                <Text style={styles.title}>Base Price</Text>
+              </View>
+              <Controller
+                control={control}
+                rules={{
+                  required: true,
+                }}
+                render={({field: {onChange, onBlur, value}}) => (
+                  <TextInput
+                    style={styles.createMeetupRow}
+                    onBlur={onBlur}
+                    onChangeText={onChange}
+                    value={value}
+                    placeholder="Enter Base Price"
+                    placeholderTextColor="#9e9e9e"
+                  />
+                )}
+                name="base_price"
+              />
+              {errors.base_price && (
+                <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
+                  This is required.
+                </Text>
               )}
+            </View>
+            {/* base price  end */}
 
-              {/* Bidding start end  */}
+            {/* Date started  */}
 
-              {/* Result Publish started  */}
-              <View style={{marginVertical: 8}}>
-                <View>
-                  <Text style={styles.title}>Result Published</Text>
-                </View>
+            {/* Bidding start  */}
+            {/* start date */}
+            <DatePicker
+              mode="date"
+              modal
+              open={picDate.start}
+              date={startDate}
+              onConfirm={date => {
+                setStartDate(date);
+                setPicDate({start: false});
+                setValue('bid_from', date, {required: true});
+              }}
+              onCancel={() => {}}
+            />
 
-                <DatePicker
-                  mode="date"
-                  modal
-                  open={openResult}
-                  date={dateResult}
-                  onConfirm={date => {
-                    setDateResult(date);
-                    setOpenResult(false);
-                    setValue('result_date', date, {required: true});
-                  }}
-                  onCancel={() => {
-                    setOpenResult(false);
-                  }}
-                />
+            {/* end data */}
+            <DatePicker
+              mode="date"
+              modal
+              open={picDate.end}
+              date={endDate}
+              onConfirm={date => {
+                setEndDate(date);
+                setPicDate({end: false});
+                setValue('bid_to', date, {required: true});
+              }}
+              onCancel={() => {}}
+            />
+
+            <View style={{flexDirection: 'row', marginVertical: 8}}>
+              <View style={{flex: 1}}>
+                <Text style={styles.title}>Bidding Start Date</Text>
                 <TouchableOpacity
-                  onPress={() => setOpenResult(true)}
-                  style={styles.createMeetupRow}>
+                  style={styles.uploadFileBtn}
+                  onPress={() => setPicDate({start: true, end: false})}>
                   <Text
-                    style={{
-                      color: '#9e9e9e',
-                      marginHorizontal: 4,
-                      fontSize: 13,
-                    }}>
-                    {moment(dateResult).format('LL')}
+                    style={{color: '#9e9e9e', paddingRight: 8, fontSize: 13}}>
+                    {' '}
+                    {moment(startDate).format('LL')}
                   </Text>
-                  <View>
-                    <MaterialIcons
-                      name="date-range"
-                      color={'#ffaa00'}
-                      size={15}
-                    />
-                  </View>
+
+                  <MaterialIcons
+                    name="date-range"
+                    color={'#ffaa00'}
+                    size={15}
+                  />
                 </TouchableOpacity>
-                {error?.result_date && (
+                {errors.bid_from && (
                   <Text style={{color: 'red', marginLeft: 10}}>
                     This is required.
                   </Text>
                 )}
               </View>
-
-              {/* Result Publish ended  */}
-              {/* Product Delivery started  */}
-              <View style={{marginVertical: 8}}>
-                <View>
-                  <Text style={styles.title}>Product Delivery</Text>
-                </View>
-
-                <DatePicker
-                  mode="date"
-                  modal
-                  open={openDelivery}
-                  date={dateDelivery}
-                  onConfirm={date => {
-                    setDateDelivery(date);
-                    setOpenDelivery(false);
-                    setValue('product_delivery_date', date, {required: true});
-                  }}
-                  onCancel={() => {
-                    setOpenDelivery(false);
-                  }}
-                />
+              <View style={{flex: 1}}>
+                <Text style={styles.title}>Bidding End Date</Text>
                 <TouchableOpacity
-                  onPress={() => setOpenDelivery(true)}
-                  style={styles.createMeetupRow}>
+                  style={styles.uploadFileBtn}
+                  onPress={() => setPicDate({end: true, start: false})}>
                   <Text
-                    style={{
-                      color: '#9e9e9e',
-                      marginHorizontal: 4,
-                      fontSize: 13,
-                    }}>
-                    {moment(dateDelivery).format('LL')}
+                    style={{color: '#9e9e9e', paddingRight: 8, fontSize: 13}}>
+                    {' '}
+                    {moment(endDate).format('LL')}
                   </Text>
-                  <View>
-                    <MaterialIcons
-                      name="date-range"
-                      color={'#ffaa00'}
-                      size={15}
-                    />
-                  </View>
+                  <MaterialIcons
+                    name="date-range"
+                    color={'#ffaa00'}
+                    size={15}
+                  />
                 </TouchableOpacity>
-                {error?.product_delivery_date && (
+                {errors.bid_to && (
                   <Text style={{color: 'red', marginLeft: 10}}>
                     This is required.
                   </Text>
                 )}
               </View>
+            </View>
 
-              {/* Product Delivery ended  */}
+            {timePicker && (
+              <DateTimePicker
+                value={time}
+                mode="time"
+                open={timePicker}
+                display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                is24Hour={false}
+                onChange={onTimeSelected}
+              />
+            )}
 
-              {/* banner upload start */}
+            {endTimePicker && (
+              <DateTimePicker
+                value={endTime}
+                mode="time"
+                display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                is24Hour={false}
+                onChange={openEndTimeSelected}
+              />
+            )}
+
+            {/* Bidding start end  */}
+
+            {/* Result Publish started  */}
+            <View style={{marginVertical: 8}}>
               <View>
-                <Text style={styles.title}>Product Image</Text>
+                <Text style={styles.title}>Result Published</Text>
               </View>
 
+              <DatePicker
+                mode="date"
+                modal
+                open={openResult}
+                date={dateResult}
+                onConfirm={date => {
+                  setDateResult(date);
+                  setOpenResult(false);
+                  setValue('result_date', date, {required: true});
+                }}
+                onCancel={() => {
+                  setOpenResult(false);
+                }}
+              />
+              <TouchableOpacity
+                onPress={() => setOpenResult(true)}
+                style={styles.createMeetupRow}>
+                <Text
+                  style={{color: '#9e9e9e', marginHorizontal: 4, fontSize: 13}}>
+                  {moment(dateResult).format('LL')}
+                </Text>
+                <View>
+                  <MaterialIcons
+                    name="date-range"
+                    color={'#ffaa00'}
+                    size={15}
+                  />
+                </View>
+              </TouchableOpacity>
+              {error?.result_date && (
+                <Text style={{color: 'red', marginLeft: 10}}>
+                  This is required.
+                </Text>
+              )}
+            </View>
+
+            {/* Result Publish ended  */}
+            {/* Product Delivery started  */}
+            <View style={{marginVertical: 8}}>
               <View>
-                {imageDataProduct.uri != '' ? (
-                  <View style={{margin: 5}}>
-                    <Image
-                      source={{uri: imageDataProduct.uri}}
-                      style={{height: 130, width: '100%', borderRadius: 10}}
-                    />
-                    {imageLoad && (
-                      <View
-                        style={{
-                          position: 'absolute',
-                          bottom: 10,
-                          right: 10,
-                          flexDirection: 'row',
-                        }}>
-                        <TouchableOpacity
-                          style={{
-                            marginLeft: 10,
-                            backgroundColor: '#0000006b',
-                            padding: 10,
-                            borderRadius: 10,
-                          }}
-                          onPress={() => {
-                            onChoose('product');
-                          }}>
-                          <Entypo name="ccw" size={25} color="#ffffffc0" />
-                        </TouchableOpacity>
-                      </View>
-                    )}
-                    {uploadStatus.beforSubmit && (
-                      <Text
-                        style={{
-                          color: 'red',
-                          position: 'absolute',
-                          marginLeft: 10,
-                          top: 2,
-                        }}>
-                        Please upload Image first !
-                      </Text>
-                    )}
-                  </View>
-                ) : (
-                  <>
-                    <TouchableOpacity
-                      style={styles.uploadFileBtn}
-                      onPress={() => {
-                        onChoose('product');
+                <Text style={styles.title}>Product Delivery</Text>
+              </View>
+
+              <DatePicker
+                mode="date"
+                modal
+                open={openDelivery}
+                date={dateDelivery}
+                onConfirm={date => {
+                  setDateDelivery(date);
+                  setOpenDelivery(false);
+                  setValue('product_delivery_date', date, {required: true});
+                }}
+                onCancel={() => {
+                  setOpenDelivery(false);
+                }}
+              />
+              <TouchableOpacity
+                onPress={() => setOpenDelivery(true)}
+                style={styles.createMeetupRow}>
+                <Text
+                  style={{color: '#9e9e9e', marginHorizontal: 4, fontSize: 13}}>
+                  {moment(dateDelivery).format('LL')}
+                </Text>
+                <View>
+                  <MaterialIcons
+                    name="date-range"
+                    color={'#ffaa00'}
+                    size={15}
+                  />
+                </View>
+              </TouchableOpacity>
+              {error?.product_delivery_date && (
+                <Text style={{color: 'red', marginLeft: 10}}>
+                  This is required.
+                </Text>
+              )}
+            </View>
+
+            {/* Product Delivery ended  */}
+
+            {/* banner upload start */}
+            <View>
+              <Text style={styles.title}>Product Image</Text>
+            </View>
+
+            <View>
+              {imageDataProduct.uri != '' ? (
+                <View style={{margin: 5}}>
+                  <Image
+                    source={{uri: imageDataProduct.uri}}
+                    style={{height: 130, width: '100%', borderRadius: 10}}
+                  />
+                  {imageLoad && (
+                    <View
+                      style={{
+                        position: 'absolute',
+                        bottom: 10,
+                        right: 10,
+                        flexDirection: 'row',
                       }}>
-                      <Entypo name="camera" color={'#ffaa00'} size={15} />
-                      <Text
+                      <TouchableOpacity
                         style={{
-                          color: '#9e9e9e',
-                          paddingLeft: 8,
-                          fontSize: 13,
-                        }}>
-                        Upload Image
-                      </Text>
-                    </TouchableOpacity>
-                    {uploadStatus.beforSubmit && (
-                      <Text
-                        style={{color: 'red', marginLeft: 10, marginTop: -7}}>
-                        Please upload Image first !
-                      </Text>
-                    )}
-                  </>
-                )}
-              </View>
-              {/* banner upload end */}
-              {/* banner upload start */}
-              <View>
-                <Text style={styles.title}>Banner Image</Text>
-              </View>
-
-              <View>
-                {imageData.uri != '' ? (
-                  <View style={{margin: 5}}>
-                    <Image
-                      source={{uri: imageData.uri}}
-                      style={{height: 130, width: '100%', borderRadius: 10}}
-                    />
-                    {imageLoad && (
-                      <View
-                        style={{
-                          position: 'absolute',
-                          bottom: 10,
-                          right: 10,
-                          flexDirection: 'row',
-                        }}>
-                        <TouchableOpacity
-                          style={{
-                            marginLeft: 10,
-                            backgroundColor: '#0000006b',
-                            padding: 10,
-                            borderRadius: 10,
-                          }}
-                          onPress={() => {
-                            onChoose('banner');
-                          }}>
-                          <Entypo name="ccw" size={25} color="#ffffffc0" />
-                        </TouchableOpacity>
-                      </View>
-                    )}
-                    {uploadStatus.beforSubmit && (
-                      <Text
-                        style={{
-                          color: 'red',
-                          position: 'absolute',
                           marginLeft: 10,
-                          top: 2,
+                          backgroundColor: '#0000006b',
+                          padding: 10,
+                          borderRadius: 10,
+                        }}
+                        onPress={() => {
+                          onChoose('product');
                         }}>
-                        Please upload Image first !
-                      </Text>
-                    )}
-                  </View>
-                ) : (
-                  <>
-                    <TouchableOpacity
-                      style={styles.uploadFileBtn}
-                      onPress={() => {
-                        onChoose('banner');
+                        <Entypo name="ccw" size={25} color="#ffffffc0" />
+                      </TouchableOpacity>
+                    </View>
+                  )}
+                  {uploadStatus.beforSubmit && (
+                    <Text
+                      style={{
+                        color: 'red',
+                        position: 'absolute',
+                        marginLeft: 10,
+                        top: 2,
                       }}>
-                      <Entypo name="camera" color={'#ffaa00'} size={15} />
-                      <Text
-                        style={{
-                          color: '#9e9e9e',
-                          paddingLeft: 8,
-                          fontSize: 13,
-                        }}>
-                        Upload Image
-                      </Text>
-                    </TouchableOpacity>
-                    {uploadStatus.beforSubmit && (
-                      <Text
-                        style={{color: 'red', marginLeft: 10, marginTop: -7}}>
-                        Please upload Image first !
-                      </Text>
-                    )}
-                  </>
-                )}
-              </View>
-              {/* banner upload end */}
-
-              <View style={{flexDirection: 'row'}}>
-                <TouchableOpacity
-                  style={styles.removeBtn}
-                  onPress={() => navigation.goBack()}>
-                  <Text style={{fontSize: 13, color: 'white'}}>CANCEL</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                  onPress={handleSubmit(onSubmit)}
-                  style={styles.confirmBtn}>
-                  <LinearGradient
-                    colors={['#E19A04', '#E7A725', '#FFAD55', '#FACF55']}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      borderRadius: 50,
+                      Please upload Image first !
+                    </Text>
+                  )}
+                </View>
+              ) : (
+                <>
+                  <TouchableOpacity
+                    style={styles.uploadFileBtn}
+                    onPress={() => {
+                      onChoose('product');
                     }}>
-                    <Text style={{fontSize: 13, color: 'white'}}>CONFIRM</Text>
-                  </LinearGradient>
-                </TouchableOpacity>
-              </View>
+                    <Entypo name="camera" color={'#ffaa00'} size={15} />
+                    <Text
+                      style={{color: '#9e9e9e', paddingLeft: 8, fontSize: 13}}>
+                      Upload Image
+                    </Text>
+                  </TouchableOpacity>
+                  {uploadStatus.beforSubmit && (
+                    <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
+                      Please upload Image first !
+                    </Text>
+                  )}
+                </>
+              )}
+            </View>
+            {/* banner upload end */}
+            {/* banner upload start */}
+            <View>
+              <Text style={styles.title}>Banner Image</Text>
+            </View>
+
+            <View>
+              {imageData.uri != '' ? (
+                <View style={{margin: 5}}>
+                  <Image
+                    source={{uri: imageData.uri}}
+                    style={{height: 130, width: '100%', borderRadius: 10}}
+                  />
+                  {imageLoad && (
+                    <View
+                      style={{
+                        position: 'absolute',
+                        bottom: 10,
+                        right: 10,
+                        flexDirection: 'row',
+                      }}>
+                      <TouchableOpacity
+                        style={{
+                          marginLeft: 10,
+                          backgroundColor: '#0000006b',
+                          padding: 10,
+                          borderRadius: 10,
+                        }}
+                        onPress={() => {
+                          onChoose('banner');
+                        }}>
+                        <Entypo name="ccw" size={25} color="#ffffffc0" />
+                      </TouchableOpacity>
+                    </View>
+                  )}
+                  {uploadStatus.beforSubmit && (
+                    <Text
+                      style={{
+                        color: 'red',
+                        position: 'absolute',
+                        marginLeft: 10,
+                        top: 2,
+                      }}>
+                      Please upload Image first !
+                    </Text>
+                  )}
+                </View>
+              ) : (
+                <>
+                  <TouchableOpacity
+                    style={styles.uploadFileBtn}
+                    onPress={() => {
+                      onChoose('banner');
+                    }}>
+                    <Entypo name="camera" color={'#ffaa00'} size={15} />
+                    <Text
+                      style={{color: '#9e9e9e', paddingLeft: 8, fontSize: 13}}>
+                      Upload Image
+                    </Text>
+                  </TouchableOpacity>
+                  {uploadStatus.beforSubmit && (
+                    <Text style={{color: 'red', marginLeft: 10, marginTop: -7}}>
+                      Please upload Image first !
+                    </Text>
+                  )}
+                </>
+              )}
+            </View>
+            {/* banner upload end */}
+
+            <View style={{flexDirection: 'row'}}>
+              <TouchableOpacity
+                style={styles.removeBtn}
+                onPress={() => navigation.goBack()}>
+                <Text style={{fontSize: 13, color: 'white'}}>CANCEL</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={handleSubmit(onSubmit)}
+                style={styles.confirmBtn}>
+                <LinearGradient
+                  colors={['#E19A04', '#E7A725', '#FFAD55', '#FACF55']}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: 50,
+                  }}>
+                  <Text style={{fontSize: 13, color: 'white'}}>CONFIRM</Text>
+                </LinearGradient>
+              </TouchableOpacity>
             </View>
           </View>
         </View>

@@ -11,6 +11,7 @@ import {
   View,
   TextInput,
   useWindowDimensions,
+  SafeAreaView
 } from 'react-native';
 import {SwiperFlatList} from 'react-native-swiper-flatlist';
 import imagePath from '../../Constants/imagePath';
@@ -23,7 +24,7 @@ const Pending = ({route,navigation}) => {
   console.log(products);
   const {width} = useWindowDimensions();
   return (
-    <>
+    <SafeAreaView style={{flex:1,backgroundColor:'#000'}}>
     <CustomHeader backFunc={()=>navigation.goBack()} />
       <ScrollView style={{backgroundColor: '#000'}}>
         {products?.map(product => {
@@ -127,7 +128,7 @@ const Pending = ({route,navigation}) => {
           );
         })}
       </ScrollView>
-    </>
+    </SafeAreaView>
   );
 };
 

@@ -1,9 +1,9 @@
 import {
+  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  SafeAreaView,
 } from 'react-native';
 import Toast from 'react-native-root-toast';
 import React, {useContext, useEffect, useState} from 'react';
@@ -66,38 +66,89 @@ const Schedule = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1, backgroundColor: '#000'}}>
       {buffer && <LoaderComp />}
       <CustomHeader backFunc={() => navigation.goBack()} title="Schedule" />
-      <ScrollView style={{backgroundColor: 'black', height: '100%'}}>
-        <View style={styles.container}>
-          <View style={{marginHorizontal: 10}}>
-            <TitleHeader title={'Schedule Information'} />
-          </View>
+      <ScrollView style={styles.container}>
+        <View style={{marginHorizontal: 10}}>
+          <TitleHeader title={'Schedule Information'} />
+        </View>
 
-          <View style={{marginHorizontal: 10}}>
-            <LinearGradient
-              start={{x: 0, y: 0}}
-              end={{x: 1, y: 0}}
-              colors={[
-                '#FFAD00',
-                '#FFD273',
-                '#E19A04',
-                '#FACF75',
-                '#E7A725',
-                '#FFAD00',
-              ]}
-              style={{marginTop: 10}}>
-              <View style={{flexDirection: 'row'}}>
+        <View style={{marginHorizontal: 10}}>
+          <LinearGradient
+            start={{x: 0, y: 0}}
+            end={{x: 1, y: 0}}
+            colors={[
+              '#FFAD00',
+              '#FFD273',
+              '#E19A04',
+              '#FACF75',
+              '#E7A725',
+              '#FFAD00',
+            ]}
+            style={{marginTop: 10}}>
+            <View style={{flexDirection: 'row'}}>
+              <View
+                style={{
+                  flex: 2,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Text style={{color: 'black', padding: 3, fontWeight: 'bold'}}>
+                  Date
+                </Text>
+              </View>
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Text style={{color: 'black', padding: 3, fontWeight: 'bold'}}>
+                  Type
+                </Text>
+              </View>
+              <View
+                style={{
+                  flex: 2,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Text style={{color: 'black', padding: 3, fontWeight: 'bold'}}>
+                  Duration
+                </Text>
+              </View>
+
+              <View
+                style={{
+                  flex: 1,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Text style={{color: 'black', padding: 3, fontWeight: 'bold'}}>
+                  Action
+                </Text>
+              </View>
+            </View>
+          </LinearGradient>
+
+          {schedule?.map((item, index) => {
+            return (
+              <View
+                key={item.id}
+                style={{
+                  backgroundColor: '#202020',
+                  flexDirection: 'row',
+                  padding: 1,
+                }}>
                 <View
                   style={{
                     flex: 2,
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}>
-                  <Text
-                    style={{color: 'black', padding: 3, fontWeight: 'bold'}}>
-                    Date
+                  <Text style={{color: '#fff', padding: 3, fontSize: 13}}>
+                    {moment(item?.startDate).format('DD MMMM')}
                   </Text>
                 </View>
                 <View
@@ -106,9 +157,8 @@ const Schedule = ({navigation}) => {
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}>
-                  <Text
-                    style={{color: 'black', padding: 3, fontWeight: 'bold'}}>
-                    Type
+                  <Text style={{color: '#fff', padding: 3, fontSize: 13}}>
+                    {item?.title}
                   </Text>
                 </View>
                 <View
@@ -117,90 +167,35 @@ const Schedule = ({navigation}) => {
                     justifyContent: 'center',
                     alignItems: 'center',
                   }}>
-                  <Text
-                    style={{color: 'black', padding: 3, fontWeight: 'bold'}}>
-                    Duration
+                  <Text style={{color: '#fff', padding: 3, fontSize: 13}}>
+                    {item?.from} - {item?.to}
                   </Text>
                 </View>
-
                 <View
                   style={{
                     flex: 1,
                     justifyContent: 'center',
                     alignItems: 'center',
+                    padding: 2,
                   }}>
-                  <Text
-                    style={{color: 'black', padding: 3, fontWeight: 'bold'}}>
-                    Action
-                  </Text>
+                  <TouchableOpacity
+                    style={{
+                      backgroundColor: '#ffaa00',
+                      padding: 3,
+                      borderRadius: 100,
+                    }}
+                    onPress={() => {
+                      handleDelete(item?.id);
+                    }}>
+                    <MaterialIcons name="delete" size={20} color="#000" />
+                  </TouchableOpacity>
                 </View>
               </View>
-            </LinearGradient>
-
-            {schedule?.map((item, index) => {
-              return (
-                <View
-                  key={item.id}
-                  style={{
-                    backgroundColor: '#202020',
-                    flexDirection: 'row',
-                    padding: 1,
-                  }}>
-                  <View
-                    style={{
-                      flex: 2,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}>
-                    <Text style={{color: '#fff', padding: 3, fontSize: 13}}>
-                      {moment(item?.startDate).format('DD MMMM')}
-                    </Text>
-                  </View>
-                  <View
-                    style={{
-                      flex: 1,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}>
-                    <Text style={{color: '#fff', padding: 3, fontSize: 13}}>
-                      {item?.title}
-                    </Text>
-                  </View>
-                  <View
-                    style={{
-                      flex: 2,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}>
-                    <Text style={{color: '#fff', padding: 3, fontSize: 13}}>
-                      {item?.from} - {item?.to}
-                    </Text>
-                  </View>
-                  <View
-                    style={{
-                      flex: 1,
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      padding: 2,
-                    }}>
-                    <TouchableOpacity
-                      style={{
-                        backgroundColor: '#ffaa00',
-                        padding: 3,
-                        borderRadius: 100,
-                      }}
-                      onPress={() => {
-                        handleDelete(item?.id);
-                      }}>
-                      <MaterialIcons name="delete" size={20} color="#000" />
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              );
-            })}
-          </View>
+            );
+          })}
         </View>
       </ScrollView>
+
       <TouchableOpacity
         onPress={() =>
           navigation.navigate(MainNavigationString.SCHEDULESFORM, {

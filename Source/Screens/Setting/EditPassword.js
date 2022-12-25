@@ -6,10 +6,10 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  SafeAreaView,
   TouchableOpacity,
   TextInput,
   Image,
+  SafeAreaView,
 } from 'react-native';
 import Toast from 'react-native-root-toast';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -59,125 +59,123 @@ const EditPassWord = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex:1,backgroundColor:'#000'}}>
       {buffer && <LoaderComp />}
       <CustomHeader backFunc={() => navigation.goBack()} />
-      <ScrollView style={{backgroundColor: 'black', height: '100%'}}>
-        <View style={styles.container}>
-          <View style={{marginHorizontal: 10}}>
-            <TitleHeader title={'Update password'} />
-          </View>
-          <View style={styles.containerChild}>
-            <View style={{padding: 12}}>
+      <ScrollView style={styles.container}>
+        <View style={{marginHorizontal: 10}}>
+          <TitleHeader title={'Update password'} />
+        </View>
+        <View style={styles.containerChild}>
+          <View style={{padding: 12}}>
+            <View>
               <View>
-                <View>
-                  <Text style={styles.title}>Old Password</Text>
-                </View>
-                <View style={{position: 'relative'}}>
-                  <TextInput
-                    secureTextEntry={!eyeIconThree ? true : false}
-                    style={styles.createMeetupRow}
-                    placeholder="*****"
-                    placeholderTextColor="#9e9e9e"
-                    onChangeText={setOldPass}
-                    value={oldPass}
-                  />
-                  <TouchableOpacity
-                    onPress={() => setEyeIconThree(!eyeIconThree)}
-                    style={{
-                      position: 'absolute',
-                      right: 0,
-                      top: '35%',
-                      marginRight: 20,
-                    }}>
-                    <Entypo
-                      name={!eyeIconOne ? 'eye-with-line' : 'eye'}
-                      color={'#ffaa00'}
-                      size={20}
-                    />
-                  </TouchableOpacity>
-                </View>
+                <Text style={styles.title}>Old Password</Text>
               </View>
-
-              <View>
-                <View>
-                  <Text style={styles.title}>New Password</Text>
-                </View>
-                <View style={{position: 'relative'}}>
-                  <TextInput
-                    secureTextEntry={!eyeIconOne ? true : false}
-                    style={styles.createMeetupRow}
-                    placeholder="*****"
-                    placeholderTextColor="#9e9e9e"
-                    onChangeText={setNewPass}
-                    value={newPass}
-                  />
-                  <TouchableOpacity
-                    onPress={() => setEyeIconOne(!eyeIconOne)}
-                    style={{
-                      position: 'absolute',
-                      right: 0,
-                      top: '35%',
-                      marginRight: 20,
-                    }}>
-                    <Entypo
-                      name={!eyeIconOne ? 'eye-with-line' : 'eye'}
-                      color={'#ffaa00'}
-                      size={20}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-
-              <View>
-                <View>
-                  <Text style={styles.title}>Confirm Password</Text>
-                </View>
-                <View style={{position: 'relative'}}>
-                  <TextInput
-                    secureTextEntry={!eyeIconTwo ? true : false}
-                    style={styles.createMeetupRow}
-                    placeholder="*****"
-                    placeholderTextColor="#9e9e9e"
-                    onChangeText={setConfirmPass}
-                    value={confirmNewPass}
-                  />
-                  <TouchableOpacity
-                    onPress={() => setEyeIconTwo(!eyeIconTwo)}
-                    style={{
-                      position: 'absolute',
-                      right: 0,
-                      top: '35%',
-                      marginRight: 20,
-                    }}>
-                    <Entypo
-                      name={!eyeIconTwo ? 'eye-with-line' : 'eye'}
-                      color={'#ffaa00'}
-                      size={20}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-
-              <View style={{justifyContent: 'center', alignItems: 'center'}}>
+              <View style={{position: 'relative'}}>
+                <TextInput
+                  secureTextEntry={!eyeIconThree ? true : false}
+                  style={styles.createMeetupRow}
+                  placeholder="*****"
+                  placeholderTextColor="#9e9e9e"
+                  onChangeText={setOldPass}
+                  value={oldPass}
+                />
                 <TouchableOpacity
-                  style={styles.confirmBtn}
-                  onPress={handleUpdate}>
-                  <LinearGradient
-                    colors={['#E19A04', '#E7A725', '#FFAD55', '#FACF55']}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      borderRadius: 50,
-                    }}>
-                    <Text style={{fontSize: 13, color: 'white'}}>
-                      Update Password
-                    </Text>
-                  </LinearGradient>
+                  onPress={() => setEyeIconThree(!eyeIconThree)}
+                  style={{
+                    position: 'absolute',
+                    right: 0,
+                    top: '35%',
+                    marginRight: 20,
+                  }}>
+                  <Entypo
+                    name={!eyeIconOne ? 'eye-with-line' : 'eye'}
+                    color={'#ffaa00'}
+                    size={20}
+                  />
                 </TouchableOpacity>
               </View>
+            </View>
+
+            <View>
+              <View>
+                <Text style={styles.title}>New Password</Text>
+              </View>
+              <View style={{position: 'relative'}}>
+                <TextInput
+                  secureTextEntry={!eyeIconOne ? true : false}
+                  style={styles.createMeetupRow}
+                  placeholder="*****"
+                  placeholderTextColor="#9e9e9e"
+                  onChangeText={setNewPass}
+                  value={newPass}
+                />
+                <TouchableOpacity
+                  onPress={() => setEyeIconOne(!eyeIconOne)}
+                  style={{
+                    position: 'absolute',
+                    right: 0,
+                    top: '35%',
+                    marginRight: 20,
+                  }}>
+                  <Entypo
+                    name={!eyeIconOne ? 'eye-with-line' : 'eye'}
+                    color={'#ffaa00'}
+                    size={20}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            <View>
+              <View>
+                <Text style={styles.title}>Confirm Password</Text>
+              </View>
+              <View style={{position: 'relative'}}>
+                <TextInput
+                  secureTextEntry={!eyeIconTwo ? true : false}
+                  style={styles.createMeetupRow}
+                  placeholder="*****"
+                  placeholderTextColor="#9e9e9e"
+                  onChangeText={setConfirmPass}
+                  value={confirmNewPass}
+                />
+                <TouchableOpacity
+                  onPress={() => setEyeIconTwo(!eyeIconTwo)}
+                  style={{
+                    position: 'absolute',
+                    right: 0,
+                    top: '35%',
+                    marginRight: 20,
+                  }}>
+                  <Entypo
+                    name={!eyeIconTwo ? 'eye-with-line' : 'eye'}
+                    color={'#ffaa00'}
+                    size={20}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+              <TouchableOpacity
+                style={styles.confirmBtn}
+                onPress={handleUpdate}>
+                <LinearGradient
+                  colors={['#E19A04', '#E7A725', '#FFAD55', '#FACF55']}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: 50,
+                  }}>
+                  <Text style={{fontSize: 13, color: 'white'}}>
+                    Update Password
+                  </Text>
+                </LinearGradient>
+              </TouchableOpacity>
             </View>
           </View>
         </View>

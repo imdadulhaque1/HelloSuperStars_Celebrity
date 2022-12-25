@@ -5,7 +5,7 @@ import CustomHeader from '../../Components/CustomHeader';
 
 const PostAll = ({navigation}) => {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex:1,backgroundColor:'#000'}}>
       <View>
         <CustomHeader title="All Post" backFunc={() => navigation.goBack()} />
         <Text>PostAll</Text>

@@ -21,7 +21,7 @@ const LiveChat = () => {
   const Navigation = useNavigation();
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex:1,backgroundColor:'#000'}}>
       <CustomHeader title={'Livechat'} backFunc={() => Navigation.goBack()} />
       <ScrollView style={{backgroundColor: '#000', padding: 8, height: '100%'}}>
         <View style={styles.container}>
