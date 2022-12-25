@@ -125,7 +125,7 @@ const Wallet = ({navigation}) => {
   };
 
   return (
-    <>
+    <SafeAreaView style={{flex:1,backgroundColor:'#000'}}>
       {buffer && <LoaderComp />}
       <CustomHeader backFunc={() => navigation.goBack()} title="Wallet" />
       <ScrollView style={styles.container}>
@@ -734,7 +734,7 @@ const Wallet = ({navigation}) => {
           </View>
         </View>
       </ScrollView>
-    </>
+    </SafeAreaView>
   );
 };
 

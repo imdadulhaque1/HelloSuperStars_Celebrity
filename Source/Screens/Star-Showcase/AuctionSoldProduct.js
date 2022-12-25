@@ -2,8 +2,8 @@ import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {
   Image,
-  ScrollView,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -25,14 +25,42 @@ export default function AuctionSoldProduct({route}) {
   console.log(route.params);
   //   const Navigation = useNavigation();
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex:1,backgroundColor:'#000'}}>
       <CustomHeader backFunc={() => Navigation.goBack()} />
-      <ScrollView style={{backgroundColor: 'black', height: '100%'}}>
-        <View style={{backgroundColor: '#000'}}>
-          {products?.map(product => {
-            return (
-              <View style={styles.Container}>
-                <View style={styles.Row}>
+      <ScrollView style={{backgroundColor: '#000'}}>
+        {products?.map(product => {
+          return (
+            <View style={styles.Container}>
+              <View style={styles.Row}>
+                <TouchableOpacity
+                  onPress={() =>
+                    Navigation.navigate(
+                      MainNavigationString.AUCTIONLIVEBIDDING,
+                      {
+                        productId: product?.id,
+                      },
+                    )
+                  }>
+                  <View style={styles.Right}>
+                    <SwiperFlatList
+                      autoplay
+                      autoplayDelay={2}
+                      autoplayLoop
+                      width={120}>
+                      <Image
+                        source={{
+                          uri: `${
+                            AppUrl.MediaBaseUrl + product?.product_image
+                          }`,
+                        }}
+                        style={styles.postImage}
+                        width={120}
+                        height={200}
+                      />
+                    </SwiperFlatList>
+                  </View>
+                </TouchableOpacity>
+                <View style={styles.Left}>
                   <TouchableOpacity
                     onPress={() =>
                       Navigation.navigate(
@@ -42,82 +70,49 @@ export default function AuctionSoldProduct({route}) {
                         },
                       )
                     }>
-                    <View style={styles.Right}>
-                      <SwiperFlatList
-                        autoplay
-                        autoplayDelay={2}
-                        autoplayLoop
-                        width={120}>
-                        <Image
-                          source={{
-                            uri: `${
-                              AppUrl.MediaBaseUrl + product?.product_image
-                            }`,
-                          }}
-                          style={styles.postImage}
-                          width={120}
-                          height={200}
-                        />
-                      </SwiperFlatList>
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        marginRight: 10,
+                      }}>
+                      <Text style={styles.Text}>{product?.title}</Text>
                     </View>
                   </TouchableOpacity>
-                  <View style={styles.Left}>
-                    <TouchableOpacity
-                      onPress={() =>
-                        Navigation.navigate(
-                          MainNavigationString.AUCTIONLIVEBIDDING,
-                          {
-                            productId: product?.id,
-                          },
-                        )
-                      }>
-                      <View
-                        style={{
-                          flexDirection: 'row',
-                          marginRight: 10,
-                        }}>
-                        <Text style={styles.Text}>{product?.title}</Text>
-                      </View>
-                    </TouchableOpacity>
-                    <Text style={styles.Date}>
-                      Released at {moment(product?.created_at).format('LL')}
-                    </Text>
-                    <Text style={styles.Date}>
-                      {moment(product?.bid_from).format('LL')} to{' '}
-                      {moment(product?.bid_to).format('LL')}
-                    </Text>
-                    <View style={{width: '80%'}}>
-                      <RenderHTML
-                        contentWidth={width}
-                        source={{
-                          html: `<div style='color:#fff' >${product?.details
-                            .slice(0, 160)
-                            .concat(
-                              product?.details.length > 160 ? '...' : '',
-                            )}</div>`,
-                        }}
-                      />
-                    </View>
+                  <Text style={styles.Date}>
+                    Released at {moment(product?.created_at).format('LL')}
+                  </Text>
+                  <Text style={styles.Date}>
+                    {moment(product?.bid_from).format('LL')} to{' '}
+                    {moment(product?.bid_to).format('LL')}
+                  </Text>
+                  <View style={{width: '80%'}}>
+                    <RenderHTML
+                      contentWidth={width}
+                      source={{
+                        html: `<div style='color:#fff' >${product?.details
+                          .slice(0, 160)
+                          .concat(
+                            product?.details.length > 160 ? '...' : '',
+                          )}</div>`,
+                      }}
+                    />
+                  </View>
 
-                    <View style={{flexDirection: 'row', width: '100%'}}>
-                      <TouchableOpacity style={styles.Box}>
-                        <Image source={imagePath.Box} />
-                        <Text style={styles.Count}> 1</Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity style={styles.Box}>
-                        <Image source={imagePath.Sold} />
-                        <Text style={styles.Count}>
-                          {' '}
-                          ${product?.base_price}
-                        </Text>
-                      </TouchableOpacity>
-                    </View>
+                  <View style={{flexDirection: 'row', width: '100%'}}>
+                    <TouchableOpacity style={styles.Box}>
+                      <Image source={imagePath.Box} />
+                      <Text style={styles.Count}> 1</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.Box}>
+                      <Image source={imagePath.Sold} />
+                      <Text style={styles.Count}> ${product?.base_price}</Text>
+                    </TouchableOpacity>
                   </View>
                 </View>
               </View>
-            );
-          })}
-        </View>
+            </View>
+          );
+        })}
       </ScrollView>
     </SafeAreaView>
   );

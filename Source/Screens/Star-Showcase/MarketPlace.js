@@ -9,6 +9,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  SafeAreaView
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import CustomHeader from '../../Components/CustomHeader';
@@ -39,7 +40,7 @@ const Marketplace = ({navigation}) => {
   }, []);
 
   return (
-    <>
+    <SafeAreaView style={{flex:1,backgroundColor:'#000'}}>
     <CustomHeader backFunc={()=>navigation.goBack()} />
     <ScrollView style={{flex: 1, backgroundColor: '#000'}}>
       <View style={styles.container}>
@@ -116,7 +117,7 @@ const Marketplace = ({navigation}) => {
         </View>
       </View>
     </ScrollView>
-    </>
+    </SafeAreaView>
   );
 };
 

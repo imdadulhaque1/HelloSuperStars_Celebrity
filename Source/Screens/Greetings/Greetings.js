@@ -39,7 +39,7 @@ const Greetings = () => {
   }, []);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex:1,backgroundColor:'#000'}}>
       <CustomHeader title={'Greetings'} backFunc={() => Navigation.goBack()} />
       <ScrollView style={{backgroundColor: '#000', padding: 8, height: '100%'}}>
         <View style={styles.container}>

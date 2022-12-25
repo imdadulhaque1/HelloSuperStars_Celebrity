@@ -2,6 +2,9 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+
+<key>UILaunchStoryboardName~ipad</key>
+<string>LaunchScreeniPad</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -36,7 +39,7 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME) camera use</string>
+	<string>$(PRODUCT_NAME) camera used for QR Code Scan, Profile Picture and Cover Picture Changing and Video Calling Purpose</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
     <string>$(PRODUCT_NAME) bluetooth use.</string>
 	<key>NSMotionUsageDescription</key>

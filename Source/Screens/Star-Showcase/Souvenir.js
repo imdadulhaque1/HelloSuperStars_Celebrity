@@ -31,7 +31,7 @@ const Souvenir = () => {
   }, []);
 
   return (
-    <>
+    <SafeAreaView style={{flex:1,backgroundColor:'#000'}}>
     <CustomHeader backFunc={()=>Navigation.goBack()} />
       <ScrollView style={{backgroundColor: '#000', padding: 8}}>
         <View style={styles.container}>
@@ -151,7 +151,7 @@ const Souvenir = () => {
           </View>
         </View>
       </ScrollView>
-    </>
+    </SafeAreaView>
   );
 };
 

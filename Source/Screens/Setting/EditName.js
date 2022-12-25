@@ -6,10 +6,10 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  SafeAreaView,
   TouchableOpacity,
   TextInput,
   Image,
+  SafeAreaView,
 } from 'react-native';
 import Toast from 'react-native-root-toast';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -56,60 +56,58 @@ const EditName = ({route}) => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex:1,backgroundColor:'#000'}}>
       {buffer && <LoaderComp />}
       <CustomHeader backFunc={() => navigation.goBack()} />
-      <ScrollView style={{backgroundColor: 'black', height: '100%'}}>
-        <View style={styles.container}>
-          <View style={{marginHorizontal: 10}}>
-            <TitleHeader title={'Edit Name'} />
-          </View>
-          <View style={styles.containerChild}>
-            <View style={{padding: 12}}>
+      <ScrollView style={styles.container}>
+        <View style={{marginHorizontal: 10}}>
+          <TitleHeader title={'Edit Name'} />
+        </View>
+        <View style={styles.containerChild}>
+          <View style={{padding: 12}}>
+            <View>
               <View>
-                <View>
-                  <Text style={styles.title}>First Name</Text>
-                </View>
-                <TextInput
-                  style={styles.createMeetupRow}
-                  placeholder="First Name"
-                  placeholderTextColor="#9e9e9e"
-                  value={firstName}
-                  onChangeText={setFirstName}
-                />
+                <Text style={styles.title}>First Name</Text>
               </View>
+              <TextInput
+                style={styles.createMeetupRow}
+                placeholder="First Name"
+                placeholderTextColor="#9e9e9e"
+                value={firstName}
+                onChangeText={setFirstName}
+              />
+            </View>
+            <View>
               <View>
-                <View>
-                  <Text style={styles.title}>Last Name</Text>
-                </View>
-                <TextInput
-                  style={styles.createMeetupRow}
-                  placeholder="Last Name"
-                  placeholderTextColor="#9e9e9e"
-                  value={lastName}
-                  onChangeText={setLastName}
-                />
+                <Text style={styles.title}>Last Name</Text>
               </View>
+              <TextInput
+                style={styles.createMeetupRow}
+                placeholder="Last Name"
+                placeholderTextColor="#9e9e9e"
+                value={lastName}
+                onChangeText={setLastName}
+              />
+            </View>
 
-              <View style={{justifyContent: 'center', alignItems: 'center'}}>
-                <TouchableOpacity
-                  style={styles.confirmBtn}
-                  onPress={handleUpdate}>
-                  <LinearGradient
-                    colors={['#E19A04', '#E7A725', '#FFAD55', '#FACF55']}
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      borderRadius: 50,
-                    }}>
-                    <Text style={{fontSize: 13, color: 'white'}}>
-                      Update Info
-                    </Text>
-                  </LinearGradient>
-                </TouchableOpacity>
-              </View>
+            <View style={{justifyContent: 'center', alignItems: 'center'}}>
+              <TouchableOpacity
+                style={styles.confirmBtn}
+                onPress={handleUpdate}>
+                <LinearGradient
+                  colors={['#E19A04', '#E7A725', '#FFAD55', '#FACF55']}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: 50,
+                  }}>
+                  <Text style={{fontSize: 13, color: 'white'}}>
+                    Update Info
+                  </Text>
+                </LinearGradient>
+              </TouchableOpacity>
             </View>
           </View>
         </View>

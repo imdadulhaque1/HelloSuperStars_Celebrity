@@ -130,7 +130,7 @@ const ScheduleForm = ({route}) => {
   }
 
   return (
-    <>
+    <SafeAreaView style={{flex:1,backgroundColor:'#000'}}>
       {buffer && <LoaderComp />}
       <CustomHeader backFunc={() => navigation.goBack()} title="Schedule" />
 
@@ -284,7 +284,7 @@ const ScheduleForm = ({route}) => {
           </View>
         </View>
       </ScrollView>
-    </>
+   </SafeAreaView>
   );
 };
 

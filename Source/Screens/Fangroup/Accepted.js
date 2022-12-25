@@ -1,4 +1,4 @@
-import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {Image, ScrollView, StyleSheet, Text, View,SafeAreaView} from 'react-native';
 import React from 'react';
 import imagePath from '../../Constants/imagePath';
 import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -11,7 +11,7 @@ const Accepted = ({navigation, route}) => {
   const {data} = route.params;
   console.log(data);
   return (
-    <>
+    <SafeAreaView style={{flex:1,backgroundColor:'#000'}}>
     <CustomHeader backFunc={()=>navigation.goBack()} />
     <ScrollView style={styles.container}>
       {data?.map(post => {
@@ -45,7 +45,7 @@ const Accepted = ({navigation, route}) => {
         );
       })}
     </ScrollView>
-    </>
+</SafeAreaView>
   );
 };
 

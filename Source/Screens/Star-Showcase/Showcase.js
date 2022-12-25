@@ -38,7 +38,7 @@ const StarShowcase = () => {
   }, []);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex:1,backgroundColor:'#000'}}>
       <CustomHeader
         title={'Star Showcase'}
         backFunc={() => Navigation.goBack()}

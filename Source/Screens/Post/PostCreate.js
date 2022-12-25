@@ -9,7 +9,7 @@ import {
   View,
   Alert,
   Image,
-  SafeAreaView,
+  SafeAreaView
 } from 'react-native';
 import Toast from 'react-native-root-toast';
 import DocumentPicker from 'react-native-document-picker';
@@ -294,221 +294,203 @@ const PostCreate = ({route}) => {
   };
 
   return (
-    <>
-      <SafeAreaView>
-        <CustomHeader title="Post" backFunc={() => navigation.goBack()} />
-        <ScrollView
-          style={{backgroundColor: '#000', padding: 8, height: '100%'}}>
-          <View style={styles.container}>
-            <View>
+    <SafeAreaView style={{flex:1,backgroundColor:'#000'}}>
+      <CustomHeader title="Post" backFunc={() => navigation.goBack()} />
+      <ScrollView style={styles.container}>
+        <View>
+          <View
+            style={{
+              padding: 12,
+              margin: 15,
+              backgroundColor: '#181819',
+              borderRadius: 20,
+            }}>
+            {freeShow && (
+              <View
+                style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <TouchableOpacity
+                  onPress={() => setPaidShow(false)}
+                  style={!paidShow ? styles.freeBtnActive : styles.freeBtn}>
+                  <Text
+                    style={!paidShow ? {color: '#9e9e9e'} : {color: '#9e9e9e'}}>
+                    Free
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => setPaidShow(true)}
+                  style={paidShow ? styles.freeBtnActive : styles.freeBtn}>
+                  <Text style={{color: '#9e9e9e'}}>Paid</Text>
+                </TouchableOpacity>
+              </View>
+            )}
+
+            <>
+              <View>
+                <TextInput
+                  style={styles.createPostRow}
+                  placeholder="Post Title"
+                  placeholderTextColor={'#9e9e9e'}
+                  onChangeText={setTitle}
+                  value={title}
+                />
+                {hasError && !title && (
+                  <Text style={{color: 'red', marginLeft: 10, marginTop: 5}}>
+                    Title Required
+                  </Text>
+                )}
+              </View>
+              <View>
+                <TextInput
+                  style={styles.createPostDescription}
+                  multiline={true}
+                  placeholder="Post Description"
+                  placeholderTextColor={'#9e9e9e'}
+                  onChangeText={setDescription}
+                  value={description}
+                />
+                {hasError && !description && (
+                  <Text style={{color: 'red', marginLeft: 10, marginTop: 5}}>
+                    Description Required
+                  </Text>
+                )}
+              </View>
+
               <View
                 style={{
-                  padding: 12,
-                  margin: 15,
-                  backgroundColor: '#181819',
-                  borderRadius: 20,
+                  justifyContent: 'center',
+                  alignItems: 'stretch',
+                  borderWidth: 1,
+                  height: 40,
+                  borderColor: '#ffad00',
+                  borderRadius: 10,
+                  marginVertical: 10,
+                  color: '#ffffff',
                 }}>
-                {freeShow && (
-                  <View
-                    style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                    }}>
+                <Picker
+                  dropdownIconColor="white"
+                  mode="dialog"
+                  style={{
+                    color: '#9e9e9e',
+                  }}
+                  selectedValue={bannerOrVideo}
+                  onValueChange={(itemValue, itemIndex) => {
+                    console.log(itemValue);
+                    setBannerOrVideo(itemValue);
+                  }}>
+                  <Picker.Item label="Image" value="Banner" />
+                  <Picker.Item label="Video" value="Video" />
+                </Picker>
+              </View>
+
+              {bannerOrVideo === 'Banner' ? (
+                <View style={styles.uploadFile}>
+                  {!imageData ? (
                     <TouchableOpacity
-                      onPress={() => setPaidShow(false)}
-                      style={!paidShow ? styles.freeBtnActive : styles.freeBtn}>
-                      <Text
-                        style={
-                          !paidShow ? {color: '#9e9e9e'} : {color: '#9e9e9e'}
-                        }>
-                        Free
-                      </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                      onPress={() => setPaidShow(true)}
-                      style={paidShow ? styles.freeBtnActive : styles.freeBtn}>
-                      <Text style={{color: '#9e9e9e'}}>Paid</Text>
-                    </TouchableOpacity>
-                  </View>
-                )}
-
-                <>
-                  <View>
-                    <TextInput
-                      style={styles.createPostRow}
-                      placeholder="Post Title"
-                      placeholderTextColor={'#9e9e9e'}
-                      onChangeText={setTitle}
-                      value={title}
-                    />
-                    {hasError && !title && (
-                      <Text
-                        style={{color: 'red', marginLeft: 10, marginTop: 5}}>
-                        Title Required
-                      </Text>
-                    )}
-                  </View>
-                  <View>
-                    <TextInput
-                      style={styles.createPostDescription}
-                      multiline={true}
-                      placeholder="Post Description"
-                      placeholderTextColor={'#9e9e9e'}
-                      onChangeText={setDescription}
-                      value={description}
-                    />
-                    {hasError && !description && (
-                      <Text
-                        style={{color: 'red', marginLeft: 10, marginTop: 5}}>
-                        Description Required
-                      </Text>
-                    )}
-                  </View>
-
-                  <View
-                    style={{
-                      justifyContent: 'center',
-                      alignItems: 'stretch',
-                      borderWidth: 1,
-                      height: 40,
-                      borderColor: '#ffad00',
-                      borderRadius: 10,
-                      marginVertical: 10,
-                      color: '#ffffff',
-                    }}>
-                    <Picker
-                      dropdownIconColor="white"
-                      mode="dialog"
-                      style={{
-                        color: '#9e9e9e',
-                      }}
-                      selectedValue={bannerOrVideo}
-                      onValueChange={(itemValue, itemIndex) => {
-                        console.log(itemValue);
-                        setBannerOrVideo(itemValue);
-                      }}>
-                      <Picker.Item label="Image" value="Banner" />
-                      <Picker.Item label="Video" value="Video" />
-                    </Picker>
-                  </View>
-
-                  {bannerOrVideo === 'Banner' ? (
-                    <View style={styles.uploadFile}>
-                      {!imageData ? (
-                        <TouchableOpacity
-                          style={styles.uploadFileBtn}
-                          onPress={cameraOrGallery}>
-                          <Entypo name="image" color={'#ffaa00'} size={15} />
-                          {pick ? (
-                            <Image
-                              style={{height: 300, width: 300}}
-                              source={pick}
-                            />
-                          ) : (
-                            <Text style={{color: '#9e9e9e', paddingLeft: 8}}>
-                              Upload Image
-                            </Text>
-                          )}
-                        </TouchableOpacity>
-                      ) : (
+                      style={styles.uploadFileBtn}
+                      onPress={cameraOrGallery}>
+                      <Entypo name="image" color={'#ffaa00'} size={15} />
+                      {pick ? (
                         <Image
-                          source={{uri: imageData.uri}}
-                          style={{height: 130, width: '100%', borderRadius: 10}}
+                          style={{height: 300, width: 300}}
+                          source={pick}
                         />
+                      ) : (
+                        <Text style={{color: '#9e9e9e', paddingLeft: 8}}>
+                          Upload Image
+                        </Text>
                       )}
-                    </View>
+                    </TouchableOpacity>
                   ) : (
-                    <View style={styles.uploadFile}>
-                      {video ? (
-                        <View style={{width: '50%'}}>
-                          <VideoPlayer
-                            video={{
-                              uri: `${video.uri}`,
-                            }}
-                            videoWidth={140}
-                            videoHeight={100}
-                            thumbnail={{
-                              uri: thumbnail?.uri,
-                            }}
-                          />
-                        </View>
-                      ) : (
-                        <TouchableOpacity
-                          style={styles.uploadFileBtn}
-                          onPress={onChooseVideo}>
-                          <Entypo
-                            name="video-camera"
-                            color={'#ffaa00'}
-                            size={15}
-                          />
-                          {fileShow ? (
-                            <Text style={{color: '#9e9e9e', paddingLeft: 8}}>
-                              {fileShow}
-                            </Text>
-                          ) : (
-                            <Text style={{color: '#9e9e9e', paddingLeft: 8}}>
-                              Upload Video
-                            </Text>
-                          )}
-                        </TouchableOpacity>
-                      )}
-
-                      {!thumbnail ? (
-                        <TouchableOpacity
-                          style={styles.uploadFileBtn}
-                          onPress={cameraOrGalleryThumbnail}>
-                          <Entypo name="image" color={'#ffaa00'} size={15} />
-                          {pick ? (
-                            <Image
-                              style={{height: 300, width: 300}}
-                              source={pick}
-                            />
-                          ) : (
-                            <Text style={{color: '#9e9e9e', paddingLeft: 8}}>
-                              Upload Thumbnail
-                            </Text>
-                          )}
-                        </TouchableOpacity>
-                      ) : (
-                        <Image
-                          source={{uri: thumbnail.uri}}
-                          style={{height: 130, width: '50%', borderRadius: 10}}
-                        />
-                      )}
-                    </View>
+                    <Image
+                      source={{uri: imageData.uri}}
+                      style={{height: 130, width: '100%', borderRadius: 10}}
+                    />
                   )}
-
-                  {paidShow ? (
-                    <View>
-                      <TextInput
-                        style={styles.createPostRow}
-                        placeholder="Enter Amount"
-                        placeholderTextColor={'#9e9e9e'}
-                        onChangeText={setAmount}
-                        value={amount}
+                </View>
+              ) : (
+                <View style={styles.uploadFile}>
+                  {video ? (
+                    <View style={{width: '50%'}}>
+                      <VideoPlayer
+                        video={{
+                          uri: `${video.uri}`,
+                        }}
+                        videoWidth={140}
+                        videoHeight={100}
+                        thumbnail={{
+                          uri: thumbnail?.uri,
+                        }}
                       />
                     </View>
-                  ) : null}
-
-                  <View style={{flexDirection: 'row'}}>
-                    <TouchableOpacity style={styles.removeBtn}>
-                      <Text style={{fontSize: 13, color: 'white'}}>REMOVE</Text>
-                    </TouchableOpacity>
+                  ) : (
                     <TouchableOpacity
-                      style={styles.confirmBtn}
-                      onPress={handleConfirm}>
-                      <Text style={{fontSize: 13, color: 'white'}}>
-                        CONFIRM
-                      </Text>
+                      style={styles.uploadFileBtn}
+                      onPress={onChooseVideo}>
+                      <Entypo name="video-camera" color={'#ffaa00'} size={15} />
+                      {fileShow ? (
+                        <Text style={{color: '#9e9e9e', paddingLeft: 8}}>
+                          {fileShow}
+                        </Text>
+                      ) : (
+                        <Text style={{color: '#9e9e9e', paddingLeft: 8}}>
+                          Upload Video
+                        </Text>
+                      )}
                     </TouchableOpacity>
-                  </View>
-                </>
+                  )}
+
+                  {!thumbnail ? (
+                    <TouchableOpacity
+                      style={styles.uploadFileBtn}
+                      onPress={cameraOrGalleryThumbnail}>
+                      <Entypo name="image" color={'#ffaa00'} size={15} />
+                      {pick ? (
+                        <Image
+                          style={{height: 300, width: 300}}
+                          source={pick}
+                        />
+                      ) : (
+                        <Text style={{color: '#9e9e9e', paddingLeft: 8}}>
+                          Upload Thumbnail
+                        </Text>
+                      )}
+                    </TouchableOpacity>
+                  ) : (
+                    <Image
+                      source={{uri: thumbnail.uri}}
+                      style={{height: 130, width: '50%', borderRadius: 10}}
+                    />
+                  )}
+                </View>
+              )}
+
+              {paidShow ? (
+                <View>
+                  <TextInput
+                    style={styles.createPostRow}
+                    placeholder="Enter Amount"
+                    placeholderTextColor={'#9e9e9e'}
+                    onChangeText={setAmount}
+                    value={amount}
+                  />
+                </View>
+              ) : null}
+
+              <View style={{flexDirection: 'row'}}>
+                <TouchableOpacity style={styles.removeBtn}>
+                  <Text style={{fontSize: 13, color: 'white'}}>REMOVE</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.confirmBtn}
+                  onPress={handleConfirm}>
+                  <Text style={{fontSize: 13, color: 'white'}}>CONFIRM</Text>
+                </TouchableOpacity>
               </View>
-            </View>
+            </>
           </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

@@ -20,7 +20,7 @@ const Live = () => {
   const Navigation = useNavigation();
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex:1,backgroundColor:'#000'}}>
       <CustomHeader backFunc={() => Navigation.goBack()} title="Live" />
 
       <ScrollView style={{backgroundColor: '#000', padding: 8, height: '100%'}}>

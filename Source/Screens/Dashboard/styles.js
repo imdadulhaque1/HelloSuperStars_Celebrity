@@ -1,10 +1,9 @@
 import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
- 
   container: {
     padding: 8,
-    
+
     backgroundColor: '#000',
   },
   homeContainer: {
@@ -12,26 +11,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 10,
     alignContent: 'center',
-
   },
 
   ContainerCard: {
     backgroundColor: '#232323',
-    marginBottom:20,
+    marginBottom: 20,
     justifyContent: 'center',
     alignContent: 'center',
     borderRadius: 10,
-    paddingTop:9,
-    paddingBottom:'15%',
+    paddingTop: 9,
+    paddingBottom: '15%',
   },
 
   Main: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignContent: 'center',
-    // paddingLeft:6,
-    // paddingRight:6,
-    // paddingBottom:6,
+    paddingHorizontal: 20,
+    // paddingLeft: 6,
+    // paddingRight: 6,
+    // paddingBottom: 6,
   },
 
   Card: {
@@ -46,7 +45,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
   },
 
-  
   postImage: {
     width: 60,
     height: 60,
@@ -59,7 +57,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  
+
   singleContent: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -81,13 +79,13 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     position: 'absolute',
     minWidth: 25,
-    height:25,
+    height: 25,
     textAlign: 'center',
-    justifyContent:'center',
-    alignItems:'center',
-    alignContent:'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignContent: 'center',
     color: 'white',
-    padding:2,
+    padding: 2,
     fontWeight: 'bold',
     right: '5%',
     top: '5%',
@@ -95,12 +93,9 @@ const styles = StyleSheet.create({
   badgeT: {
     textAlign: 'center',
     color: 'white',
-    padding:2,
+    padding: 2,
     fontWeight: 'bold',
   },
 });
 
 export default styles;
-
-
-

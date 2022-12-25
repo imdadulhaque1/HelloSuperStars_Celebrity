@@ -10,31 +10,25 @@ import {
   TouchableOpacity,
   TextInput,
   ImageBackground,
+  SafeAreaView,
 } from 'react-native';
 import Toast from 'react-native-root-toast';
 import imagePath from '../../Constants/imagePath';
 import * as Animatable from 'react-native-animatable';
 import {useNavigation} from '@react-navigation/native';
-// import { AuthContext } from '../../Constants/context';
-// import LoaderComp from '../../Components/LoaderComp';
+
 import axios from 'axios';
 
-// import MainNavigationString from '../../Constants/MainNavigationString';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 
 import {RNCamera} from 'react-native-camera';
 import AppUrl from '../../RestApi/AppUrl';
 import AuthNavigationString from '../../Constants/AuthNavigationString';
-// create a component
+import {ScrollView} from 'react-native-gesture-handler';
+
 const Qrc = () => {
   const navigation = useNavigation();
   const windowWidth = Dimensions.get('window').width;
-  // const { authContext } = useContext(AuthContext);
-  const [email, setEmail] = useState(null);
-  const [pass, setPass] = useState(null);
-  const [buffer, setBuffer] = useState(false);
-  const [error, setError] = useState(null);
-  const [showPass, setShowPass] = useState(true);
 
   const qrcodeRef = useRef(null);
   const [link, setLink] = useState('');
@@ -70,71 +64,61 @@ const Qrc = () => {
   };
 
   return (
-    <>
-      <ImageBackground
-        source={imagePath.background}
-        resizeMode="cover"
-        style={
-          windowWidth > 600 ? styles.containerWideScreen : styles.container
-        }>
-        <Image
-          source={imagePath.Top}
-          style={windowWidth > 600 ? styles.containerTop : styles.Top}
-        />
-
-        <View style={styles.header}>
-          <Animatable.Image
-            animation="pulse"
-            iterationCount="infinite"
-            source={imagePath.logo}
-            style={{height: 130, width: 130, marginBottom: 180}}
-          />
-        </View>
-
-        <Animatable.View style={styles.footerBody} animation="slideInUp">
-          <View style={styles.footer}>
-            <Text style={styles.title}>Scan QR Code</Text>
-            <Text style={styles.TextDes}>
-              Please scan the QR code provided to you !
-            </Text>
-            <Text
-              style={{
-                fontWeight: 'bold',
-                color: 'gold',
-                textAlign: 'center',
-                paddingTop: 10,
-              }}>
-              {link}
-            </Text>
-            <View style={styles.QRImg}>
-              <QRCodeScanner
-                cameraContainerStyle={{
-                  width: 100,
-                  height: 120,
-                  alignSelf: 'center',
-                }}
-                cameraStyle={{width: 200, height: 100, alignSelf: 'center'}}
-                ref={qrcodeRef}
-                onRead={({data}) => HandelQrcVerfify(data)}
-                flasMode={RNCamera.Constants.FlashMode.off}
+    <SafeAreaView style={{backgroundColor: '#000', flex: 1}}>
+      <ScrollView style={{height: '100%'}}>
+        <ImageBackground
+          source={imagePath.background}
+          resizeMode="cover"
+          style={styles.container}>
+          <Image source={imagePath.Top} style={styles.ImgExtra} />
+          <View style={{flex: 1, justifyContent: 'center'}}>
+            <View style={styles.header}>
+              <Animatable.Image
+                animation="pulse"
+                iterationCount="infinite"
+                source={imagePath.logo}
+                style={{height: 150, width: 150}}
               />
             </View>
 
-            {/* button */}
-
-            {/* <View style={styles.Login_btn_container}>
-                            <TouchableOpacity style={styles.SCAn_btn} 
-                            >
-                                <Text style={styles.Scan_title}>
-                                    <Image source={imagePath.QRcamera} style={styles.QRcamera} />{' '}
-                                    Scan QR code
-                                </Text>
-                            </TouchableOpacity>
-                        </View> */}
+            <Animatable.View style={styles.footerBody} animation="slideInUp">
+              <View style={styles.footer}>
+                <Text style={styles.title}>Scan QR Code</Text>
+                <Text style={styles.TextDes}>
+                  Please scan the QR code provided to you !
+                </Text>
+                <Text
+                  style={{
+                    fontWeight: 'bold',
+                    color: 'gold',
+                    textAlign: 'center',
+                    paddingTop: 10,
+                  }}>
+                  {link}
+                </Text>
+                <View style={styles.QRImg}>
+                  <QRCodeScanner
+                    cameraContainerStyle={{
+                      width: windowWidth > 600 ? 380 : 200,
+                      height: windowWidth > 600 ? 300 : 220,
+                      alignSelf: 'center',
+                    }}
+                    cameraStyle={{
+                      width: windowWidth > 600 ? 380 : 200,
+                      height: 220,
+                      alignSelf: 'center',
+                    }}
+                    ref={qrcodeRef}
+                    onRead={({data}) => HandelQrcVerfify(data)}
+                    flasMode={RNCamera.Constants.FlashMode.off}
+                  />
+                </View>
+              </View>
+            </Animatable.View>
           </View>
-        </Animatable.View>
-      </ImageBackground>
-    </>
+        </ImageBackground>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -143,7 +127,14 @@ const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'black',
     height: windowHeight,
+  },
+  ImgExtra: {
+    resizeMode: 'stretch',
+    width: '100%',
+    height: 180,
+    position: 'absolute',
   },
   Icon: {
     marginTop: 8,
@@ -153,9 +144,7 @@ const styles = StyleSheet.create({
     marginLeft: '5%',
   },
   containerWideScreen: {
-    flex: 1,
-    height: windowHeight,
-    paddingHorizontal: 150,
+    // flex: 1,
   },
   containerTop: {
     width: '100%',
@@ -202,15 +191,13 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    flex: 3,
+    // backgroundColor:'green',
     justifyContent: 'center',
-    top: -120,
+
     alignItems: 'center',
   },
 
   footerBody: {
-    flex: 3,
-    top: -100,
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
@@ -218,13 +205,14 @@ const styles = StyleSheet.create({
 
   footer: {
     // flex: 1,
-    backgroundColor: 'Loadergba(0, 0, 0, 0.212)',
+    backgroundColor: 'rgba(0, 0, 0, 0.212)',
     borderRadius: 20,
     borderWidth: 1,
     borderColor: '#ffaa00',
-    width: '90%',
-    height: 450,
-    marginTop: -100,
+    width: '80%',
+    marginTop: 20,
+    // height: 450,
+    // marginTop: -100,
   },
 
   title: {
@@ -248,7 +236,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     width: '75%',
     paddingVertical: 8,
-    borderRadius: 10,
+
     alignItems: 'center',
     marginTop: 30,
     marginBottom: 20,

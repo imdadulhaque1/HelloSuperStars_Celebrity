@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import {View, Text, ScrollView} from 'react-native';
+import {View, Text, ScrollView, SafeAreaView} from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
 import VideoPlayer from 'react-native-video-player';
 import imagePath from '../../Constants/imagePath';
@@ -18,7 +18,7 @@ const AuditionAll = ({navigation}) => {
     });
   }, []);
   return (
-    <>
+    <SafeAreaView style={{flex:1,backgroundColor:'#000'}}>
     <CustomHeader backFunc={()=>navigation.goBack()}/>
     <ScrollView style={{backgroundColor: '#000'}}>
       {promoVideo?.map(video => {
@@ -34,7 +34,7 @@ const AuditionAll = ({navigation}) => {
         );
       })}
     </ScrollView>
-    </>
+    </SafeAreaView>
   );
 };
 

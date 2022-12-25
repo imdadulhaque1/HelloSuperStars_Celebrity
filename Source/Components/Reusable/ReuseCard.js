@@ -6,13 +6,13 @@ import {
   Dimensions,
   Image,
   ImageBackground,
+  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   useWindowDimensions,
   View,
-  SafeAreaView,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import imagePath from '../../Constants/imagePath';
@@ -28,7 +28,7 @@ import AppUrl from '../../RestApi/AppUrl';
 import moment from 'moment';
 import CustomHeader from '../CustomHeader';
 // create a component
-const ReuseCard = ({route, navigation}) => {
+const ReuseCard = ({route,navigation}) => {
   const animation = useRef(null);
   const {typeName, posts} = route.params;
   console.log('posts', posts);
@@ -72,360 +72,356 @@ const ReuseCard = ({route, navigation}) => {
   }, [deadline]);
 
   return (
-    <>
-      <SafeAreaView>
-        <CustomHeader backFunc={() => navigation.goBack()} />
-        <ScrollView style={{backgroundColor: '#000', height: '100%'}}>
-          <View style={styles.container}>
-            {/* Post starts here  */}
-            {posts?.map(singlePost => {
-              //discription text length count
-              let textLength = '';
-              if (singlePost?.description) {
-                textLength = singlePost?.description.length;
-              } else {
-                textLength = 0;
-              }
-              return (
-                <View style={{backgroundColor: '#000', flex: 1}}>
-                  <Animatable.View
-                    style={
-                      windowWidth > 700
-                        ? styles.CardRowWidscreen
-                        : styles.CardRow
-                    }
-                    animation="slideInDown">
-                    <View style={styles.CardContent}>
-                      <View>
-                        <Text
-                          style={{
-                            color: 'orange',
-                            fontSize: 18,
-                            fontWeight: 'bold',
-                          }}>
-                          {singlePost?.title}
-                        </Text>
-                      </View>
-                      <View style={{marginVertical: 10}}>
-                        <Text
-                          style={{
-                            color: '#E3E5EA',
-                            fontSize: 15,
-                            fontWeight: 'bold',
-                          }}>
-                          {/* Shakib {typeName} */}
-                          {singlePost?.star?.first_name}{' '}
-                          {singlePost?.star?.last_name}
-                        </Text>
-                        <Text style={styles.time1}>
-                          {moment(singlePost?.created_at).format('LT')}{' '}
-                          {moment(singlePost?.created_at).format('LL')}
-                        </Text>
-                      </View>
-                      <View
-                        style={
-                          contentHeight && textLength > 300
-                            ? {height: 136, overflow: 'hidden'}
-                            : ''
-                        }>
-                        <RenderHTML
-                          contentWidth={width}
-                          source={{
-                            html: `<div style='color:#e6e6e6'>${singlePost?.description}</div>`,
-                          }}
-                        />
-                      </View>
-                      <TouchableOpacity
-                        onPress={() => setContentHeight(!contentHeight)}>
-                        {/* <Text style={{color: '#FFAD00', marginTop: 5}}>
+    <SafeAreaView style={{flex:1,backgroundColor:'#000'}}>
+      <View style={styles.container}>
+      <CustomHeader backFunc={()=>navigation.goBack()}  />
+        <ScrollView>
+          {/* Post starts here  */}
+          {posts?.map(singlePost => {
+            //discription text length count
+            let textLength = '';
+            if (singlePost?.description) {
+              textLength = singlePost?.description.length;
+            } else {
+              textLength = 0;
+            }
+            return (
+              <View style={{backgroundColor: '#000', flex: 1}}>
+                <Animatable.View
+                  style={
+                    windowWidth > 700 ? styles.CardRowWidscreen : styles.CardRow
+                  }
+                  animation="slideInDown">
+                  <View style={styles.CardContent}>
+                    <View>
+                      <Text
+                        style={{
+                          color: 'orange',
+                          fontSize: 18,
+                          fontWeight: 'bold',
+                        }}>
+                        {singlePost?.title}
+                      </Text>
+                    </View>
+                    <View style={{marginVertical: 10}}>
+                      <Text
+                        style={{
+                          color: '#E3E5EA',
+                          fontSize: 15,
+                          fontWeight: 'bold',
+                        }}>
+                        {/* Shakib {typeName} */}
+                        {singlePost?.star?.first_name}{' '}
+                        {singlePost?.star?.last_name}
+                      </Text>
+                      <Text style={styles.time1}>
+                        {moment(singlePost?.created_at).format('LT')}{' '}
+                        {moment(singlePost?.created_at).format('LL')}
+                      </Text>
+                    </View>
+                    <View
+                      style={
+                        contentHeight && textLength > 300
+                          ? {height: 136, overflow: 'hidden'}
+                          : ''
+                      }>
+                      <RenderHTML
+                        contentWidth={width}
+                        source={{
+                          html: `<div style='color:#e6e6e6'>${singlePost?.description}</div>`,
+                        }}
+                      />
+                    </View>
+                    <TouchableOpacity
+                      onPress={() => setContentHeight(!contentHeight)}>
+                      {/* <Text style={{color: '#FFAD00', marginTop: 5}}>
                         {contentHeight ? `Read More . . . ` : `Read Less`}
                       </Text> */}
-                      </TouchableOpacity>
+                    </TouchableOpacity>
 
-                      <View style={{position: 'relative'}}>
-                        <Image
-                          style={
-                            windowWidth > 700
-                              ? styles.cardCoverImgWithScreen
-                              : styles.cardCoverImg
-                          }
-                          source={
-                            singlePost?.banner || singlePost?.image
-                              ? {
-                                  uri: `${AppUrl.MediaBaseUrl}${
-                                    singlePost?.banner
-                                      ? singlePost?.banner
-                                      : singlePost?.image
-                                  }`,
-                                }
-                              : imagePath.LearningBanner
-                          }
-                        />
-                      </View>
-                      {typeName === 'PostAll' ? null : (
-                        <View style={styles.btnView}>
-                          <TouchableOpacity
-                            style={styles.touchableOpacityBtn}
-                            onPress={
-                              typeName === 'LiveChatPending'
-                                ? () =>
-                                    Navigation.navigate(
-                                      MainNavigationString.PENDINGCARD,
-                                      {typeName},
-                                    )
-                                : typeName === 'LiveChatAll'
-                                ? () =>
-                                    Navigation.navigate(
-                                      MainNavigationString.COMPLETEDCARD,
-                                      {typeName},
-                                    )
-                                : typeName === 'LiveChatRejected'
-                                ? () =>
-                                    Navigation.navigate(
-                                      MainNavigationString.COMPLETEDCARD,
-                                      {typeName},
-                                    )
-                                : typeName === 'LiveChatCompleted'
-                                ? () =>
-                                    Navigation.navigate(
-                                      MainNavigationString.COMPLETEDCARD,
-                                      {
-                                        typeName,
-                                      },
-                                    )
-                                : typeName === 'LiveChatResult'
-                                ? () =>
-                                    Navigation.navigate(
-                                      MainNavigationString.COMPLETEDCARD,
-                                      {
-                                        typeName,
-                                      },
-                                    )
-                                : typeName === 'LiveChatList'
-                                ? () =>
-                                    Navigation.navigate(
-                                      MainNavigationString.VOICECALLLIST,
-                                      {
-                                        typeName,
-                                      },
-                                    )
-                                : typeName === 'AuditionLiveEvents'
-                                ? () =>
-                                    Navigation.navigate(
-                                      MainNavigationString.COMPLETEDCARD,
-                                      {
-                                        typeName,
-                                      },
-                                    )
-                                : typeName === 'AuditionPending'
-                                ? () =>
-                                    Navigation.navigate(
-                                      MainNavigationString.PENDINGCARD,
-                                      {
-                                        typeName,
-                                      },
-                                    )
-                                : typeName === 'MeetupDashboard'
-                                ? () =>
-                                    Navigation.navigate(
-                                      MainNavigationString.COMPLETEDCARD,
-                                      {
-                                        typeName,
-                                      },
-                                    )
-                                : typeName === 'MeetupApproved'
-                                ? () =>
-                                    Navigation.navigate(
-                                      MainNavigationString.REUSEAPPROVED,
-                                      {
-                                        typeName,
-                                      },
-                                    )
-                                : typeName === 'MeetupPending'
-                                ? () =>
-                                    Navigation.navigate(
-                                      MainNavigationString.PENDINGCARD,
-                                      {
-                                        typeName,
-                                      },
-                                    )
-                                : typeName === 'MeetupRejected'
-                                ? () =>
-                                    Navigation.navigate(
-                                      MainNavigationString.COMPLETEDCARD,
-                                      {
-                                        typeName,
-                                      },
-                                    )
-                                : typeName === 'MeetupCompleted'
-                                ? () =>
-                                    Navigation.navigate(
-                                      MainNavigationString.COMPLETEDCARD,
-                                      {
-                                        typeName,
-                                      },
-                                    )
-                                : typeName === 'QACompleted'
-                                ? () =>
-                                    Navigation.navigate(
-                                      MainNavigationString.COMPLETEDCARD,
-                                      {
-                                        typeName,
-                                      },
-                                    )
-                                : typeName === 'QAPending'
-                                ? () =>
-                                    Navigation.navigate(
-                                      MainNavigationString.PENDINGCARD,
-                                      {
-                                        typeName,
-                                      },
-                                    )
-                                : typeName === 'QADashboard'
-                                ? () =>
-                                    Navigation.navigate(
-                                      MainNavigationString.COMPLETEDCARD,
-                                      {
-                                        typeName,
-                                      },
-                                    )
-                                : typeName === 'LearningDashboard'
-                                ? () =>
-                                    Navigation.navigate(
-                                      MainNavigationString.COMPLETEDCARD,
-                                      {
-                                        typeName,
-                                        eventData: singlePost,
-                                      },
-                                    )
-                                : typeName === 'LearningPending'
-                                ? () =>
-                                    Navigation.navigate(
-                                      MainNavigationString.COMPLETEDCARD,
-                                      {
-                                        typeName,
-                                        eventData: singlePost,
-                                        id: singlePost?.id,
-                                      },
-                                    )
-                                : typeName === 'LearningRejected'
-                                ? () =>
-                                    Navigation.navigate(
-                                      MainNavigationString.COMPLETEDCARD,
-                                      {
-                                        typeName,
-                                      },
-                                    )
-                                : typeName === 'LearningCompleted'
-                                ? () =>
-                                    Navigation.navigate(
-                                      MainNavigationString.COMPLETEDCARD,
-                                      {
-                                        typeName,
-                                      },
-                                    )
-                                : typeName === 'AuditionAll'
-                                ? () =>
-                                    Navigation.navigate(
-                                      MainNavigationString.COMPLETEDCARD,
-                                      {
-                                        typeName,
-                                      },
-                                    )
-                                : typeName === 'LearningResult'
-                                ? () =>
-                                    Navigation.navigate(
-                                      MainNavigationString.COMPLETEDCARD,
-                                      {
-                                        typeName,
-                                      },
-                                    )
-                                : typeName === 'LearningEvaluation'
-                                ? () =>
-                                    Navigation.navigate(
-                                      MainNavigationString.COMPLETEDCARD,
-                                      {
-                                        typeName,
-                                      },
-                                    )
-                                : typeName === 'RejectedPost'
-                                ? () =>
-                                    Navigation.navigate(
-                                      MainNavigationString.COMPLETEDCARD,
-                                      {
-                                        typeName,
-                                      },
-                                    )
-                                : typeName === 'PendingPost'
-                                ? () =>
-                                    Navigation.navigate(
-                                      MainNavigationString.PENDINGCARD,
-                                      {
-                                        typeName,
-                                        singlePost,
-                                      },
-                                    )
-                                : typeName === 'PostAll'
-                                ? () =>
-                                    Navigation.navigate(
-                                      MainNavigationString.COMPLETEDCARD,
-                                      {
-                                        typeName,
-                                      },
-                                    )
-                                : null
-                            }>
+                    <View style={{position: 'relative'}}>
+                      <Image
+                        style={
+                          windowWidth > 700
+                            ? styles.cardCoverImgWithScreen
+                            : styles.cardCoverImg
+                        }
+                        source={
+                          singlePost?.banner || singlePost?.image
+                            ? {
+                                uri: `${AppUrl.MediaBaseUrl}${
+                                  singlePost?.banner
+                                    ? singlePost?.banner
+                                    : singlePost?.image
+                                }`,
+                              }
+                            : imagePath.LearningBanner
+                        }
+                      />
+                    </View>
+                    {typeName === 'PostAll' ? null : (
+                      <View style={styles.btnView}>
+                        <TouchableOpacity
+                          style={styles.touchableOpacityBtn}
+                          onPress={
+                            typeName === 'LiveChatPending'
+                              ? () =>
+                                  Navigation.navigate(
+                                    MainNavigationString.PENDINGCARD,
+                                    {typeName},
+                                  )
+                              : typeName === 'LiveChatAll'
+                              ? () =>
+                                  Navigation.navigate(
+                                    MainNavigationString.COMPLETEDCARD,
+                                    {typeName},
+                                  )
+                              : typeName === 'LiveChatRejected'
+                              ? () =>
+                                  Navigation.navigate(
+                                    MainNavigationString.COMPLETEDCARD,
+                                    {typeName},
+                                  )
+                              : typeName === 'LiveChatCompleted'
+                              ? () =>
+                                  Navigation.navigate(
+                                    MainNavigationString.COMPLETEDCARD,
+                                    {
+                                      typeName,
+                                    },
+                                  )
+                              : typeName === 'LiveChatResult'
+                              ? () =>
+                                  Navigation.navigate(
+                                    MainNavigationString.COMPLETEDCARD,
+                                    {
+                                      typeName,
+                                    },
+                                  )
+                              : typeName === 'LiveChatList'
+                              ? () =>
+                                  Navigation.navigate(
+                                    MainNavigationString.VOICECALLLIST,
+                                    {
+                                      typeName,
+                                    },
+                                  )
+                              : typeName === 'AuditionLiveEvents'
+                              ? () =>
+                                  Navigation.navigate(
+                                    MainNavigationString.COMPLETEDCARD,
+                                    {
+                                      typeName,
+                                    },
+                                  )
+                              : typeName === 'AuditionPending'
+                              ? () =>
+                                  Navigation.navigate(
+                                    MainNavigationString.PENDINGCARD,
+                                    {
+                                      typeName,
+                                    },
+                                  )
+                              : typeName === 'MeetupDashboard'
+                              ? () =>
+                                  Navigation.navigate(
+                                    MainNavigationString.COMPLETEDCARD,
+                                    {
+                                      typeName,
+                                    },
+                                  )
+                              : typeName === 'MeetupApproved'
+                              ? () =>
+                                  Navigation.navigate(
+                                    MainNavigationString.REUSEAPPROVED,
+                                    {
+                                      typeName,
+                                    },
+                                  )
+                              : typeName === 'MeetupPending'
+                              ? () =>
+                                  Navigation.navigate(
+                                    MainNavigationString.PENDINGCARD,
+                                    {
+                                      typeName,
+                                    },
+                                  )
+                              : typeName === 'MeetupRejected'
+                              ? () =>
+                                  Navigation.navigate(
+                                    MainNavigationString.COMPLETEDCARD,
+                                    {
+                                      typeName,
+                                    },
+                                  )
+                              : typeName === 'MeetupCompleted'
+                              ? () =>
+                                  Navigation.navigate(
+                                    MainNavigationString.COMPLETEDCARD,
+                                    {
+                                      typeName,
+                                    },
+                                  )
+                              : typeName === 'QACompleted'
+                              ? () =>
+                                  Navigation.navigate(
+                                    MainNavigationString.COMPLETEDCARD,
+                                    {
+                                      typeName,
+                                    },
+                                  )
+                              : typeName === 'QAPending'
+                              ? () =>
+                                  Navigation.navigate(
+                                    MainNavigationString.PENDINGCARD,
+                                    {
+                                      typeName,
+                                    },
+                                  )
+                              : typeName === 'QADashboard'
+                              ? () =>
+                                  Navigation.navigate(
+                                    MainNavigationString.COMPLETEDCARD,
+                                    {
+                                      typeName,
+                                    },
+                                  )
+                              : typeName === 'LearningDashboard'
+                              ? () =>
+                                  Navigation.navigate(
+                                    MainNavigationString.COMPLETEDCARD,
+                                    {
+                                      typeName,
+                                      eventData: singlePost,
+                                    },
+                                  )
+                              : typeName === 'LearningPending'
+                              ? () =>
+                                  Navigation.navigate(
+                                    MainNavigationString.COMPLETEDCARD,
+                                    {
+                                      typeName,
+                                      eventData: singlePost,
+                                      id: singlePost?.id,
+                                    },
+                                  )
+                              : typeName === 'LearningRejected'
+                              ? () =>
+                                  Navigation.navigate(
+                                    MainNavigationString.COMPLETEDCARD,
+                                    {
+                                      typeName,
+                                    },
+                                  )
+                              : typeName === 'LearningCompleted'
+                              ? () =>
+                                  Navigation.navigate(
+                                    MainNavigationString.COMPLETEDCARD,
+                                    {
+                                      typeName,
+                                    },
+                                  )
+                              : typeName === 'AuditionAll'
+                              ? () =>
+                                  Navigation.navigate(
+                                    MainNavigationString.COMPLETEDCARD,
+                                    {
+                                      typeName,
+                                    },
+                                  )
+                              : typeName === 'LearningResult'
+                              ? () =>
+                                  Navigation.navigate(
+                                    MainNavigationString.COMPLETEDCARD,
+                                    {
+                                      typeName,
+                                    },
+                                  )
+                              : typeName === 'LearningEvaluation'
+                              ? () =>
+                                  Navigation.navigate(
+                                    MainNavigationString.COMPLETEDCARD,
+                                    {
+                                      typeName,
+                                    },
+                                  )
+                              : typeName === 'RejectedPost'
+                              ? () =>
+                                  Navigation.navigate(
+                                    MainNavigationString.COMPLETEDCARD,
+                                    {
+                                      typeName,
+                                    },
+                                  )
+                              : typeName === 'PendingPost'
+                              ? () =>
+                                  Navigation.navigate(
+                                    MainNavigationString.PENDINGCARD,
+                                    {
+                                      typeName,
+                                      singlePost,
+                                    },
+                                  )
+                              : typeName === 'PostAll'
+                              ? () =>
+                                  Navigation.navigate(
+                                    MainNavigationString.COMPLETEDCARD,
+                                    {
+                                      typeName,
+                                    },
+                                  )
+                              : null
+                          }>
+                          <View
+                            style={{
+                              flexDirection: 'row',
+                              justifyContent: 'space-around',
+                              alignItems: 'center',
+                              paddingHorizontal: 5,
+                            }}>
                             <View
                               style={{
-                                flexDirection: 'row',
-                                justifyContent: 'space-around',
+                                justifyContent: 'center',
                                 alignItems: 'center',
-                                paddingHorizontal: 5,
+                                width: '80%',
                               }}>
-                              <View
+                              <Text
                                 style={{
-                                  justifyContent: 'center',
-                                  alignItems: 'center',
-                                  width: '80%',
-                                }}>
-                                <Text
-                                  style={{
-                                    marginHorizontal: 3,
+                                  marginHorizontal: 3,
 
-                                    color: 'black',
-                                  }}>
-                                  View
-                                </Text>
-                              </View>
-                              <View
-                                style={{
-                                  justifyContent: 'center',
-                                  alignItems: 'center',
-                                  width: '20%',
+                                  color: 'black',
                                 }}>
-                                <Icon
-                                  name="arrow-forward-ios"
-                                  color={'black'}
-                                  size={15}
-                                />
-                              </View>
+                                View
+                              </Text>
                             </View>
-                          </TouchableOpacity>
-                        </View>
-                      )}
+                            <View
+                              style={{
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                width: '20%',
+                              }}>
+                              <Icon
+                                name="arrow-forward-ios"
+                                color={'black'}
+                                size={15}
+                              />
+                            </View>
+                          </View>
+                        </TouchableOpacity>
+                      </View>
+                    )}
 
-                      <View />
-                    </View>
-                  </Animatable.View>
-                </View>
-              );
-            })}
+                    <View />
+                  </View>
+                </Animatable.View>
+              </View>
+            );
+          })}
 
-            {/* Post ends here  */}
-          </View>
+          {/* Post ends here  */}
         </ScrollView>
-      </SafeAreaView>
-    </>
+      </View>
+    </SafeAreaView>
   );
 };
 

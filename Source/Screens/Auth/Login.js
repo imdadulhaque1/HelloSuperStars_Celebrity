@@ -6,6 +6,8 @@ import {
   Dimensions,
   Image,
   ImageBackground,
+  SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -23,7 +25,8 @@ import {AuthContext} from '../../Constants/context';
 import imagePath from '../../Constants/imagePath';
 import LinearGradient from 'react-native-linear-gradient';
 // import AppUrl from '../../RestApi/AppUrl';
-
+const windowWidth = Dimensions.get('window').width;
+// const windowHeight = Dimensions.get('window').height;
 // create a component
 const Login = () => {
   const navigation = useNavigation();
@@ -72,112 +75,115 @@ const Login = () => {
   };
 
   return (
-    <>
+    <SafeAreaView style={{backgroundColor: 'black'}}>
       {buffer ? <LoaderComp /> : <></>}
-      <KeyboardAwareScrollView>
-        <ImageBackground
-          source={imagePath.background}
-          resizeMode="cover"
-          style={
-            windowWidth > 600 ? styles.containerWideScreen : styles.container
-          }>
-          <Image
-            source={imagePath.Top}
-            style={windowWidth > 600 ? styles.containerTop : styles.Top}
-          />
+      <ScrollView style={{backgroundColor: 'black', height: '100%'}}>
+        <View>
+          <KeyboardAwareScrollView>
+            <ImageBackground
+              source={imagePath.background}
+              resizeMode="stretch"
+              style={styles.container}>
+              <Image source={imagePath.Top} style={styles.ImgExtra} />
 
-          <View style={styles.header}>
-            <Animatable.Image
-              animation="pulse"
-              iterationCount="infinite"
-              // duration="1500"
-              source={imagePath.logo}
-              style={{height: 150, width: 150, marginBottom: 40}}
-            />
-          </View>
+              <View style={styles.header}>
+                <Animatable.Image
+                  animation="pulse"
+                  iterationCount="infinite"
+                  // duration="1500"
+                  source={imagePath.logo}
+                  style={{height: 150, width: 150, marginBottom: 40}}
+                />
+              </View>
 
-          <Animatable.View style={styles.footerBody} animation="slideInUp">
-            <View style={styles.footer}>
-              <Text style={styles.title}>
-                Welcome To{'\n'}Hello Super Stars
-              </Text>
+              <Animatable.View style={styles.footerBody} animation="slideInUp">
+                <View style={styles.footer}>
+                  <Text style={styles.title}>
+                    Welcome To{'\n'}Hello Super Stars
+                  </Text>
 
-              <View style={styles.InputZ}>
-                {/* email input */}
-                <View style={styles.input}>
-                  <Icon
-                    name="user"
-                    color={'#ffaa00'}
-                    size={20}
-                    style={styles.Icon}
-                  />
-                  <TextInput
-                    placeholder="Your Email"
-                    style={styles.input_fild}
-                    placeholderTextColor="#9e9e9e"
-                    onChangeText={newText => setEmail(newText)}
-                  />
-                </View>
-                <Text style={{color: 'red', marginLeft: 25}}>{error}</Text>
-
-                {/* password input */}
-                <View style={styles.input}>
-                  <Icon
-                    name="lock"
-                    color={'#ffaa00'}
-                    size={20}
-                    style={styles.Icon}
-                  />
-                  <TextInput
-                    placeholder="******"
-                    style={styles.input_fild}
-                    placeholderTextColor="#9e9e9e"
-                    secureTextEntry={showPass}
-                    onChangeText={newText => setPass(newText)}
-                  />
-                  <TouchableOpacity
-                    style={styles.password}
-                    onPress={() => setShowPass(!showPass)}>
-                    {showPass ? (
-                      <Entypo
-                        name="eye-with-line"
-                        size={20}
+                  <View style={styles.InputZ}>
+                    {/* email input */}
+                    <View style={styles.input}>
+                      <Icon
+                        name="user"
                         color={'#ffaa00'}
+                        size={25}
+                        style={styles.Icon}
                       />
-                    ) : (
-                      <Entypo name="eye" size={20} color={'#ffaa00'} />
-                    )}
-                  </TouchableOpacity>
-                </View>
-              </View>
-
-              {/* button */}
-
-              <View style={styles.Login_btn_container}>
-                <TouchableOpacity onPress={() => HandelLogin()}>
-                  <LinearGradient
-                    start={{x: 0, y: 0}}
-                    end={{x: 1, y: 0}}
-                    colors={[
-                      '#FFAD00',
-                      '#FFD273',
-                      '#E19A04',
-                      '#FACF75',
-                      '#E7A725',
-                      '#FFAD00',
-                    ]}
-                    style={styles.login_btn}>
-                    <View>
-                      <Text style={styles.input_title}>LOGIN</Text>
+                      <TextInput
+                        placeholder="Your Email"
+                        style={styles.input_fild}
+                        placeholderTextColor="#9e9e9e"
+                        onChangeText={newText => setEmail(newText)}
+                      />
                     </View>
-                  </LinearGradient>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </Animatable.View>
-        </ImageBackground>
-      </KeyboardAwareScrollView>
-    </>
+                    <Text style={{color: 'red', marginLeft: 25}}>{error}</Text>
+
+                    {/* password input */}
+                    <View style={styles.input}>
+                      <Icon
+                        name="lock"
+                        color={'#ffaa00'}
+                        size={25}
+                        style={styles.Icon}
+                      />
+                      <TextInput
+                        placeholder="******"
+                        style={styles.input_fild}
+                        placeholderTextColor="#9e9e9e"
+                        secureTextEntry={showPass}
+                        onChangeText={newText => setPass(newText)}
+                      />
+                      <TouchableOpacity
+                        style={
+                          windowWidth > 600
+                            ? styles.password
+                            : styles.passwordSmall
+                        }
+                        onPress={() => setShowPass(!showPass)}>
+                        {showPass ? (
+                          <Entypo
+                            name="eye-with-line"
+                            size={25}
+                            color={'#ffaa00'}
+                          />
+                        ) : (
+                          <Entypo name="eye" size={25} color={'#ffaa00'} />
+                        )}
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+
+                  {/* button */}
+
+                  <View style={styles.Login_btn_container}>
+                    <TouchableOpacity onPress={() => HandelLogin()}>
+                      <LinearGradient
+                        start={{x: 0, y: 0}}
+                        end={{x: 1, y: 0}}
+                        colors={[
+                          '#FFAD00',
+                          '#FFD273',
+                          '#E19A04',
+                          '#FACF75',
+                          '#E7A725',
+                          '#FFAD00',
+                        ]}
+                        style={styles.login_btn}>
+                        <View>
+                          <Text style={styles.input_title}>LOGIN</Text>
+                        </View>
+                      </LinearGradient>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </Animatable.View>
+            </ImageBackground>
+          </KeyboardAwareScrollView>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -188,10 +194,19 @@ const styles = StyleSheet.create({
     flex: 1,
     height: windowHeight,
   },
+  ImgExtra: {
+    resizeMode: 'stretch',
+    width: '100%',
+    height: 180,
+  },
   Icon: {
     marginTop: 8,
   },
   password: {
+    marginTop: 8,
+    marginLeft: '15%',
+  },
+  passwordSmall: {
     marginTop: 8,
     marginLeft: '5%',
   },
@@ -210,34 +225,38 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   input: {
-    justifyContent: 'center',
-    alignItems: 'stretch',
+    // justifyContent: 'center',
+    alignItems: 'center',
     borderWidth: 1,
     marginHorizontal: 20,
-    height: 40,
+    height: windowWidth > 600 ? 80 : 40,
     borderRadius: 10,
     paddingLeft: 16,
-    marginTop: 10,
+    // marginTop: 10,
     color: '#ffaa00',
     backgroundColor: '#121212',
-    borderWidth: 1,
+
     fontSize: 16,
     borderColor: '#DDA35796',
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    // justifyContent: 'flex-start',
   },
 
   input_fild: {
     marginLeft: 10,
     color: '#ffaa00',
-    height: 40,
-    width: '76%',
+    height: windowWidth > 600 ? 70 : 40,
+    width: '75%',
+
+    // backgroundColor: 'blue',
+    alignItems: 'center',
+    fontSize: windowWidth > 600 ? 20 : 13,
   },
-  inputText: {
-    marginTop: 20,
-    marginLeft: 5,
-    color: '#ffaa00',
-  },
+  // inputText: {
+  //   marginTop: 20,
+  //   marginLeft: 5,
+  //   color: '#ffaa00',
+  // },
   input_title: {
     color: 'black',
     fontWeight: 'bold',
@@ -245,15 +264,15 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    flex: 3,
+    // flex: 3,
     justifyContent: 'center',
-    top: -120,
+
     alignItems: 'center',
   },
 
   footerBody: {
-    flex: 4,
-    top: -120,
+    // flex: 4,
+
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
@@ -265,7 +284,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 1,
     borderColor: '#ffaa00',
-    width: '90%',
+    width: windowWidth > 600 ? '75%' : '90%',
   },
 
   title: {
@@ -287,7 +306,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 10,
     paddingHorizontal: 20,
-    width: 300,
+    width: 200,
     paddingVertical: 10,
     borderRadius: 10,
     alignItems: 'center',

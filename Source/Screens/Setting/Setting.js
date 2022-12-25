@@ -1,12 +1,12 @@
 import {
   ScrollView,
-  SafeAreaView,
   Switch,
   StyleSheet,
   Text,
   View,
   TouchableOpacity,
   useWindowDimensions,
+  SafeAreaView,
 } from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
 
@@ -38,85 +38,83 @@ const Setting = ({navigation, route}) => {
   }, [isUpdated]);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{flex: 1, backgroundColor: '#000'}}>
       <CustomHeader title={'Settings'} backFunc={() => navigation.goBack()} />
-      <ScrollView style={{backgroundColor: 'black', height: '100%'}}>
-        <View style={styles.container}>
-          <TitleHeader title={'Terms & Conditions'} />
+      <ScrollView style={styles.container}>
+        <TitleHeader title={'Terms & Conditions'} />
 
-          <View
-            style={{
-              backgroundColor: '#232323',
-              justifyContent: 'center',
-              alignContent: 'center',
-              padding: 8,
-              paddingLeft: 10,
-              borderRadius: 10,
-              marginVertical: 10,
-            }}>
-            <RenderHTML
-              contentWidth={width}
-              source={{
-                html: `<div style='color:#fff'>${userInfo?.terms_and_condition}</div>`,
-              }}
-            />
-          </View>
+        <View
+          style={{
+            backgroundColor: '#232323',
+            justifyContent: 'center',
+            alignContent: 'center',
+            padding: 8,
+            paddingLeft: 10,
+            borderRadius: 10,
+            marginVertical: 10,
+          }}>
+          <RenderHTML
+            contentWidth={width}
+            source={{
+              html: `<div style='color:#fff'>${userInfo?.terms_and_condition}</div>`,
+            }}
+          />
+        </View>
 
-          <TitleHeader title={'Update Profile'} />
-          <View style={styles.ContainerCard2}>
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate(MainNavigationString.PERSONALINFO, {
-                  userInfo: userInfo,
-                })
-              }>
-              <View style={styles.ContentX}>
-                <View>
-                  <Text style={styles.Edit}>Personal Information</Text>
-                </View>
-                <View>
-                  <Text>
-                    <Icon name="angle-right" size={20} color="white" />
-                  </Text>
-                </View>
+        <TitleHeader title={'Update Profile'} />
+        <View style={styles.ContainerCard2}>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate(MainNavigationString.PERSONALINFO, {
+                userInfo: userInfo,
+              })
+            }>
+            <View style={styles.ContentX}>
+              <View>
+                <Text style={styles.Edit}>Personal Information</Text>
               </View>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate(MainNavigationString.EDITNAME, {
-                  userInfo: userInfo,
-                  setIsUpdated,
-                })
-              }>
-              <View style={styles.ContentX}>
-                <View>
-                  <Text style={styles.Edit}>Update Name</Text>
-                </View>
-                <View>
-                  <Text>
-                    <Icon name="angle-right" size={20} color="white" />
-                  </Text>
-                </View>
+              <View>
+                <Text>
+                  <Icon name="angle-right" size={20} color="white" />
+                </Text>
               </View>
-            </TouchableOpacity>
+            </View>
+          </TouchableOpacity>
 
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate(MainNavigationString.EDITPASSWORD)
-              }>
-              <View style={styles.ContentX}>
-                <View>
-                  <Text style={styles.Edit}>Update Password</Text>
-                </View>
-                <View>
-                  <Text>
-                    <Icon name="angle-right" size={20} color="white" />
-                  </Text>
-                </View>
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate(MainNavigationString.EDITNAME, {
+                userInfo: userInfo,
+                setIsUpdated,
+              })
+            }>
+            <View style={styles.ContentX}>
+              <View>
+                <Text style={styles.Edit}>Update Name</Text>
               </View>
-            </TouchableOpacity>
-          </View>
+              <View>
+                <Text>
+                  <Icon name="angle-right" size={20} color="white" />
+                </Text>
+              </View>
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate(MainNavigationString.EDITPASSWORD)
+            }>
+            <View style={styles.ContentX}>
+              <View>
+                <Text style={styles.Edit}>Update Password</Text>
+              </View>
+              <View>
+                <Text>
+                  <Icon name="angle-right" size={20} color="white" />
+                </Text>
+              </View>
+            </View>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>
