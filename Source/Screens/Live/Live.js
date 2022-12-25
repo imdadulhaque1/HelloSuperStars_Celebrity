@@ -20,7 +20,7 @@ const Live = () => {
   const Navigation = useNavigation();
 
   return (
-    <SafeAreaView style={{flex:1,backgroundColor:'#000'}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: '#000'}}>
       <CustomHeader backFunc={() => Navigation.goBack()} title="Live" />
 
       <ScrollView style={{backgroundColor: '#000', padding: 8, height: '100%'}}>
@@ -49,7 +49,7 @@ const Live = () => {
               </LinearGradient>
               <Image source={imagePath.All} style={styles.postImage} />
               <Text style={styles.badge}>
-                <Text style={styles.badgeT}>20</Text>
+                <Text style={styles.badgeT}>0</Text>
               </Text>
             </TouchableOpacity>
 
@@ -76,7 +76,7 @@ const Live = () => {
               </LinearGradient>
               <Image source={imagePath.Approved} style={styles.postImage} />
               <Text style={styles.badge}>
-                <Text style={styles.badgeT}>20</Text>
+                <Text style={styles.badgeT}>0</Text>
               </Text>
             </TouchableOpacity>
           </View>
@@ -105,7 +105,7 @@ const Live = () => {
               </LinearGradient>
               <Image source={imagePath.Pending} style={styles.postImage} />
               <Text style={styles.badge}>
-                <Text style={styles.badgeT}>20</Text>
+                <Text style={styles.badgeT}>0</Text>
               </Text>
             </TouchableOpacity>
 
@@ -132,7 +132,7 @@ const Live = () => {
               </LinearGradient>
               <Image source={imagePath.Rejected} style={styles.postImage} />
               <Text style={styles.badge}>
-                <Text style={styles.badgeT}>20</Text>
+                <Text style={styles.badgeT}>0</Text>
               </Text>
             </TouchableOpacity>
           </View>
@@ -161,7 +161,7 @@ const Live = () => {
               </LinearGradient>
               <Image source={imagePath.Completed} style={styles.postImage} />
               <Text style={styles.badge}>
-                <Text style={styles.badgeT}>20</Text>
+                <Text style={styles.badgeT}>0</Text>
               </Text>
             </TouchableOpacity>
           </View>
@@ -190,7 +190,7 @@ const Live = () => {
               </LinearGradient>
               <Image source={imagePath.Post} style={styles.postImage} />
               <Text style={styles.badge}>
-                <Text style={styles.badgeT}>20</Text>
+                <Text style={styles.badgeT}>0</Text>
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -216,7 +216,7 @@ const Live = () => {
               </LinearGradient>
               <Image source={imagePath.Post} style={styles.postImage} />
               {/* <Text style={styles.badge}>
-                <Text style={styles.badgeT}>20</Text>
+                <Text style={styles.badgeT}>0</Text>
               </Text> */}
             </TouchableOpacity>
           </View>

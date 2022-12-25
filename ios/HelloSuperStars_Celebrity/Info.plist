@@ -39,7 +39,7 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME) camera used for QR Code Scan, Profile Picture and Cover Picture Changing and Video Calling Purpose</string>
+	<string>Camera is used for QRCode Scan, Profile Picture, Cover Picture and Video Calling</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
     <string>$(PRODUCT_NAME) bluetooth use.</string>
 	<key>NSMotionUsageDescription</key>

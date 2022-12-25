@@ -221,7 +221,7 @@ const Menu = ({navigation}) => {
     navigation.goBack();
   }
   return (
-    <ScrollView style={{flex: 1, backgroundColor: '#000'}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: '#000'}}>
       <CustomHeader backFunc={backFunc} title="Menu" />
       <ScrollView style={styles.container}>
         {/* ==============cover photo section==============  */}
@@ -539,7 +539,7 @@ const Menu = ({navigation}) => {
         </TouchableOpacity>
         {/*============== Logout section ============== */}
       </ScrollView>
-    </ScrollView>
+    </SafeAreaView>
   );
 };
 
