@@ -69,7 +69,7 @@ const Menu = ({navigation}) => {
   const onSelectImage = async type => {
     const permissionStatus = await androidCameraPermission();
     if (permissionStatus || Platform.OS == 'ios') {
-      Alert.alert('Profile Picture', 'Choose an option', [
+      Alert.alert('Upload Your Picture', 'Choose an option', [
         {
           text: 'Camera',
           onPress: () => {
