@@ -32,6 +32,7 @@ const Qrc = () => {
 
   const qrcodeRef = useRef(null);
   const [link, setLink] = useState('');
+  const [buffer, setBuffer] = useState(false);
 
   const HandelQrcVerfify = otp => {
     setBuffer(true);
@@ -43,7 +44,6 @@ const Qrc = () => {
       .post(AppUrl.QrVerification, data)
       .then(res => {
         setBuffer(false);
-        console.log(res);
         if (res.data.status === 200) {
           Toast.show(res.data.message, Toast.durations.SHORT);
           navigation.navigate(AuthNavigationString.SIGNUP, {
